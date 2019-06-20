@@ -1,0 +1,9 @@
+node_modules/
+flow-typed/
+.cache/
+public/
+npm-debug.log
+.eslintcache
+.gatsby-context.js
+.idea
+gatsby-starter-lumen.iml
