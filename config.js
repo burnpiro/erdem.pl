@@ -1,18 +1,14 @@
 'use strict';
 
 module.exports = {
-  url: 'https://lumen.netlify.com',
-  title: 'Blog by John Doe',
-  subtitle: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+  url: 'https://erdem.pl',
+  title: 'Blog by Kemal Erdem',
+  subtitle: 'Even complex things could be explain in a simple way.',
   copyright: '© All rights reserved.',
   disqusShortname: '',
   postsPerPage: 4,
-  googleAnalyticsId: 'UA-73379983-2',
+  googleAnalyticsId: 'UA-142799032-1',
   menu: [
-    {
-      label: 'Articles',
-      path: '/'
-    },
     {
       label: 'About me',
       path: '/pages/about'
@@ -23,16 +19,13 @@ module.exports = {
     }
   ],
   author: {
-    name: 'John Doe',
+    name: 'Kemal Erdem',
     photo: '/main-photo.jpg',
-    bio: 'Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.',
+    bio: 'Javascript Architect, Freelance Consultant, IoT enthusiast, MTB lover',
     contacts: {
-      email: '#',
-      telegram: '#',
-      twitter: '#',
-      github: '#',
-      rss: '#',
-      vkontakte: '#'
+      email: 'kemalpiro@gmail.com',
+      twitter: 'burnpiro',
+      github: 'burnpiro'
     }
   }
 };
