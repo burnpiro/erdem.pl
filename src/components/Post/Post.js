@@ -7,33 +7,33 @@ import Content from './Content';
 import Meta from './Meta';
 import Tags from './Tags';
 import styles from './Post.module.scss';
-import type { Node } from '../../types';
+import type { BloggerPost } from '../../types';
 
 type Props = {
-  post: Node
+  post: BloggerPost
 };
 
 const Post = ({ post }: Props) => {
-  const { html } = post;
-  const { tagSlugs, slug } = post.fields;
-  const { tags, title, date } = post.frontmatter;
+  const { content } = post;
+  const { slug, fields: { tagSlugs, readTime } } = post;
+  const { labels, title, published } = post;
 
   return (
     <div className={styles['post']}>
       <Link className={styles['post__home-button']} to="/">All Articles</Link>
 
       <div className={styles['post__content']}>
-        <Content body={html} title={title} />
+        <Content body={content} title={title} date={published} readTime={readTime} />
       </div>
 
       <div className={styles['post__footer']}>
-        <Meta date={date} />
-        {tags && tagSlugs && <Tags tags={tags} tagSlugs={tagSlugs} />}
+        <Meta date={published} />
+        {labels && tagSlugs && <Tags tags={labels} tagSlugs={tagSlugs} />}
         <Author />
       </div>
 
       <div className={styles['post__comments']}>
-        <Comments postSlug={slug} postTitle={post.frontmatter.title} />
+        <Comments postSlug={slug} postTitle={post.title} />
       </div>
     </div>
   );
