@@ -1,0 +1,19 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins';
+
+.readTime {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__text {
+    font-style: italic;
+  }
+  &__icon {
+    height: $typographic-base-font-size;
+
+    &-pika {
+      height: $typographic-base-font-size * 2;
+    }
+  }
+}
