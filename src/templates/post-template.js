@@ -3,20 +3,22 @@ import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import Post from '../components/Post';
 import { useSiteMetadata } from '../hooks';
-import type { MarkdownRemark } from '../types';
+import type { BloggerPost } from '../types';
 
 type Props = {
-  data: MarkdownRemark
+  data: {
+    bloggerPost: BloggerPost
+  }
 };
 
 const PostTemplate = ({ data }: Props) => {
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-  const { title: postTitle, description: postDescription } = data.markdownRemark.frontmatter;
-  const metaDescription = postDescription !== null ? postDescription : siteSubtitle;
+  const { title: postTitle } = data.bloggerPost;
+  const metaDescription = siteSubtitle;
 
   return (
     <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription}>
-      <Post post={data.markdownRemark} />
+      <Post post={data.bloggerPost} />
     </Layout>
   );
 };
@@ -24,18 +26,19 @@ const PostTemplate = ({ data }: Props) => {
 
 export const query = graphql`
   query PostBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
+    bloggerPost(slug: { eq: $slug }) {
+      slug
+      title
+      published
+      content
+      labels
+      id,
       fields {
-        slug
+        readTime {
+          text
+          minutes
+        }
         tagSlugs
-      }
-      frontmatter {
-        date
-        description
-        tags
-        title
       }
     }
   }
