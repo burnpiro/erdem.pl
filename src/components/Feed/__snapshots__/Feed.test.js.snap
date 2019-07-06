@@ -12,42 +12,61 @@ exports[`Feed renders correctly 1`] = `
     >
       <time
         className="feed__item-meta-time"
-        dateTime="September 1, 2016"
+        dateTime="July 6, 2019"
       >
-        September 2016
+        July 2019
       </time>
       <span
         className="feed__item-meta-divider"
       />
-      <span
-        className="feed__item-meta-category"
-      >
-        <a
-          className="feed__item-meta-category-link"
-          href="/test_0"
-        >
-          test_0
-        </a>
-      </span>
     </div>
     <h2
       className="feed__item-title"
     >
       <a
         className="feed__item-title-link"
-        href="/test_0"
-      >
-        test_0
-      </a>
+      />
     </h2>
+    <span
+      className="readTime"
+    >
+      <img
+        className="readTime__icon-pika"
+        src="file"
+      />
+      <img
+        className="readTime__icon-pika"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <span
+        className="readTime__text"
+      >
+         min read
+      </span>
+    </span>
     <p
       className="feed__item-description"
     >
-      test_0
+      
     </p>
     <a
       className="feed__item-readmore"
-      href="/test_0"
     >
       Read
     </a>
@@ -60,42 +79,61 @@ exports[`Feed renders correctly 1`] = `
     >
       <time
         className="feed__item-meta-time"
-        dateTime="September 1, 2016"
+        dateTime="July 6, 2019"
       >
-        September 2016
+        July 2019
       </time>
       <span
         className="feed__item-meta-divider"
       />
-      <span
-        className="feed__item-meta-category"
-      >
-        <a
-          className="feed__item-meta-category-link"
-          href="/test_1"
-        >
-          test_1
-        </a>
-      </span>
     </div>
     <h2
       className="feed__item-title"
     >
       <a
         className="feed__item-title-link"
-        href="/test_1"
-      >
-        test_1
-      </a>
+      />
     </h2>
+    <span
+      className="readTime"
+    >
+      <img
+        className="readTime__icon-pika"
+        src="file"
+      />
+      <img
+        className="readTime__icon-pika"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <span
+        className="readTime__text"
+      >
+         min read
+      </span>
+    </span>
     <p
       className="feed__item-description"
     >
-      test_1
+      
     </p>
     <a
       className="feed__item-readmore"
-      href="/test_1"
     >
       Read
     </a>

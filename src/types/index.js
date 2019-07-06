@@ -9,7 +9,6 @@ export type WidgetFor = (string) => string;
 
 export type PageContext = {
   tag: string,
-  category: string,
   currentPage: number,
   prevPagePath: string,
   nextPagePath: string,
@@ -18,6 +17,71 @@ export type PageContext = {
 };
 
 export type Node = {
+  slug: string,
+  published: string,
+  updated?: string,
+  content?: string,
+  title: string,
+  id: string
+};
+
+export type BloggerPage = Node;
+
+export type BloggerPost = Node & {
+  fields?: {
+    tagSlugs?: Array<string>,
+    postSlug: string,
+    readTime: {
+      text: string,
+      minutes: number,
+      time: number,
+      words: number
+    }
+  },
+  labels?: Array<string>
+};
+
+export type Edge = {
+  node: BloggerPost
+};
+
+export type Edges = Array<Edge>;
+
+export type AllMarkdownRemark = {
+  allMarkdownRemark: {
+    edges: Array<{
+      node: MarkdownRemark
+    }>,
+  },
+  group: {
+    fieldValue: string,
+    totalCount: number
+  }[]
+};
+
+export type AllBloggerPost = {
+  allBloggerPost: {
+    edges: Edges,
+  },
+  group: {
+    fieldValue: string,
+    totalCount: number
+  }[]
+};
+
+export type AllBloggerPage = {
+  allBloggerPage: {
+    edges: Array<{
+      node: Node
+    }>,
+  },
+  group: {
+    fieldValue: string,
+    totalCount: number
+  }[]
+};
+
+export type MarkdownRemark = {
   fields: {
     slug: string,
     categorySlug?: string,
@@ -33,21 +97,3 @@ export type Node = {
   html: string,
   id: string
 };
-
-export type Edge = {
-  node: Node
-};
-
-export type Edges = Array<Edge>;
-
-export type AllMarkdownRemark = {
-  allMarkdownRemark: {
-    edges: Edges,
-  },
-  group: {
-    fieldValue: string,
-    totalCount: number
-  }[]
-};
-
-export type MarkdownRemark = Node;
