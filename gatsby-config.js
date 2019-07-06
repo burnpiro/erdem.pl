@@ -1,5 +1,8 @@
 'use strict';
 
+require('dotenv').config();
+
+const striptags = require('striptags');
 const siteConfig = require('./config.js');
 const postCssPlugins = require('./postcss-config.js');
 
@@ -36,6 +39,13 @@ module.exports = {
       }
     },
     {
+      resolve: 'gatsby-source-blogger',
+      options: {
+        apiKey: process.env.API_KEY,
+        blogId: process.env.BLOG_ID
+      }
+    },
+    {
       resolve: 'gatsby-plugin-feed',
       options: {
         query: `
@@ -50,78 +60,73 @@ module.exports = {
           }
         `,
         feeds: [{
-          serialize: ({ query: { site, allMarkdownRemark } }) => (
-            allMarkdownRemark.edges.map((edge) => Object.assign({}, edge.node.frontmatter, {
-              description: edge.node.frontmatter.description,
-              date: edge.node.frontmatter.date,
-              url: site.siteMetadata.site_url + edge.node.fields.slug,
-              guid: site.siteMetadata.site_url + edge.node.fields.slug,
-              custom_elements: [{ 'content:encoded': edge.node.html }]
+          serialize: ({ query: { site, allBloggerPost } }) => (
+            allBloggerPost.edges.map((edge) => Object.assign({}, {
+              id: edge.node.id,
+              title: edge.node.title,
+              description: striptags(edge.node.content, ['br']).split('<br />')[0],
+              date: edge.node.published,
+              url: site.siteMetadata.site_url + edge.node.fields.postSlug,
+              guid: site.siteMetadata.site_url + edge.node.fields.postSlug,
+              custom_elements: [{ 'content:encoded': edge.node.content }]
             }))
           ),
           query: `
               {
-                allMarkdownRemark(
-                  limit: 1000,
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                  filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
-                ) {
+                allBloggerPost(
+                    limit: 1000,
+                    sort: { fields: published, order: DESC }
+                  ){
                   edges {
                     node {
-                      html
                       fields {
-                        slug
+                        postSlug,
+                        readTime {
+                          text
+                        }
                       }
-                      frontmatter {
-                        title
-                        date
-                        template
-                        draft
-                        description
-                      }
+                      slug
+                      title
+                      published
+                      content
+                      id
                     }
                   }
                 }
               }
             `,
-          output: '/rss.xml'
+          output: '/rss.xml',
+          title: 'Kemal Erdem blog'
         }]
       }
     },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          {
-            resolve: 'gatsby-remark-katex',
-            options: {
-              strict: 'ignore'
-            }
-          },
-          {
-            resolve: 'gatsby-remark-images',
-            options: { maxWidth: 960 }
-          },
-          {
-            resolve: 'gatsby-remark-responsive-iframe',
-            options: { wrapperStyle: 'margin-bottom: 1.0725rem' }
-          },
-          'gatsby-remark-autolink-headers',
-          'gatsby-remark-prismjs',
-          'gatsby-remark-copy-linked-files',
-          'gatsby-remark-smartypants'
-        ]
-      }
-    },
+    // {
+    //   resolve: 'gatsby-transformer-remark',
+    //   options: {
+    //     plugins: [
+    //       {
+    //         resolve: 'gatsby-remark-katex',
+    //         options: {
+    //           strict: 'ignore'
+    //         }
+    //       },
+    //       {
+    //         resolve: 'gatsby-remark-images',
+    //         options: { maxWidth: 960 }
+    //       },
+    //       {
+    //         resolve: 'gatsby-remark-responsive-iframe',
+    //         options: { wrapperStyle: 'margin-bottom: 1.0725rem' }
+    //       },
+    //       'gatsby-remark-autolink-headers',
+    //       'gatsby-remark-prismjs',
+    //       'gatsby-remark-copy-linked-files',
+    //       'gatsby-remark-smartypants'
+    //     ]
+    //   }
+    // },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
-    'gatsby-plugin-netlify',
-    {
-      resolve: 'gatsby-plugin-netlify-cms',
-      options: {
-        modulePath: `${__dirname}/src/cms/index.js`,
-      }
-    },
     {
       resolve: 'gatsby-plugin-google-gtag',
       options: {
