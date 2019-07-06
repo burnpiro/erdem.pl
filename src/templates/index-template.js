@@ -7,10 +7,10 @@ import Feed from '../components/Feed';
 import Page from '../components/Page';
 import Pagination from '../components/Pagination';
 import { useSiteMetadata } from '../hooks';
-import type { PageContext, AllMarkdownRemark } from '../types';
+import type { PageContext, AllBloggerPost } from '../types';
 
 type Props = {
-  data: AllMarkdownRemark,
+  data: AllBloggerPost,
   pageContext: PageContext
 };
 
@@ -26,7 +26,7 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
   } = pageContext;
 
 
-  const { edges } = data.allMarkdownRemark;
+  const { edges } = data.allBloggerPost;
   const pageTitle = currentPage > 0 ? `Posts - Page ${currentPage} - ${siteTitle}` : siteTitle;
 
   return (
@@ -47,24 +47,24 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
 
 export const query = graphql`
   query IndexTemplate($postsLimit: Int!, $postsOffset: Int!) {
-    allMarkdownRemark(
+    allBloggerPost(
         limit: $postsLimit,
         skip: $postsOffset,
-        filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } },
-        sort: { order: DESC, fields: [frontmatter___date] }
+        sort: { fields: published, order: DESC }
       ){
       edges {
         node {
           fields {
-            slug
-            categorySlug
+            readTime {
+              text
+              minutes
+            }
+            postSlug
           }
-          frontmatter {
-            title
-            date
-            category
-            description
-          }
+          slug
+          title
+          published
+          content
         }
       }
     }
