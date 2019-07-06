@@ -26,23 +26,27 @@ workbox.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-7917cdb2e544c3738531.js"
+    "url": "webpack-runtime-08abc0b541c6457a3cb0.js"
   },
   {
-    "url": "styles.9b1c32e77b36b26b8afe.css"
+    "url": "styles.c9389a0c5e1c62c00a57.css"
   },
   {
     "url": "styles-12ec2c4ce4dfd96027cd.js"
   },
   {
-    "url": "app-6706e8516bd62bec3d68.js"
+    "url": "app-d92eabd9aec5e19cb186.js"
   },
   {
     "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-f0e33c6354394e0ade78.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "4039995be8f84edc12719de0ebfa954e"
+    "revision": "1ca2ad2db3db5f46c769cf65afb2b8ce"
+  },
+  {
+    "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
+    "revision": "0ebab815a3ae6f4f3cdac2006368e331"
   },
   {
     "url": "manifest.webmanifest",
@@ -68,7 +72,7 @@ const navigationRoute = new workbox.routing.NavigationRoute(({ event }) => {
   return idbKeyval.get(WHITELIST_KEY).then((customWhitelist = []) => {
     // Respond with the offline shell if we match the custom whitelist
     if (customWhitelist.includes(pathname)) {
-      const offlineShell = `/offline-plugin-app-shell-fallback/index.html`
+      const offlineShell = `/erdem-pl/offline-plugin-app-shell-fallback/index.html`
       const cacheName = workbox.core.cacheNames.precache
 
       return caches.match(offlineShell, { cacheName }).then(cachedResponse => {
@@ -140,7 +144,7 @@ const messageApi = {
 
     pathnames = pathnames.map(({ pathname, includesPrefix }) => {
       if (!includesPrefix) {
-        return `${pathname}`
+        return `/erdem-pl${pathname}`
       } else {
         return pathname
       }
