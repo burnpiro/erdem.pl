@@ -2,6 +2,14 @@
 @import '../../../assets/scss/mixins';
 
 .meta {
+  display: flex;
+  flex-direction: row;
+
+  &__dot {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
   &__date {
     font-style: italic;
   }

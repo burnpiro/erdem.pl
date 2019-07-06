@@ -4,11 +4,11 @@ exports[`Meta renders correctly 1`] = `
 <div
   className="meta"
 >
-  <p
+  <span
     className="meta__date"
   >
     Published 
     1 Sep 2016
-  </p>
+  </span>
 </div>
 `;
