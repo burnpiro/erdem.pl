@@ -1,8 +1,8 @@
 'use strict';
 
+const moment = require('moment');
 const path = require('path');
 const _ = require('lodash');
-const createCategoriesPages = require('./pagination/create-categories-pages.js');
 const createTagsPages = require('./pagination/create-tags-pages.js');
 const createPostsPages = require('./pagination/create-posts-pages.js');
 
@@ -21,53 +21,55 @@ const createPages = async ({ graphql, actions }) => {
     component: path.resolve('./src/templates/tags-list-template.js')
   });
 
-  // Categories list
-  createPage({
-    path: '/categories',
-    component: path.resolve('./src/templates/categories-list-template.js')
-  });
-
   // Posts and pages from markdown
-  const result = await graphql(`
+  const results = await graphql(`
     {
-      allMarkdownRemark(
-        filter: { frontmatter: { draft: { ne: true } } }
+      allBloggerPost(
+        filter: { }
       ) {
         edges {
           node {
-            frontmatter {
-              template
-            }
             fields {
-              slug
+              postSlug
             }
+            slug,
+            published
+          }
+        }
+      }
+      allBloggerPage(
+        filter: { }
+      ) {
+        edges {
+          node {
+            slug,
+            published
           }
         }
       }
     }
   `);
 
-  const { edges } = result.data.allMarkdownRemark;
+  const { allBloggerPost, allBloggerPage } = results.data;
 
-  _.each(edges, (edge) => {
-    if (_.get(edge, 'node.frontmatter.template') === 'page') {
-      createPage({
-        path: edge.node.fields.slug,
-        component: path.resolve('./src/templates/page-template.js'),
-        context: { slug: edge.node.fields.slug }
-      });
-    } else if (_.get(edge, 'node.frontmatter.template') === 'post') {
-      createPage({
-        path: edge.node.fields.slug,
-        component: path.resolve('./src/templates/post-template.js'),
-        context: { slug: edge.node.fields.slug }
-      });
-    }
+  _.each(allBloggerPost.edges, (edge) => {
+    createPage({
+      path: edge.node.fields.postSlug,
+      component: path.resolve('./src/templates/post-template.js'),
+      context: { slug: edge.node.slug }
+    });
+  });
+
+  _.each(allBloggerPage.edges, (edge) => {
+    createPage({
+      path: `/pages/${edge.node.slug}`,
+      component: path.resolve('./src/templates/page-template.js'),
+      context: { slug: edge.node.slug }
+    });
   });
 
   // Feeds
   await createTagsPages(graphql, actions);
-  await createCategoriesPages(graphql, actions);
   await createPostsPages(graphql, actions);
 };
 
