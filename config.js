@@ -1,6 +1,6 @@
 module.exports = {
   url: 'https://erdem.pl',
-  repo: 'erdem-pl',
+  repo: 'erdem.pl',
   title: 'Blog by Kemal Erdem',
   subtitle: 'Even complex things could be explain in a simple way.',
   copyright: '© All rights reserved.',
