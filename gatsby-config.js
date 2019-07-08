@@ -1,8 +1,5 @@
-'use strict';
-
 require('dotenv').config();
 
-const striptags = require('striptags');
 const siteConfig = require('./config.js');
 const postCssPlugins = require('./postcss-config.js');
 
@@ -15,36 +12,29 @@ module.exports = {
     copyright: siteConfig.copyright,
     disqusShortname: siteConfig.disqusShortname,
     menu: siteConfig.menu,
-    author: siteConfig.author
+    author: siteConfig.author,
   },
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content`,
-        name: 'pages'
-      }
+        name: 'pages',
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/static/media`,
-        name: 'media'
-      }
+        name: 'media',
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'assets',
-        path: `${__dirname}/static`
-      }
-    },
-    {
-      resolve: 'gatsby-source-blogger',
-      options: {
-        apiKey: process.env.API_KEY,
-        blogId: process.env.BLOG_ID
-      }
+        path: `${__dirname}/static`,
+      },
     },
     {
       resolve: 'gatsby-plugin-feed',
@@ -60,78 +50,90 @@ module.exports = {
             }
           }
         `,
-        feeds: [{
-          serialize: ({ query: { site, allBloggerPost } }) => (
-            allBloggerPost.edges.map((edge) => Object.assign({}, {
-              id: edge.node.id,
-              title: edge.node.title,
-              description: striptags(edge.node.content, ['br']).split('<br />')[0],
-              date: edge.node.published,
-              url: site.siteMetadata.site_url + edge.node.fields.postSlug,
-              guid: site.siteMetadata.site_url + edge.node.fields.postSlug,
-              custom_elements: [{ 'content:encoded': edge.node.content }]
-            }))
-          ),
-          query: `
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) =>
+              allMarkdownRemark.edges.map(edge => {
+                const postText = `
+                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at overreacted.io. You can read it online by <a href="${site
+                  .siteMetadata.siteUrl +
+                  edge.node.fields.slug}">clicking here</a>.)</div>
+              `;
+                return Object.assign(
+                  {},
+                  {
+                    description: edge.node.frontmatter.description,
+                    date: edge.node.frontmatter.date,
+                    url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                    guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                    custom_elements: [
+                      { 'content:encoded': edge.node.html + postText },
+                    ],
+                  }
+                );
+              }),
+            query: `
               {
-                allBloggerPost(
-                    limit: 1000,
-                    sort: { fields: published, order: DESC }
-                  ){
+                allMarkdownRemark(
+                  limit: 1000,
+                  sort: { order: DESC, fields: [frontmatter___date] }
+                  filter: {fields: { draft: {eq: false}}}
+                ) {
                   edges {
                     node {
-                      fields {
-                        postSlug,
-                        readTime {
-                          text
-                        }
+                      excerpt(pruneLength: 250)
+                      html
+                      fields { 
+                        slug   
+                        draft
                       }
-                      slug
-                      title
-                      published
-                      content
-                      id
+                      frontmatter {
+                        title
+                        date
+                        description
+                      }
                     }
                   }
                 }
               }
             `,
-          output: '/rss.xml',
-          title: 'Kemal Erdem blog'
-        }]
-      }
+            output: '/rss.xml',
+            title: 'Kemal Erdem Blog RSS Feed',
+          },
+        ],
+      },
     },
-    // {
-    //   resolve: 'gatsby-transformer-remark',
-    //   options: {
-    //     plugins: [
-    //       {
-    //         resolve: 'gatsby-remark-katex',
-    //         options: {
-    //           strict: 'ignore'
-    //         }
-    //       },
-    //       {
-    //         resolve: 'gatsby-remark-images',
-    //         options: { maxWidth: 960 }
-    //       },
-    //       {
-    //         resolve: 'gatsby-remark-responsive-iframe',
-    //         options: { wrapperStyle: 'margin-bottom: 1.0725rem' }
-    //       },
-    //       'gatsby-remark-autolink-headers',
-    //       'gatsby-remark-prismjs',
-    //       'gatsby-remark-copy-linked-files',
-    //       'gatsby-remark-smartypants'
-    //     ]
-    //   }
-    // },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-katex',
+            options: {
+              strict: 'ignore',
+            },
+          },
+          {
+            resolve: 'gatsby-remark-images',
+            options: { maxWidth: 960 },
+          },
+          {
+            resolve: 'gatsby-remark-responsive-iframe',
+            options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
+          },
+          'gatsby-remark-autolink-headers',
+          'gatsby-remark-prismjs',
+          'gatsby-remark-copy-linked-files',
+          'gatsby-remark-smartypants',
+        ],
+      },
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-google-gtag',
       options: {
-        trackingIds: [siteConfig.googleAnalyticsId],
+        trackingIds: [process.env.GOOGLE_ANALITICS_ID],
         pluginConfig: {
           head: true,
         },
@@ -161,12 +163,13 @@ module.exports = {
           }
         `,
         output: '/sitemap.xml',
-        serialize: ({ site, allSitePage }) => allSitePage.edges.map((edge) => ({
-          url: site.siteMetadata.siteUrl + edge.node.path,
-          changefreq: 'daily',
-          priority: 0.7
-        }))
-      }
+        serialize: ({ site, allSitePage }) =>
+          allSitePage.edges.map(edge => ({
+            url: site.siteMetadata.siteUrl + edge.node.path,
+            changefreq: 'daily',
+            priority: 0.7,
+          })),
+      },
     },
     {
       resolve: 'gatsby-plugin-manifest',
@@ -177,7 +180,7 @@ module.exports = {
         background_color: '#FFF',
         theme_color: '#F7A046',
         display: 'standalone',
-        icon: 'static/main-photo.jpg'
+        icon: 'static/main-photo.jpg',
       },
     },
     'gatsby-plugin-offline',
@@ -189,9 +192,9 @@ module.exports = {
         postCssPlugins: [...postCssPlugins],
         cssLoaderOptions: {
           camelCase: false,
-        }
-      }
+        },
+      },
     },
     'gatsby-plugin-flow',
-  ]
+  ],
 };
