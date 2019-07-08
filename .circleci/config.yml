@@ -75,6 +75,7 @@ workflows:
             branches:
               ignore:
                 - gh-pages
+                - master
       - flow-typed:
           requires:
             - install
@@ -82,5 +83,19 @@ workflows:
           requires:
             - install
       - coverage:
+          requires:
+            - install
+
+  deploy:
+    jobs:
+      - install:
+          filters:
+            branches:
+              only:
+                - master
+      - test:
+          requires:
+            - install
+      - deploy-gh:
           requires:
             - install
