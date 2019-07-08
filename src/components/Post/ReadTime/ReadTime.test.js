@@ -1,7 +1,8 @@
 // @flow
 describe('ReadTime', () => {
   it('renders correctly', () => {
-    const testCoffee = (minute) => (Math.floor(minute / 5) % 4 + (minute < 20 ? 1 : 0));
+    const testCoffee = minute =>
+      (Math.floor(minute / 5) % 4) + (minute < 20 ? 1 : 0);
     const listOfMinutes = [
       1,
       2,

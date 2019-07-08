@@ -10,20 +10,30 @@ import styles from './Post.module.scss';
 import type { BloggerPost } from '../../types';
 
 type Props = {
-  post: BloggerPost
+  post: BloggerPost,
 };
 
 const Post = ({ post }: Props) => {
   const { content } = post;
-  const { slug, fields: { tagSlugs, readTime } } = post;
+  const {
+    slug,
+    fields: { tagSlugs, readTime },
+  } = post;
   const { labels, title, published } = post;
 
   return (
     <div className={styles['post']}>
-      <Link className={styles['post__home-button']} to="/">All Articles</Link>
+      <Link className={styles['post__home-button']} to="/">
+        All Articles
+      </Link>
 
       <div className={styles['post__content']}>
-        <Content body={content} title={title} date={published} readTime={readTime} />
+        <Content
+          body={content}
+          title={title}
+          date={published}
+          readTime={readTime}
+        />
       </div>
 
       <div className={styles['post__footer']}>

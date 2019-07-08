@@ -11,7 +11,7 @@ import type { PageContext, AllBloggerPost } from '../types';
 
 type Props = {
   data: AllBloggerPost,
-  pageContext: PageContext
+  pageContext: PageContext,
 };
 
 const IndexTemplate = ({ data, pageContext }: Props) => {
@@ -22,12 +22,12 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
     hasNextPage,
     hasPrevPage,
     prevPagePath,
-    nextPagePath
+    nextPagePath,
   } = pageContext;
 
-
   const { edges } = data.allBloggerPost;
-  const pageTitle = currentPage > 0 ? `Posts - Page ${currentPage} - ${siteTitle}` : siteTitle;
+  const pageTitle =
+    currentPage > 0 ? `Posts - Page ${currentPage} - ${siteTitle}` : siteTitle;
 
   return (
     <Layout title={pageTitle} description={siteSubtitle}>
@@ -48,10 +48,10 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
 export const query = graphql`
   query IndexTemplate($postsLimit: Int!, $postsOffset: Int!) {
     allBloggerPost(
-        limit: $postsLimit,
-        skip: $postsOffset,
-        sort: { fields: published, order: DESC }
-      ){
+      limit: $postsLimit
+      skip: $postsOffset
+      sort: { fields: published, order: DESC }
+    ) {
       edges {
         node {
           fields {

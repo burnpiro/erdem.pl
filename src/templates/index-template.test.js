@@ -11,16 +11,14 @@ import type { RenderCallback } from '../types';
 describe('IndexTemplate', () => {
   const props = {
     data: {
-      ...allMarkdownRemark
+      ...allMarkdownRemark,
     },
-    ...pageContext
+    ...pageContext,
   };
 
   beforeEach(() => {
     StaticQuery.mockImplementationOnce(
-      ({ render }: RenderCallback) => (
-        render(siteMetadata)
-      ),
+      ({ render }: RenderCallback) => render(siteMetadata),
       useStaticQuery.mockReturnValue(siteMetadata)
     );
   });

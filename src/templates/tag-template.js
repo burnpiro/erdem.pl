@@ -11,7 +11,7 @@ import type { AllBloggerPost, PageContext } from '../types';
 
 type Props = {
   data: AllBloggerPost,
-  pageContext: PageContext
+  pageContext: PageContext,
 };
 
 const TagTemplate = ({ data, pageContext }: Props) => {
@@ -23,11 +23,14 @@ const TagTemplate = ({ data, pageContext }: Props) => {
     prevPagePath,
     nextPagePath,
     hasPrevPage,
-    hasNextPage
+    hasNextPage,
   } = pageContext;
 
   const { edges } = data.allBloggerPost;
-  const pageTitle = currentPage > 0 ? `All Posts tagged as "${tag}" - Page ${currentPage} - ${siteTitle}` : `All Posts tagged as "${tag}" - ${siteTitle}`;
+  const pageTitle =
+    currentPage > 0
+      ? `All Posts tagged as "${tag}" - Page ${currentPage} - ${siteTitle}`
+      : `All Posts tagged as "${tag}" - ${siteTitle}`;
 
   return (
     <Layout title={pageTitle} description={siteSubtitle}>
@@ -54,11 +57,11 @@ export const query = graphql`
       }
     }
     allBloggerPost(
-        limit: $postsLimit,
-        skip: $postsOffset,
-        filter: { labels: { in: [$tag] } },
-        sort: { order: DESC, fields: [published] }
-      ){
+      limit: $postsLimit
+      skip: $postsOffset
+      filter: { labels: { in: [$tag] } }
+      sort: { order: DESC, fields: [published] }
+    ) {
       edges {
         node {
           fields {

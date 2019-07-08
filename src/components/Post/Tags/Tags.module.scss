@@ -2,7 +2,7 @@
 @import '../../../assets/scss/mixins';
 
 .tags {
-  @include margin-bottom(.5);
+  @include margin-bottom(0.5);
 
   &__list {
     list-style: none;
@@ -27,11 +27,7 @@
         &:focus {
           color: $color-primary;
         }
-
       }
-
     }
-
   }
-
 }

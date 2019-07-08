@@ -11,18 +11,16 @@ import type { RenderCallback } from '../types';
 describe('TagTemplate', () => {
   beforeEach(() => {
     StaticQuery.mockImplementationOnce(
-      ({ render }: RenderCallback) => (
-        render(siteMetadata)
-      ),
+      ({ render }: RenderCallback) => render(siteMetadata),
       useStaticQuery.mockReturnValue(siteMetadata)
     );
   });
 
   const props = {
     data: {
-      ...allMarkdownRemark
+      ...allMarkdownRemark,
     },
-    ...pageContext
+    ...pageContext,
   };
 
   it('renders correctly', () => {

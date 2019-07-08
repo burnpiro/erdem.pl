@@ -8,13 +8,13 @@ describe('Menu', () => {
     menu: [
       {
         label: 'Item 0',
-        path: '/#0/'
+        path: '/#0/',
       },
       {
         label: 'Item 1',
-        path: '/#1/'
-      }
-    ]
+        path: '/#1/',
+      },
+    ],
   };
 
   it('renders correctly', () => {

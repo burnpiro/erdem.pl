@@ -21,7 +21,6 @@
     @include line-height(1);
     @include margin(0, 0, 1);
   }
-
 }
 
 @include breakpoint-sm {
@@ -31,9 +30,7 @@
     &__inner {
       padding: 30px 20px;
     }
-
   }
-
 }
 
 @include breakpoint-md {
@@ -43,7 +40,5 @@
     &__inner {
       padding: 40px 35px;
     }
-
   }
-
 }

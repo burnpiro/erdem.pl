@@ -9,16 +9,14 @@ import type { RenderCallback } from '../../../types';
 describe('Comments', () => {
   beforeEach(() => {
     StaticQuery.mockImplementationOnce(
-      ({ render }: RenderCallback) => (
-        render(siteMetadata)
-      ),
+      ({ render }: RenderCallback) => render(siteMetadata),
       useStaticQuery.mockReturnValue(siteMetadata)
     );
   });
 
   const props = {
     postTitle: 'test',
-    postSlug: '/test'
+    postSlug: '/test',
   };
 
   it('renders correctly', () => {

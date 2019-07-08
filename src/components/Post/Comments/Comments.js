@@ -5,7 +5,7 @@ import { useSiteMetadata } from '../../../hooks';
 
 type Props = {
   postTitle: string,
-  postSlug: string
+  postSlug: string,
 };
 
 const Comments = ({ postTitle, postSlug }: Props) => {

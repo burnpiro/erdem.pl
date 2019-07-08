@@ -5,8 +5,8 @@ import styles from './Icon.module.scss';
 type Props = {
   icon: {
     viewBox?: string,
-    path?: string
-  }
+    path?: string,
+  },
 };
 
 const Icon = ({ icon }: Props) => (

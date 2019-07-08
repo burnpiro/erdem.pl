@@ -9,9 +9,7 @@ import type { RenderCallback } from '../types';
 describe('NotFoundTemplate', () => {
   beforeEach(() => {
     StaticQuery.mockImplementationOnce(
-      ({ render }: RenderCallback) => (
-        render(siteMetadata)
-      ),
+      ({ render }: RenderCallback) => render(siteMetadata),
       useStaticQuery.mockReturnValue(siteMetadata)
     );
   });

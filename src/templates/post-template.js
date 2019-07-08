@@ -7,8 +7,8 @@ import type { BloggerPost } from '../types';
 
 type Props = {
   data: {
-    bloggerPost: BloggerPost
-  }
+    bloggerPost: BloggerPost,
+  },
 };
 
 const PostTemplate = ({ data }: Props) => {
@@ -23,7 +23,6 @@ const PostTemplate = ({ data }: Props) => {
   );
 };
 
-
 export const query = graphql`
   query PostBySlug($slug: String!) {
     bloggerPost(slug: { eq: $slug }) {
@@ -32,7 +31,7 @@ export const query = graphql`
       published
       content
       labels
-      id,
+      id
       fields {
         readTime {
           text
@@ -43,6 +42,5 @@ export const query = graphql`
     }
   }
 `;
-
 
 export default PostTemplate;

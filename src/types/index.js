@@ -5,7 +5,7 @@ export type RenderCallback = (data: any) => ReactNode;
 
 export type Entry = (string[]) => string;
 
-export type WidgetFor = (string) => string;
+export type WidgetFor = string => string;
 
 export type PageContext = {
   tag: string,
@@ -13,7 +13,7 @@ export type PageContext = {
   prevPagePath: string,
   nextPagePath: string,
   hasPrevPage: boolean,
-  hasNextPage: boolean
+  hasNextPage: boolean,
 };
 
 export type Node = {
@@ -22,7 +22,7 @@ export type Node = {
   updated?: string,
   content?: string,
   title: string,
-  id: string
+  id: string,
 };
 
 export type BloggerPage = Node;
@@ -35,14 +35,14 @@ export type BloggerPost = Node & {
       text: string,
       minutes: number,
       time: number,
-      words: number
-    }
+      words: number,
+    },
   },
-  labels?: Array<string>
+  labels?: Array<string>,
 };
 
 export type Edge = {
-  node: BloggerPost
+  node: BloggerPost,
 };
 
 export type Edges = Array<Edge>;
@@ -50,42 +50,20 @@ export type Edges = Array<Edge>;
 export type AllMarkdownRemark = {
   allMarkdownRemark: {
     edges: Array<{
-      node: MarkdownRemark
+      node: MarkdownRemark,
     }>,
   },
   group: {
     fieldValue: string,
-    totalCount: number
-  }[]
-};
-
-export type AllBloggerPost = {
-  allBloggerPost: {
-    edges: Edges,
-  },
-  group: {
-    fieldValue: string,
-    totalCount: number
-  }[]
-};
-
-export type AllBloggerPage = {
-  allBloggerPage: {
-    edges: Array<{
-      node: Node
-    }>,
-  },
-  group: {
-    fieldValue: string,
-    totalCount: number
-  }[]
+    totalCount: number,
+  }[],
 };
 
 export type MarkdownRemark = {
   fields: {
     slug: string,
     categorySlug?: string,
-    tagSlugs?: string[]
+    tagSlugs?: string[],
   },
   frontmatter: {
     date: string,
@@ -95,5 +73,5 @@ export type MarkdownRemark = {
     title: string,
   },
   html: string,
-  id: string
+  id: string,
 };

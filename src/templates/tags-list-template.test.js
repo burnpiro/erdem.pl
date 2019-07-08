@@ -10,14 +10,12 @@ import type { RenderCallback } from '../types';
 describe('TagsListTemplate', () => {
   const props = {
     ...siteMetadata,
-    ...allMarkdownRemark
+    ...allMarkdownRemark,
   };
 
   beforeEach(() => {
     StaticQuery.mockImplementationOnce(
-      ({ render }: RenderCallback) => (
-        render(props)
-      ),
+      ({ render }: RenderCallback) => render(props),
       useStaticQuery.mockReturnValue(props)
     );
   });

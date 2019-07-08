@@ -9,15 +9,13 @@ import type { RenderCallback } from '../../types';
 describe('Sidebar', () => {
   beforeEach(() => {
     StaticQuery.mockImplementationOnce(
-      ({ render }: RenderCallback) => (
-        render(siteMetadata)
-      ),
+      ({ render }: RenderCallback) => render(siteMetadata),
       useStaticQuery.mockReturnValue(siteMetadata)
     );
   });
 
   const props = {
-    isIndex: true
+    isIndex: true,
   };
 
   it('renders correctly', () => {

@@ -1,4 +1,3 @@
-
 // @flow
 import React from 'react';
 import renderer from 'react-test-renderer';
@@ -12,8 +11,8 @@ describe('Contacts', () => {
       vkontakte: '#',
       github: '#',
       rss: '#',
-      telegram: '#'
-    }
+      telegram: '#',
+    },
   };
 
   it('renders correctly', () => {

@@ -9,8 +9,8 @@ import type { BloggerPage } from '../types';
 
 type Props = {
   data: {
-    bloggerPage: BloggerPage
-  }
+    bloggerPage: BloggerPage,
+  },
 };
 
 const PageTemplate = ({ data }: Props) => {
