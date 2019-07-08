@@ -26,23 +26,23 @@ workbox.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-c49e500d39849dc84604.js"
+    "url": "webpack-runtime-03486c0d11ce34b3487b.js"
   },
   {
-    "url": "styles.bcea8bae2a8782c9faba.css"
+    "url": "styles.81c8044e4c6928eee154.css"
   },
   {
     "url": "styles-fdd5e229fd7a384f8fdd.js"
   },
   {
-    "url": "app-c4a8f5c6f5fd7754caab.js"
+    "url": "app-fbe91190b16acfbda9bd.js"
   },
   {
     "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-2ab2e8283d9a33d56614.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "bfd0ef6d070ca7c27cbc9d3e65b4b175"
+    "revision": "47292e6d66ebd7d2b168815d97cbf69e"
   },
   {
     "url": "component---src-pages-404-js-02fd820270aa051309d3.js"
@@ -52,11 +52,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/404.html/page-data.json",
-    "revision": "c92159922bfe8f66f368004665e8b84d"
+    "revision": "d8c0d03497a21e001efc324f383e501f"
   },
   {
     "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
-    "revision": "bdfe255594dcb6b3cbe1af6b514e3068"
+    "revision": "234747f08e4bc57c56b9e8495e35bdfa"
   },
   {
     "url": "manifest.webmanifest",
@@ -82,7 +82,7 @@ const navigationRoute = new workbox.routing.NavigationRoute(({ event }) => {
   return idbKeyval.get(WHITELIST_KEY).then((customWhitelist = []) => {
     // Respond with the offline shell if we match the custom whitelist
     if (customWhitelist.includes(pathname)) {
-      const offlineShell = `/erdem-pl/offline-plugin-app-shell-fallback/index.html`
+      const offlineShell = `/erdem.pl/offline-plugin-app-shell-fallback/index.html`
       const cacheName = workbox.core.cacheNames.precache
 
       return caches.match(offlineShell, { cacheName }).then(cachedResponse => {
@@ -154,7 +154,7 @@ const messageApi = {
 
     pathnames = pathnames.map(({ pathname, includesPrefix }) => {
       if (!includesPrefix) {
-        return `/erdem-pl${pathname}`
+        return `/erdem.pl${pathname}`
       } else {
         return pathname
       }
