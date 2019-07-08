@@ -1,12 +1,9 @@
-'use strict';
-
 const moment = require('moment');
 const readingTime = require('reading-time');
 const _ = require('lodash');
-const { createFilePath } = require('gatsby-source-filesystem');
 const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 
-const onCreateNode = ({ node, actions, getNode }) => {
+const onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
 
   fmImagesToRelative(node);
@@ -16,30 +13,27 @@ const onCreateNode = ({ node, actions, getNode }) => {
       createNodeField({
         node,
         name: 'slug',
-        value: node.frontmatter.slug
+        value: node.frontmatter.slug,
       });
     } else {
-      const value = createFilePath({ node, getNode });
       createNodeField({
         node,
         name: 'slug',
-        value
+        value: `/${moment(node.date).format('YYYY/MM')}/${_.kebabCase(
+          node.frontmatter.title
+        )}`,
       });
     }
 
     if (node.frontmatter.tags) {
-      const tagSlugs = node.frontmatter.tags.map((tag) => `/tag/${_.kebabCase(tag)}/`);
+      const tagSlugs = node.frontmatter.tags.map(
+        tag => `/tag/${_.kebabCase(tag)}/`
+      );
       createNodeField({ node, name: 'tagSlugs', value: tagSlugs });
     }
-  }
 
-  if (node.internal.type === 'blogger__POST') {
-    if (node.labels) {
-      const tagSlugs = node.labels.map((tag) => `/tag/${_.kebabCase(tag)}`);
-      const postSlug = `/${moment(node.published).format('YYYY/MM')}/${node.slug}`;
-      const readTime = readingTime(node.content);
-      createNodeField({ node, name: 'tagSlugs', value: tagSlugs });
-      createNodeField({ node, name: 'postSlug', value: postSlug });
+    if (node.frontmatter.template === 'post') {
+      const readTime = readingTime(node.internal.content);
       createNodeField({ node, name: 'readTime', value: readTime });
     }
   }
