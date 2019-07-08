@@ -64,6 +64,8 @@ jobs:
       - restore_cache:
           keys:
             - dependencies-{{ checksum "package-lock.json" }}
+      - run: git config user.email "kemalpiro@gmail.com"
+      - run: git config user.name "CircleCI"
       - run: npm run deploy
 
 workflows:
