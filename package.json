@@ -1,12 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "erdem.pl",
   "description": "Personal Blog",
   "main": "n/a",
   "scripts": {
     "develop": "npm run clean && gatsby develop",
     "build": "npm run clean && gatsby build",
-    "deploy": "npm run clean && gatsby build --prefix-paths && gh-pages -d public",
+    "deploy": "npm run clean && gatsby build --prefix-paths && cp -R .circleci public && gh-pages -d public",
     "clean": "rimraf .cache public",
     "flow": "flow",
     "flow-typed": "flow-typed install",
