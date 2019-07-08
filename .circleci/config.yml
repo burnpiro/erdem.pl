@@ -34,19 +34,6 @@ jobs:
           paths:
             - flow-typed
           key: flow-typed-{{ checksum "package-lock.json" }}
-
-  lint:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          keys:
-            - flow-typed-{{ checksum "package-lock.json" }}
-      - run: npm run lint
-
   test:
     <<: *defaults
     steps:
@@ -69,19 +56,6 @@ jobs:
           paths:
             - coverage
 
-  codecov:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - dependencies-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          keys:
-            - coverage-output-{{ .Environment.CIRCLE_SHA1 }}
-      - run: npm run global add codecov
-      - run: npm run codecov
-
 workflows:
   version: 2
   test:
@@ -90,16 +64,9 @@ workflows:
       - flow-typed:
           requires:
             - install
-      - lint:
-          requires:
-            - flow-typed
-            - install
       - test:
           requires:
             - install
       - coverage:
           requires:
             - install
-      - codecov:
-          requires:
-            - coverage
