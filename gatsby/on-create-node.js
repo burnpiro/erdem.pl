@@ -19,9 +19,9 @@ const onCreateNode = ({ node, actions }) => {
       createNodeField({
         node,
         name: 'slug',
-        value: `/${moment(node.date).format('YYYY/MM')}/${_.kebabCase(
-          node.frontmatter.title
-        )}`,
+        value: `/${moment(node.frontmatter.date).format(
+          'YYYY/MM'
+        )}/${_.kebabCase(node.frontmatter.title)}`,
       });
     }
 
