@@ -69,12 +69,11 @@ jobs:
 workflows:
   version: 2
   test:
-    filter:
-      branches:
-        ignore:
-          - gh-pages
     jobs:
-      - install
+      - install:
+          branches:
+            ignore:
+              - gh-pages
       - flow-typed:
           requires:
             - install
