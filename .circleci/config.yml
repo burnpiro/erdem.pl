@@ -60,6 +60,18 @@ jobs:
           paths:
             - coverage
 
+  deploy:
+    branches:
+      only:
+        - master
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package-lock.json" }}
+      - run: npm run deploy
+
 workflows:
   version: 2
   test:
@@ -72,5 +84,8 @@ workflows:
           requires:
             - install
       - coverage:
+          requires:
+            - install
+      - deploy:
           requires:
             - install
