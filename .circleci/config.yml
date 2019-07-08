@@ -71,9 +71,10 @@ workflows:
   test:
     jobs:
       - install:
-          branches:
-            ignore:
-              - gh-pages
+          filters:
+            branches:
+              ignore:
+                - gh-pages
       - flow-typed:
           requires:
             - install
