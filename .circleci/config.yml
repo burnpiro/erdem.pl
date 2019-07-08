@@ -8,9 +8,6 @@ defaults: &defaults
 jobs:
   install:
     <<: *defaults
-    branches:
-      ignore:
-        - gh-pages
     steps:
       - checkout
       - restore_cache:
@@ -61,12 +58,7 @@ jobs:
             - coverage
 
   deploy-gh:
-    branches:
-      only:
-        - master
-    docker:
-      - image: circleci/node:12
-    working_directory: ~/blog
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -77,6 +69,11 @@ jobs:
 workflows:
   version: 2
   test:
+    filter:
+      branches:
+        ignore:
+          - gh-pages
+          - master
     jobs:
       - install
       - flow-typed:
@@ -86,6 +83,16 @@ workflows:
           requires:
             - install
       - coverage:
+          requires:
+            - install
+  deploy:
+    filter:
+      branches:
+        only:
+          - master
+    jobs:
+      - install
+      - test:
           requires:
             - install
       - deploy-gh:
