@@ -1,9 +1,6 @@
 version: 2
 
 defaults: &defaults
-  branches:
-    ignore:
-      - gh-pages
   docker:
     - image: circleci/node:12
   working_directory: ~/blog
@@ -11,6 +8,9 @@ defaults: &defaults
 jobs:
   install:
     <<: *defaults
+    branches:
+      ignore:
+        - gh-pages
     steps:
       - checkout
       - restore_cache:
