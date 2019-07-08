@@ -77,19 +77,19 @@ module.exports = {
                 allMarkdownRemark(
                   limit: 1000,
                   sort: { order: DESC, fields: [frontmatter___date] }
-                  filter: {fields: { draft: {eq: false}}}
+                  filter: {frontmatter: { draft: {eq: false}}}
                 ) {
                   edges {
                     node {
                       excerpt(pruneLength: 250)
                       html
                       fields { 
-                        slug   
-                        draft
+                        slug
                       }
                       frontmatter {
                         title
                         date
+                        draft
                         description
                       }
                     }

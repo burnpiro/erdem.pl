@@ -27,7 +27,6 @@ module.exports = async (graphql, actions) => {
     const tagSlug = `/tag/${_.kebabCase(tag.fieldValue)}`;
 
     for (let i = 0; i < numPages; i += 1) {
-      console.log(i);
       createPage({
         path: i === 0 ? tagSlug : `${tagSlug}/page/${i}`,
         component: path.resolve('./src/templates/tag-template.js'),

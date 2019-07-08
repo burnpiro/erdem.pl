@@ -25,6 +25,16 @@ exports[`PostTemplate renders correctly 1`] = `
           test
         </h1>
         <div
+          className="meta"
+        >
+          <span
+            className="meta__date"
+          >
+            Published 
+            1 Sep 2016
+          </span>
+        </div>
+        <div
           className="content__body"
           dangerouslySetInnerHTML={
             Object {
@@ -40,12 +50,12 @@ exports[`PostTemplate renders correctly 1`] = `
       <div
         className="meta"
       >
-        <p
+        <span
           className="meta__date"
         >
           Published 
           1 Sep 2016
-        </p>
+        </span>
       </div>
       <div
         className="tags"

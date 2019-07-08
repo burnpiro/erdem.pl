@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   url: 'https://erdem.pl',
   repo: 'erdem-pl',
@@ -12,21 +10,23 @@ module.exports = {
   menu: [
     {
       label: 'About me',
-      path: '/pages/about'
+      path: '/pages/about',
     },
     {
       label: 'Contact me',
-      path: '/pages/contact'
-    }
+      path: '/pages/contact',
+    },
   ],
   author: {
     name: 'Kemal Erdem',
     photo: '/main-photo.jpg',
-    bio: 'Javascript Architect, Freelance Consultant, IoT enthusiast, MTB lover',
+    bio:
+      'Javascript Architect, Freelance Consultant, IoT enthusiast, MTB lover',
     contacts: {
       email: 'kemalpiro@gmail.com',
       twitter: 'burnpiro',
-      github: 'burnpiro'
-    }
-  }
+      github: 'burnpiro',
+      rss: '/rss.xml',
+    },
+  },
 };
