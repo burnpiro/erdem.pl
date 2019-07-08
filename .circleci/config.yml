@@ -60,7 +60,7 @@ jobs:
           paths:
             - coverage
 
-  deploy:
+  deploy-gh:
     branches:
       only:
         - master
@@ -88,6 +88,6 @@ workflows:
       - coverage:
           requires:
             - install
-      - deploy:
+      - deploy-gh:
           requires:
             - install
