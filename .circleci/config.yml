@@ -64,7 +64,9 @@ jobs:
     branches:
       only:
         - master
-    <<: *defaults
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/blog
     steps:
       - checkout
       - restore_cache:
