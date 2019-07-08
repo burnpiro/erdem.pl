@@ -7,10 +7,10 @@ import Feed from '../components/Feed';
 import Page from '../components/Page';
 import Pagination from '../components/Pagination';
 import { useSiteMetadata } from '../hooks';
-import type { PageContext, AllBloggerPost } from '../types';
+import type { PageContext, AllMarkdownRemark } from '../types';
 
 type Props = {
-  data: AllBloggerPost,
+  data: AllMarkdownRemark,
   pageContext: PageContext,
 };
 
@@ -25,7 +25,7 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
     nextPagePath,
   } = pageContext;
 
-  const { edges } = data.allBloggerPost;
+  const { edges } = data.allMarkdownRemark;
   const pageTitle =
     currentPage > 0 ? `Posts - Page ${currentPage} - ${siteTitle}` : siteTitle;
 
@@ -47,10 +47,13 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
 
 export const query = graphql`
   query IndexTemplate($postsLimit: Int!, $postsOffset: Int!) {
-    allBloggerPost(
+    allMarkdownRemark(
       limit: $postsLimit
       skip: $postsOffset
-      sort: { fields: published, order: DESC }
+      filter: {
+        frontmatter: { draft: { eq: false }, template: { eq: "post" } }
+      }
+      sort: { fields: frontmatter___date, order: DESC }
     ) {
       edges {
         node {
@@ -59,12 +62,13 @@ export const query = graphql`
               text
               minutes
             }
-            postSlug
+            slug
           }
-          slug
-          title
-          published
-          content
+          frontmatter {
+            date
+            title
+            description
+          }
         }
       }
     }

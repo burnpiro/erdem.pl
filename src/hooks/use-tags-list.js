@@ -2,20 +2,26 @@
 import { useStaticQuery, graphql } from 'gatsby';
 
 const useTagsList = () => {
-  const { allBloggerPost } = useStaticQuery(
+  const { allMarkdownRemark } = useStaticQuery(
     graphql`
       query TagsListQuery {
-        allBloggerPost {
-          group(field: labels) {
-            fieldValue
+        allMarkdownRemark(
+          filter: {
+            frontmatter: { draft: { eq: false }, template: { eq: "post" } }
+          }
+          sort: { fields: frontmatter___date, order: DESC }
+        ) {
+          totalCount
+          group(field: frontmatter___tags) {
             totalCount
+            fieldValue
           }
         }
       }
     `
   );
 
-  return allBloggerPost.group;
+  return allMarkdownRemark.group;
 };
 
 export default useTagsList;

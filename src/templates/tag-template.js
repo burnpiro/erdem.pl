@@ -7,10 +7,10 @@ import Feed from '../components/Feed';
 import Page from '../components/Page';
 import Pagination from '../components/Pagination';
 import { useSiteMetadata } from '../hooks';
-import type { AllBloggerPost, PageContext } from '../types';
+import type { AllMarkdownRemark, PageContext } from '../types';
 
 type Props = {
-  data: AllBloggerPost,
+  data: AllMarkdownRemark,
   pageContext: PageContext,
 };
 
@@ -26,7 +26,7 @@ const TagTemplate = ({ data, pageContext }: Props) => {
     hasNextPage,
   } = pageContext;
 
-  const { edges } = data.allBloggerPost;
+  const { edges } = data.allMarkdownRemark;
   const pageTitle =
     currentPage > 0
       ? `All Posts tagged as "${tag}" - Page ${currentPage} - ${siteTitle}`
@@ -56,11 +56,17 @@ export const query = graphql`
         subtitle
       }
     }
-    allBloggerPost(
+    allMarkdownRemark(
       limit: $postsLimit
       skip: $postsOffset
-      filter: { labels: { in: [$tag] } }
-      sort: { order: DESC, fields: [published] }
+      filter: {
+        frontmatter: {
+          draft: { eq: false }
+          template: { eq: "post" }
+          tags: { in: [$tag] }
+        }
+      }
+      sort: { order: DESC, fields: frontmatter___date }
     ) {
       edges {
         node {
@@ -69,14 +75,13 @@ export const query = graphql`
               text
               minutes
             }
-            postSlug
+            slug
           }
-          slug
-          title
-          published
-          content
-          labels
-          id
+          frontmatter {
+            date
+            title
+            description
+          }
         }
       }
     }

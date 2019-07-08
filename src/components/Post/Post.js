@@ -7,19 +7,20 @@ import Content from './Content';
 import Meta from './Meta';
 import Tags from './Tags';
 import styles from './Post.module.scss';
-import type { BloggerPost } from '../../types';
+import type { MarkdownRemark } from '../../types';
 
 type Props = {
-  post: BloggerPost,
+  post: MarkdownRemark,
 };
 
 const Post = ({ post }: Props) => {
-  const { content } = post;
+  const { html } = post;
   const {
-    slug,
-    fields: { tagSlugs, readTime },
+    fields: { tagSlugs, readTime, slug },
   } = post;
-  const { labels, title, published } = post;
+  const {
+    frontmatter: { tags, title, date },
+  } = post;
 
   return (
     <div className={styles['post']}>
@@ -29,16 +30,16 @@ const Post = ({ post }: Props) => {
 
       <div className={styles['post__content']}>
         <Content
-          body={content}
+          body={html}
           title={title}
-          date={published}
+          date={date}
           readTime={readTime}
         />
       </div>
 
       <div className={styles['post__footer']}>
-        <Meta date={published} />
-        {labels && tagSlugs && <Tags tags={labels} tagSlugs={tagSlugs} />}
+        <Meta date={date} />
+        {tags && tagSlugs && <Tags tags={tags} tagSlugs={tagSlugs} />}
         <Author />
       </div>
 

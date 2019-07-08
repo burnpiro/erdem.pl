@@ -15,8 +15,10 @@ type Props = {
 
 const PageTemplate = ({ data }: Props) => {
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-  const { content: pageBody } = data.bloggerPage;
-  const { title: pageTitle } = data.bloggerPage;
+  const { html: pageBody } = data.markdownRemark;
+  const {
+    frontmatter: { title: pageTitle },
+  } = data.markdownRemark;
   const metaDescription = siteSubtitle;
 
   return (
@@ -31,12 +33,15 @@ const PageTemplate = ({ data }: Props) => {
 
 export const query = graphql`
   query PageBySlug($slug: String!) {
-    bloggerPage(slug: { eq: $slug }) {
-      title
-      slug
-      content
-      published
-      kind
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        description
+        title
+      }
+      html
     }
   }
 `;
