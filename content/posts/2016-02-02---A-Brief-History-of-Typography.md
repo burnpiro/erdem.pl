@@ -1,10 +1,8 @@
 ---
 title: "A Brief History of Typography"
-date: "2016-02-02T22:40:32.169Z"
+date: "2016-02-02"
 template: "post"
 draft: false
-slug: "/posts/a-brief-history-of-typography/"
-category: "Design Inspiration"
 tags:
   - "Linotype"
   - "Monotype"

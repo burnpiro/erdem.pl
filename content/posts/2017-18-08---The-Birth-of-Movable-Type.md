@@ -1,9 +1,8 @@
 ---
 title: "Johannes Gutenberg: The Birth of Movable Type"
-date: "2017-08-18T22:12:03.284Z"
+date: "2017-08-18"
 template: "post"
 draft: false
-slug: "/posts/the-birth-of-movable-type/"
 category: "Typography"
 tags:
   - "Open source"
