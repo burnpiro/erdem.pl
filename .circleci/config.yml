@@ -98,4 +98,5 @@ workflows:
             - install
       - deploy-gh:
           requires:
+            - test
             - install
