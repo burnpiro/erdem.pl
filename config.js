@@ -5,6 +5,8 @@ module.exports = {
   subtitle: 'Even complex things could be explain in a simple way.',
   copyright: '© All rights reserved.',
   disqusShortname: '',
+  contactFormUrl:
+    'https://docs.google.com/forms/d/e/1Xm0_jPVTcfILOO-1LvDF9Afn1P6cX4tesk9hQV7HL-c/formResponse',
   postsPerPage: 4,
   googleAnalyticsId: 'UA-142799032-1',
   menu: [
@@ -14,7 +16,7 @@ module.exports = {
     },
     {
       label: 'Contact me',
-      path: '/pages/contact',
+      path: '/contact',
     },
   ],
   author: {

@@ -39,6 +39,7 @@
     "classnames": "^2.2.6",
     "codecov": "^3.5.0",
     "dotenv": "^8.0.0",
+    "formik": "^1.5.7",
     "gatsby": "^2.9.4",
     "gatsby-link": "^2.1.1",
     "gatsby-plugin-catch-links": "^2.0.15",
@@ -72,7 +73,8 @@
     "react-disqus-comments": "^1.4.0",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
-    "reading-time": "^1.2.0"
+    "reading-time": "^1.2.0",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.5",

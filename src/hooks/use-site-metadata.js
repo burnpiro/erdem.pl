@@ -27,6 +27,7 @@ const useSiteMetadata = () => {
             subtitle
             copyright
             disqusShortname
+            contactFormUrl
           }
         }
       }
