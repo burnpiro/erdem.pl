@@ -4,10 +4,18 @@ template: "page"
 slug: "/pages/about"
 ---
 
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
+### Hi! I'm Kemal
 
-![Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.](/media/image-2.jpg)
+I'm a software engineer and consultant specializing in Javascript applications. When did i start? Long time ago... 2001 maybe. But back then there wasn't really anything even remotely similar with current technology. I didn't start writing code directly in JS, my first language was Pascal and then C/C++. Web started couple years later, around 2005/2006. 
+ 
+But what do i do exactly? Mostly everything related with Javascript:
+- NodeJS (Koa, Hapi, Express)
+- FrontEnd (list is really long but main technology is React)
+- IoT (JohnnyFive, CyclonJS, duino, NodeRED)
+- AI (TensorFlowJS)
+- Mobile (React Native)
+- JS Engines (V8, Chakra)
+- Testing (Jest, Jasmine, Puppeteer, Cypress and many more)
+- DevOps (build systems with Webpack/Rollup, process management and load balancing with PM2 or Cluster, CI/CD)
 
-*Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.*
-
-Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus
+That's really long list, i'm surprised you're read it all. If you want to grab a coffee i'm currently stationed in Wroclaw (Poland). To contact me please go to [Contact](/contact)
