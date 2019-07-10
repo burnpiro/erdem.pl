@@ -1,0 +1,31 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.helperClassName {
+  position: absolute;
+  top: 45px;
+}
+
+.Message {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+
+  .Message-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &_success {
+      color: $color-success;
+    }
+    &_error {
+      color: $color-error;
+    }
+  }
+
+  .Message-icon {
+    width: 100px;
+    height: 100px;
+  }
+}

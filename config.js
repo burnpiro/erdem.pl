@@ -6,7 +6,7 @@ module.exports = {
   copyright: '© All rights reserved.',
   disqusShortname: '',
   contactFormUrl:
-    'https://docs.google.com/forms/d/e/1Xm0_jPVTcfILOO-1LvDF9Afn1P6cX4tesk9hQV7HL-c/formResponse',
+    'https://docs.google.com/forms/d/e/1FAIpQLSdksRjFLVeWW2-wq8QSeKyJwUOs5LAq1bxsv0D9bTNEAQiu1g/formResponse',
   postsPerPage: 4,
   googleAnalyticsId: 'UA-142799032-1',
   menu: [
