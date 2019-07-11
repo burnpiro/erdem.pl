@@ -33,7 +33,9 @@ const onCreateNode = ({ node, actions }) => {
     }
 
     if (node.frontmatter.template === 'post') {
-      const readTime = readingTime(node.internal.content);
+      const readTime = readingTime(node.internal.content, {
+        wordsPerMinute: 60,
+      });
       createNodeField({ node, name: 'readTime', value: readTime });
     }
   }
