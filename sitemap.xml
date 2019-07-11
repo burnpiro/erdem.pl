@@ -2,28 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 <url> <loc>https://erdem.pl/erdem.pl/tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/erdem.pl/pages/about</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/2019/09/perfecting-the-ar</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/2019/07/why-understanding-js-engines-matters</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/2017/08/humane-typography-in-the-digital-age</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/2017/08/johannes-gutenberg-the-birth-of-movable-type</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/2016/12/the-origins-of-social-stationery-lettering</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/2016/09/perfecting-the-art-of-perfection</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/2016/02/a-brief-history-of-typography</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/deep-dive</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/design</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/engines</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/gatsby</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/handwriting</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/helvetica</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/history-of-typography</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/erdem.pl/2019/07/how-js-becomes-multi-threaded</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/erdem.pl/tag/javascript</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/learning-to-write</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/linotype</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/monotype</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/open-source</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/typography</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/tag/web-development</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/erdem.pl/tag/performance</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/erdem.pl/tag/web-workers</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/erdem.pl/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/erdem.pl/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/erdem.pl/contact/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
