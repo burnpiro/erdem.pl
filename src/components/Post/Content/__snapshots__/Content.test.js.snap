@@ -18,6 +18,28 @@ exports[`Content renders correctly 1`] = `
       Published 
       10 Jul 2019
     </span>
+    <span
+      className="meta__dot"
+    >
+       · 
+    </span>
+    <span
+      className="readTime"
+    >
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <img
+        className="readTime__icon"
+        src="file"
+      />
+      <span
+        className="readTime__text"
+      >
+        5 minutes
+      </span>
+    </span>
   </div>
   <div
     className="content__body"
