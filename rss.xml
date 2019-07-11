@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog by Kemal Erdem]]></title><description><![CDATA[Even complex things could be explain in a simple way.]]></description><link>https://erdem.pl</link><generator>RSS for Node</generator><lastBuildDate>Thu, 11 Jul 2019 13:56:13 GMT</lastBuildDate><item><title><![CDATA[No title]]></title><description><![CDATA[How we can perform costly operations on our server or user's browser? Multi threading in JavaScript comes to rescue!]]></description><link>undefined/2019/07/how-js-becomes-multi-threaded</link><guid isPermaLink="false">undefined/2019/07/how-js-becomes-multi-threaded</guid><pubDate>Thu, 11 Jul 2019 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Blog by Kemal Erdem]]></title><description><![CDATA[Even complex things could be explain in a simple way.]]></description><link>https://erdem.pl</link><generator>RSS for Node</generator><lastBuildDate>Thu, 11 Jul 2019 18:08:49 GMT</lastBuildDate><item><title><![CDATA[No title]]></title><description><![CDATA[How we can perform costly operations on our server or user's browser? Multi threading in JavaScript comes to rescue!]]></description><link>undefined/2019/07/how-js-becomes-multi-threaded</link><guid isPermaLink="false">undefined/2019/07/how-js-becomes-multi-threaded</guid><pubDate>Thu, 11 Jul 2019 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
 &lt;p&gt;This is advance staff, you don’t really need it to be great developer, so don’t be bothered if you don’t get everything at the beginning. Reading this makes you more aware than maybe 90% of all JS devs :) &lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Throughout the years, JavaScript was considered to be slow and mostly used as a “helper” for displaying web content. That has changed around 2010 when frameworks like AngularJS or BackboneJS started appearing. Developers and companies start to realise that you can perform complex operations on your user’s computer. But with more and more code on the frontend, some pages started to slow down.&lt;/p&gt;
@@ -26,7 +26,7 @@ myWorker&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span c
 &lt;p&gt;In this point you probably could notice what kind of issue we’re going to have. When sending large data structures or sending smaller ones by quite often, we might end up waiting for responses longer than our 16ms. Here is a simple benchmark done on my computer:&lt;/p&gt;
 &lt;p&gt;&lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/erdem.pl/static/3239c24f03e3412e13b3db816946191c/a3866/objects-ww.png&quot;
+    href=&quot;/static/3239c24f03e3412e13b3db816946191c/a3866/objects-ww.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -44,19 +44,19 @@ myWorker&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span c
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
         alt=&quot;Object&quot;
         title=&quot;&quot;
-        src=&quot;/erdem.pl/static/3239c24f03e3412e13b3db816946191c/f570d/objects-ww.png&quot;
-        srcset=&quot;/erdem.pl/static/3239c24f03e3412e13b3db816946191c/0783d/objects-ww.png 240w,
-/erdem.pl/static/3239c24f03e3412e13b3db816946191c/782f4/objects-ww.png 480w,
-/erdem.pl/static/3239c24f03e3412e13b3db816946191c/f570d/objects-ww.png 960w,
-/erdem.pl/static/3239c24f03e3412e13b3db816946191c/8d0ff/objects-ww.png 1440w,
-/erdem.pl/static/3239c24f03e3412e13b3db816946191c/a3866/objects-ww.png 1825w&quot;
+        src=&quot;/static/3239c24f03e3412e13b3db816946191c/f570d/objects-ww.png&quot;
+        srcset=&quot;/static/3239c24f03e3412e13b3db816946191c/0783d/objects-ww.png 240w,
+/static/3239c24f03e3412e13b3db816946191c/782f4/objects-ww.png 480w,
+/static/3239c24f03e3412e13b3db816946191c/f570d/objects-ww.png 960w,
+/static/3239c24f03e3412e13b3db816946191c/8d0ff/objects-ww.png 1440w,
+/static/3239c24f03e3412e13b3db816946191c/a3866/objects-ww.png 1825w&quot;
         sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
       /&gt;
   &lt;/span&gt;
   &lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a
     class=&quot;gatsby-resp-image-link&quot;
-    href=&quot;/erdem.pl/static/8f64b9b7076117722ade9c6ed942dee5/bd97e/strings-ww.png&quot;
+    href=&quot;/static/8f64b9b7076117722ade9c6ed942dee5/bd97e/strings-ww.png&quot;
     style=&quot;display: block&quot;
     target=&quot;_blank&quot;
     rel=&quot;noopener&quot;
@@ -74,12 +74,12 @@ myWorker&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span c
         style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;box-shadow:inset 0px 0px 0px 400px white;&quot;
         alt=&quot;Object&quot;
         title=&quot;&quot;
-        src=&quot;/erdem.pl/static/8f64b9b7076117722ade9c6ed942dee5/f570d/strings-ww.png&quot;
-        srcset=&quot;/erdem.pl/static/8f64b9b7076117722ade9c6ed942dee5/0783d/strings-ww.png 240w,
-/erdem.pl/static/8f64b9b7076117722ade9c6ed942dee5/782f4/strings-ww.png 480w,
-/erdem.pl/static/8f64b9b7076117722ade9c6ed942dee5/f570d/strings-ww.png 960w,
-/erdem.pl/static/8f64b9b7076117722ade9c6ed942dee5/8d0ff/strings-ww.png 1440w,
-/erdem.pl/static/8f64b9b7076117722ade9c6ed942dee5/bd97e/strings-ww.png 1830w&quot;
+        src=&quot;/static/8f64b9b7076117722ade9c6ed942dee5/f570d/strings-ww.png&quot;
+        srcset=&quot;/static/8f64b9b7076117722ade9c6ed942dee5/0783d/strings-ww.png 240w,
+/static/8f64b9b7076117722ade9c6ed942dee5/782f4/strings-ww.png 480w,
+/static/8f64b9b7076117722ade9c6ed942dee5/f570d/strings-ww.png 960w,
+/static/8f64b9b7076117722ade9c6ed942dee5/8d0ff/strings-ww.png 1440w,
+/static/8f64b9b7076117722ade9c6ed942dee5/bd97e/strings-ww.png 1830w&quot;
         sizes=&quot;(max-width: 960px) 100vw, 960px&quot;
       /&gt;
   &lt;/span&gt;
