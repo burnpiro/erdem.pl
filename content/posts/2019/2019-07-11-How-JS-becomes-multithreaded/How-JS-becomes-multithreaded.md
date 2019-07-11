@@ -10,17 +10,17 @@ tags:
 description: "How we can perform costly operations on our server or user's browser? Multi threading in JavaScript comes to rescue!"
 ---
 
-> This is advance staff, you don't really need it to be great developer. So don't be bothered if you don't get everything at the beginning. Reading this makes you aware than maybe 90% of all JS devs :) 
+> This is advance staff, you don't really need it to be great developer, so don't be bothered if you don't get everything at the beginning. Reading this makes you more aware than maybe 90% of all JS devs :) 
 
 Throughout the years, JavaScript was considered to be slow and mostly used as a "helper" for displaying web content. That has changed around 2010 when frameworks like AngularJS or BackboneJS started appearing. Developers and companies start to realise that you can perform complex operations on your user's computer. But with more and more code on the frontend, some pages started to slow down.
 
-Main reason was JS being single threaded. We had Even Loop, but that wasn't helping with long executing functions. You could still block user's thread with some calculations. Main goal is to achieve 60FPS (Frames Per Second). That means you have only 16ms to execute your code before next frame.
+Main reason was JS being single threaded. We had Even Loop, but that wasn't helping with long executing functions. You could still block user's thread with some calculations. The main goal is to achieve 60FPS (Frames Per Second). That means you have only 16ms to execute your code before next frame.
 
 Solution for this problem is to use [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API), where you can perform long running tasks without affecting main thread of execution. There is just one main problem with Workers, sending data...
 
 ### How do we exchange data with Worker?
 
-For those new to idea of workers, usually communication between main thread and worker looks like that:
+For those new to idea of workers usually, communication between main thread and worker looks like that:
 
 ```js
 // main.js
@@ -44,7 +44,7 @@ onmessage = function(e) {
 };
 ```
 
-As you can see there is a lot of data sent both ways. In this example we're sending simple object and it won't cause any performance issues. But if you try to pass object with thousands of keys it's going to slow down. Why? Because every time we send sth to Worker, [Structured Clone Algorithm](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data) has to be called to clone that object. For those who don't want to read whole spec :P, it's simply recursing through given object and creates clone of it.
+As you can see there is a lot of data sent both ways. In this example we're sending simple object, and it won't cause any performance issues. But if you try to pass object with thousands of keys, it's going to slow down. Why? Because every time we send sth to Worker, [Structured Clone Algorithm](http://w3c.github.io/html/infrastructure.html#safe-passing-of-structured-data) has to be called to clone that object. For those who don't want to read the whole spec :P, it's simply recursing through given object and creates a clone of it.
 
 In this point you probably could notice what kind of issue we're going to have. When sending large data structures or sending smaller ones by quite often, we might end up waiting for responses longer than our 16ms. Here is a simple benchmark done on my computer:
 
@@ -52,19 +52,19 @@ In this point you probably could notice what kind of issue we're going to have. 
 
 ![Object](./strings-ww.png)
 
-Thanks to [James Milner](https://github.com/JamesMilnerUK) for creating [Benchmark for Web Workers](https://github.com/JamesMilnerUK/webworker-perf), if you want you can try it on your browser and see the results.
+Thanks to [James Milner](https://github.com/JamesMilnerUK) for creating [Benchmark for Web Workers](https://github.com/JamesMilnerUK/webworker-perf), if you want, you can try it on your browser and see the results.
 
-Couple years (2016) ago there was an idea to always parse objects `JSON.stringify(objectToSend)`. Reason for that was because sending strings was a lot faster than sending objects. That's not the case anymore (as presented).
+Couple years (2016) ago there was an idea to always parse objects `JSON.stringify(objectToSend)`. Reason for that was sending strings was a lot faster than sending objects. That's not the case anymore (as presented).
 
-Those results are only for one message and remember that in most of scenarios you want to send multiple messages within one frame. Even if size of 100k keys object may look huge, if you take time to post 1k keys object (0.725ms \* 2 on my machine) and post it 10 times, you'll get 14.5ms.
+Those results are only for one message and remember that in most of the scenarios you want to send multiple messages within one frame. Even if size of 100k keys object may look huge, if you take time to post 1k keys object (0.725ms \* 2 on my machine) and post it 10 times, you'll get 14.5ms.
 
 ### How we could improve our processing then?
 
-People might say that JS is multi threaded (because it has Workers) but imho real multi threading requires something more than ability to execute part of code on different thread. That something is shared memory. If i have to copy and paste my whole data structure every time i want to make some changes, it defeats whole idea of running it on separate workers. But as usual there is a solution for that and it's called [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer).
+People might say that JS is multi threaded (because it has Workers) but imho real multi threading requires something more than ability to execute part of code on different thread. That something is shared memory. If I have to copy and paste my whole data structure every time, I want to make some changes. It defeats whole idea of running it on separate workers. But as usual there is a solution for that and it's called [SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer).
 
-As of today, this feature is supported on Chrome, Firefox and Node (=>8.10.x). Why only those browser you might ask? Reason for that is because in Jan 2018 there was an exploit called [Spectre](https://meltdownattack.com/) which basically forced all major browsers to remove feature from engines. Chrome reintroduced it in V67 but some of the browsers just postponed implementation (Edge, Safari).
+As of today, this feature is supported on Chrome, Firefox and Node (=>8.10.x). Why only those browsers you might ask? Reason for that is, in Jan 2018 there was an exploit called [Spectre](https://meltdownattack.com/) which basically forced all major browsers to remove feature from engines. Chrome reintroduced it in V67 but some of the browsers just postponed implementation (Edge, Safari).
 
-Ok but what `SharedArrayBuffer` exactly is? You can check [specification](http://www.ecma-international.org/ecma-262/#sec-sharedarraybuffer-objects) if you want, but getting explanation from there is time consuming. MDN explains it in more simple way:
+Ok but what `SharedArrayBuffer` exactly is? You can check [specification](http://www.ecma-international.org/ecma-262/#sec-sharedarraybuffer-objects) if you want, but getting the explanation from there is time consuming. MDN explains it in more simple way:
 
 > The SharedArrayBuffer object is used to represent a generic, fixed-length raw binary data buffer
 
@@ -98,7 +98,7 @@ When sharing memory between multiple threads we might end up with [Race Conditio
 
 > The Atomics object provides functions that operate indivisibly (atomically) on shared memory array cells as well as functions that let agents wait for and dispatch primitive events. When used with discipline, the Atomics functions allow multi-agent programs that communicate through shared memory to execute in a well-understood order even on parallel CPUs.
 
-That's a definition form current JS Spec (ECMA-262, 10th edition, June 2019). Another words Atomics allows you to operate on shared data in predictable way. Ok, let's write some code:
+That's a definition form current JS Spec (ECMA-262, 10th edition, June 2019). Another word Atomics allows you to operate on shared data in predictable way. Ok, let's write some code:
 
 ```js
 // main.js
@@ -228,4 +228,4 @@ Currently there is no support for strings but commonly used solution is just to 
 
 ### Conclusions
 
-Multi threading in JavaScript is real right now. You can offload your work into multiple threads and share memory between them. To be honest, i wasn't really sure if that's going to be possible couple years ago. Mostly because of JS specification. I think idea of `SharedArrayBuffers` and multithreading is beneficial especially if it comes to NodeJS services. I know that support for [Worker Threads](https://nodejs.org/api/worker_threads.html) is still in experimental phase (Node 12.6.0) but with little effort we can create high efficient services. I think in nearest future we'll see more and more multithreaded solutions across the web.
+Multi threading in JavaScript is real right now. You can offload your work into multiple threads and share memory between them. To be honest, I wasn't really sure if that's going to be possible couple years ago. Mostly because of JS specification. I think idea of `SharedArrayBuffers` and multithreading is beneficial especially if it comes to NodeJS services. I know that support for [Worker Threads](https://nodejs.org/api/worker_threads.html) is still in the experimental phase (Node 12.6.0) but with little effort we can create high efficient services. I think in the nearest future we'll see more and more multithreaded solutions across the web.
