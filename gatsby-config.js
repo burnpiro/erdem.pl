@@ -55,19 +55,20 @@ module.exports = {
             serialize: ({ query: { site, allMarkdownRemark } }) =>
               allMarkdownRemark.edges.map(edge => {
                 const postText = `
-                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at overreacted.io. You can read it online by <a href="${site
-                  .siteMetadata.siteUrl +
+                <div style="margin-top=55px; font-style: italic;">(This is an article posted to my blog at erdem.pl. You can read it online by <a href="${site
+                  .siteMetadata.site_url +
                   edge.node.fields.slug}">clicking here</a>.)</div>
               `;
                 return Object.assign(
                   {},
                   {
+                    title: edge.node.frontmatter.title,
                     description: edge.node.frontmatter.description,
                     date: edge.node.frontmatter.date,
-                    url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                    guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                    url: site.siteMetadata.site_url + edge.node.fields.slug,
+                    guid: site.siteMetadata.site_url + edge.node.fields.slug,
                     custom_elements: [
-                      { 'content:encoded': edge.node.html + postText },
+                      { 'content:encoded': edge.node.excerpt + postText },
                     ],
                   }
                 );
