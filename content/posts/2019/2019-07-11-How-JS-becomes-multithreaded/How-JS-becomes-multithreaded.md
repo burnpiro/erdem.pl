@@ -220,7 +220,7 @@ After 1000ms `wait` returns `timed-out` when nothing else causes it to stop.
 
 I think there is one more thing to add about `notify`. 3rd parameter in function call is responsible for number of waiting agents to notify. If you want to notify them all then just set value to `+Infinity` or leave it empty (defaults to `+Infinity`).
 
-There is one more function in Atomics called [Atomics.isLockFree(size)](http://www.ecma-international.org/ecma-262/#sec-atomics.islockfree) but we're not going ot cover it here.
+There is one more function in Atomics called [Atomics.isLockFree(size)](http://www.ecma-international.org/ecma-262/#sec-atomics.islockfree) but we're not going to cover it here.
 
 ### What about strings?
 
