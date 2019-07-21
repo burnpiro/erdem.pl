@@ -69,12 +69,19 @@ const ContactForm = ({ url }: Props) => {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
         })
-          .then(() => {
+          .then(data => {
             actions.setSubmitting(false);
-            actions.setStatus({
-              msg: `Your message was sent. I'll try to get back to you ASAP, have a nice day :)`,
-              code: 200,
-            });
+            if (data.ok) {
+              actions.setStatus({
+                msg: `Your message was sent. I'll try to get back to you ASAP, have a nice day :)`,
+                code: 200,
+              });
+            } else {
+              actions.setStatus({
+                msg: `There was a problem with connecting with Google services. Because of that your message couldn't be processed. It would be great if You could send the same message to contact@quarkowl.com . Sorry for inconvenience :(`,
+                code: 400,
+              });
+            }
           })
           .catch(() => {
             actions.setSubmitting(false);
