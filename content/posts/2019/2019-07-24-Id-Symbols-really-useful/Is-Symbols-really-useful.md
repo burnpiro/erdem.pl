@@ -44,7 +44,7 @@ assert(Symbol.for('id') === Symbol.for('id')); // true
 
 OK, what happened here? We've just used `global Symbol registry` to store our Symbol. As the name says it's a `global` registry and global in this case is also cross-realm (in JS that mean Symbol created inside iframe and is the same as in your current execution context).
 
-Aside note: You can check if Symbol is unique or not. For that you can use `Symbol.keyFor(yourSymbol)`. If `yourSymbol` is global then it returns Symbol's description (`id`) as a string, else it returns undefined.
+Aside note: You can check if Symbol is unique or not. For that you can use `Symbol.keyFor(yourSymbol)`. If `yourSymbol` is global then it returns Symbol's description (`id`) as a string, else it returns `undefined`.
 
 ```javascript
 assert(Symbol.keyFor(Symbol.for('id')) === 'id');
@@ -53,16 +53,16 @@ assert(Symbol.keyFor(Symbol('id')) === undefined);
 
 #### Properties you need to know
 
-- Symbol will never conflict with Object key. You can use Symbol and object key `store[Symbol.for('id')] = 42`.
-- Keys created using Symbol is not iterable. So when you call `Object.values(store)` you won't get `42` unless it's there under another key (not Symbol key). That's really useful property because it won't change library behaviour when you add another one.
+- Symbol will never conflict with Object key. You can use Symbol as object key `store[Symbol.for('id')] = 42`.
+- Keys created using Symbol is not iterable. So when you call `Object.values(store)` you won't get `42` unless there is another key (not Symbol key) with that value. That's really useful property because it won't change library behaviour when you add another property.
 - To extract Symbols from object you can use `Object.getOwnPropertySymbols()`.
 - Symbols are copied to other objects. Every enumerable Symbol is copied from obj `a` into obj `b` when `Object.assign(a, b)` is called.
 
 ### Symbol's usefulness
 
-Now when you know what a Symbol is we can discuss why should you consider Symbols useful? Let's suppose you're creating library and want to give your user possibility to extend your library.
+Now when you know what a Symbol is, we can discuss why should you consider Symbols useful? Let's suppose you're creating library and want to give your user possibility to extend your library.
 
-Your library is called `stateOfTheArtValidation` (`stav` in short). And it exports list of available extensions you can assign to your object.
+Your library is called `stateOfTheArtValidation` (`stav` to make it short). And it exports list of available extensions you can assign to your object.
 
 ```javascript
 export const extensibleSymbols = {
@@ -80,7 +80,7 @@ const myObj = {
 };
 ```
 
-Let me first show you what your library does with that before we discuss it.
+Let me first show you what your library does with that, before we discuss it.
 
 ```javascript
 // somewhere in our library
@@ -103,7 +103,7 @@ validate: (...objectsToValidate) => {
 };
 ```
 
-`validate` is method from your library. But there are some cases when you want to give user option to apply their validation instead of your `standardValidation` method. Instead of defining list of string properties user can use to attach their validation method you've defined Symbol for it. That way there is 0% chance to have a conflict with any of existing keys on that object, so user cannot accidentally overwrite property you want to use.
+`validate` is method from your library. But there are some cases when you want to give user option to apply their validation instead of your `standardValidation` method. Instead of defining list of string properties which user can use to attach their validation method, you've defined Symbol for it. That way there is 0% chance to have a conflict with any of existing keys on that object, so user cannot accidentally overwrite property you want to use.
 
 Ofc that example is not really useful IRL but you get an idea.
 
@@ -111,7 +111,7 @@ Ofc that example is not really useful IRL but you get an idea.
 
 > Well-known symbols are built-in Symbol values that are explicitly referenced by algorithms of this specification.
 
-Someone already thought about that by creating built-in Symbols in JS. Those Symbols are useful to overwrite/add functionalities of objects. For instance you can use `Symbol.iterator` to define iterator and enable your object to be iterable.
+Someone already thought about that by creating built-in Symbols in JS. Those Symbols are useful to overwrite/add functionalities of/to objects. For instance you can use `Symbol.iterator` to define iterator and enable your object to be iterable in the way you want.
 
 ```javascript
 const myObj = {
@@ -137,4 +137,4 @@ See ya!
 
 ### Conclusion
 
-Now you understand how powerful and useful Symbols might be. Probably you're going to use built-in Symbols more often then defining your own. But library creators (like you :P ) now have another way for users to extend library functionality.
+Now you understand how powerful and useful Symbols might be. Probably you're going to use built-in Symbols more often then defining your own. But library creators (like you :P ) have another way for users to extend library functionality.
