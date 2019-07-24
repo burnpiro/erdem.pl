@@ -1,10 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Layout renders correctly 1`] = `
-<div
-  className="layout"
->
-  test
+Array [
+  <div
+    className="layout"
+  >
+    test
+  </div>,
   <div
     className="cookieConsent "
     style={
@@ -54,6 +56,6 @@ exports[`Layout renders correctly 1`] = `
     >
       I understand
     </button>
-  </div>
-</div>
+  </div>,
+]
 `;

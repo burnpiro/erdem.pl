@@ -12,20 +12,22 @@ type Props = {
 };
 
 const Layout = ({ children, title, description }: Props) => (
-  <div className={styles.layout}>
-    <Helmet>
-      <html lang="en" />
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta property="og:site_name" content={title} />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={title} />
-    </Helmet>
-    {children}
+  <React.Fragment>
+    <div className={styles.layout}>
+      <Helmet>
+        <html lang="en" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:site_name" content={title} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+      </Helmet>
+      {children}
+    </div>
     <CookieConsent location="bottom">
       This website uses cookies to enhance the user experience
     </CookieConsent>
-  </div>
+  </React.Fragment>
 );
 
 export default Layout;

@@ -1,29 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PostTemplate renders correctly 1`] = `
-<div
-  className="layout"
->
+Array [
   <div
-    className="post"
+    className="layout"
   >
-    <a
-      className="post__home-button"
-      href="/"
-    >
-      All Articles
-    </a>
     <div
-      className="post__content"
+      className="post"
     >
-      <div
-        className="content"
+      <a
+        className="post__home-button"
+        href="/"
       >
-        <h1
-          className="content__title"
+        All Articles
+      </a>
+      <div
+        className="post__content"
+      >
+        <div
+          className="content"
         >
-          test
-        </h1>
+          <h1
+            className="content__title"
+          >
+            test
+          </h1>
+          <div
+            className="meta"
+          >
+            <span
+              className="meta__date"
+            >
+              Published 
+              1 Sep 2016
+            </span>
+          </div>
+          <div
+            className="content__body"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<p>test</p>",
+              }
+            }
+          />
+        </div>
+      </div>
+      <div
+        className="post__footer"
+      >
         <div
           className="meta"
         >
@@ -35,81 +59,59 @@ exports[`PostTemplate renders correctly 1`] = `
           </span>
         </div>
         <div
-          className="content__body"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<p>test</p>",
-            }
-          }
-        />
-      </div>
-    </div>
-    <div
-      className="post__footer"
-    >
-      <div
-        className="meta"
-      >
-        <span
-          className="meta__date"
+          className="tags"
         >
-          Published 
-          1 Sep 2016
-        </span>
-      </div>
-      <div
-        className="tags"
-      >
-        <ul
-          className="tags__list"
-        >
-          <li
-            className="tags__list-item"
+          <ul
+            className="tags__list"
           >
-            <a
-              className="tags__list-item-link"
-              href="/test_0"
+            <li
+              className="tags__list-item"
             >
-              test_0
-            </a>
-          </li>
-          <li
-            className="tags__list-item"
-          >
-            <a
-              className="tags__list-item-link"
-              href="/test_1"
+              <a
+                className="tags__list-item-link"
+                href="/test_0"
+              >
+                test_0
+              </a>
+            </li>
+            <li
+              className="tags__list-item"
             >
-              test_1
+              <a
+                className="tags__list-item-link"
+                href="/test_1"
+              >
+                test_1
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          className="author"
+        >
+          <p
+            className="author__bio"
+          >
+            Test bio
+            <a
+              className="author__bio-twitter"
+              href="https://www.twitter.com/#"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <strong>
+                Test name
+              </strong>
+               on Twitter
             </a>
-          </li>
-        </ul>
+          </p>
+        </div>
       </div>
       <div
-        className="author"
-      >
-        <p
-          className="author__bio"
-        >
-          Test bio
-          <a
-            className="author__bio-twitter"
-            href="https://www.twitter.com/#"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <strong>
-              Test name
-            </strong>
-             on Twitter
-          </a>
-        </p>
-      </div>
+        className="post__comments"
+      />
     </div>
-    <div
-      className="post__comments"
-    />
-  </div>
+  </div>,
   <div
     className="cookieConsent "
     style={
@@ -159,6 +161,6 @@ exports[`PostTemplate renders correctly 1`] = `
     >
       I understand
     </button>
-  </div>
-</div>
+  </div>,
+]
 `;
