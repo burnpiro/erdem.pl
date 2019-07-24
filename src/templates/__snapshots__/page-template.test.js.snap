@@ -225,5 +225,55 @@ exports[`PageTemplate renders correctly 1`] = `
       </div>
     </div>
   </div>
+  <div
+    className="cookieConsent "
+    style={
+      Object {
+        "alignItems": "baseline",
+        "background": "#353535",
+        "bottom": "0",
+        "color": "white",
+        "display": "flex",
+        "flexWrap": "wrap",
+        "justifyContent": "space-between",
+        "left": "0",
+        "position": "fixed",
+        "width": "100%",
+        "zIndex": "999",
+      }
+    }
+  >
+    <div
+      className=""
+      style={
+        Object {
+          "flex": "1 0 300px",
+          "margin": "15px",
+        }
+      }
+    >
+      This website uses cookies to enhance the user experience
+    </div>
+    <button
+      className=""
+      id=""
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#ffd42d",
+          "border": "0",
+          "borderRadius": "0px",
+          "boxShadow": "none",
+          "color": "black",
+          "cursor": "pointer",
+          "flex": "0 0 auto",
+          "margin": "15px",
+          "padding": "5px 10px",
+        }
+      }
+    >
+      I understand
+    </button>
+  </div>
 </div>
 `;

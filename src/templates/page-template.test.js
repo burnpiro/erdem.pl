@@ -6,6 +6,7 @@ import PageTemplate from './page-template';
 import siteMetadata from '../../jest/__fixtures__/site-metadata';
 import markdownRemark from '../../jest/__fixtures__/markdown-remark';
 import type { RenderCallback } from '../types';
+import IndexTemplate from './index-template';
 
 describe('PageTemplate', () => {
   const props = {
@@ -22,7 +23,13 @@ describe('PageTemplate', () => {
   });
 
   it('renders correctly', () => {
-    const tree = renderer.create(<PageTemplate {...props} />).toJSON();
+    const tree = renderer
+      .create(<PageTemplate {...props} />, {
+        createNodeMock: () => ({
+          scrollIntoView: () => {},
+        }),
+      })
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

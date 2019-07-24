@@ -6,6 +6,7 @@ import TagsListTemplate from './tags-list-template';
 import siteMetadata from '../../jest/__fixtures__/site-metadata';
 import allMarkdownRemark from '../../jest/__fixtures__/all-markdown-remark';
 import type { RenderCallback } from '../types';
+import IndexTemplate from './index-template';
 
 describe('TagsListTemplate', () => {
   const props = {
@@ -21,7 +22,13 @@ describe('TagsListTemplate', () => {
   });
 
   it('renders correctly', () => {
-    const tree = renderer.create(<TagsListTemplate />).toJSON();
+    const tree = renderer
+      .create(<TagsListTemplate />, {
+        createNodeMock: () => ({
+          scrollIntoView: () => {},
+        }),
+      })
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

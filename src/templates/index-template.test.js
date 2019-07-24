@@ -24,7 +24,13 @@ describe('IndexTemplate', () => {
   });
 
   it('renders correctly', () => {
-    const tree = renderer.create(<IndexTemplate {...props} />).toJSON();
+    const tree = renderer
+      .create(<IndexTemplate {...props} />, {
+        createNodeMock: () => ({
+          scrollIntoView: () => {},
+        }),
+      })
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
