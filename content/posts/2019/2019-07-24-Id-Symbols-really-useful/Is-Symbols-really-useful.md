@@ -7,7 +7,7 @@ tags:
   - 'Libraries'
   - 'Javascript'
   - 'Internals'
-description: 'Symbols, underestimated feature introduced in ES2015. Does it has any other purpose than interview questions?'
+description: 'Symbols, underestimated feature introduced in ES2015. Does it have any other purpose than interview questions?'
 ---
 
 ### Quick recap, what are those "Symbols" anyway? (you can skip that part)
