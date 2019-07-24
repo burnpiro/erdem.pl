@@ -14,7 +14,7 @@ description: 'Symbols, underestimated feature introduced in ES2015. Does it have
 
 > primitive value that represents a unique, non-String Object property key
 
-That's Symbol definition from current [spec](http://www.ecma-international.org/ecma-262/#sec-symbol-value). But what does it mean? You probably know other primitive types in JS (`Undefined`, `Null`, `Boolean`, `Number`, `BigInt` or `String`). Symbol is another one. I know that is not much and is sound like defining recursion:
+That's Symbol definition from current [spec](http://www.ecma-international.org/ecma-262/#sec-symbol-value). But what does it mean? You probably know other primitive types in JS (`Undefined`, `Null`, `Boolean`, `Number`, `BigInt` or `String`). Symbol is another one. I know that is not much and is sounds like defining recursion:
 
 > To understand recursion, you must first understand recursion
 
