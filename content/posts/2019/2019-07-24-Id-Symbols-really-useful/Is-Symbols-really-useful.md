@@ -18,7 +18,7 @@ That's Symbol definition from current [spec](http://www.ecma-international.org/e
 
 > To understand recursion, you must first understand recursion
 
-In programming languages all primitive types are just bunch of bytes stored in memory. It doesn't matter if it's a string or number, from data perspective it's still just bytes. In case of symbols they are `tokens` that server as unique IDs.
+In programming languages all primitive types are just bunch of bytes stored in memory. It doesn't matter if it's a string or number, from data perspective it's still just bytes. In case of symbols they are `tokens` that serves as unique IDs.
 
 #### How to use Symbol
 
