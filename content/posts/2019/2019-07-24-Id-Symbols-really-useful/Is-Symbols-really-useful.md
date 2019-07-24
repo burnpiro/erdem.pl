@@ -10,7 +10,7 @@ tags:
 description: 'Symbols, underestimated feature introduced in ES2015. Does it have any other purpose than interview questions?'
 ---
 
-### Quick recap, what are those "Symbols" anyway? (you can skip that part)
+### Quick recap, what are those "Symbols" anyway?
 
 > primitive value that represents a unique, non-String Object property key
 
@@ -58,7 +58,7 @@ assert(Symbol.keyFor(Symbol('id')) === undefined);
 - To extract Symbols from object you can use `Object.getOwnPropertySymbols()`.
 - Symbols are copied to other objects. Every enumerable Symbol is copied from obj `a` into obj `b` when `Object.assign(a, b)` is called.
 
-### Symbol's usefulness
+## Symbol's usefulness
 
 Now when you know what a Symbol is, we can discuss why should you consider Symbols useful? Let's suppose you're creating library and want to give your user possibility to extend your library.
 
