@@ -3,6 +3,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import type { Node as ReactNode } from 'react';
 import styles from './Layout.module.scss';
+import CookieConsent from 'react-cookie-consent';
 
 type Props = {
   children: ReactNode,
@@ -21,6 +22,9 @@ const Layout = ({ children, title, description }: Props) => (
       <meta name="twitter:title" content={title} />
     </Helmet>
     {children}
+    <CookieConsent location="bottom">
+      This website uses cookies to enhance the user experience
+    </CookieConsent>
   </div>
 );
 
