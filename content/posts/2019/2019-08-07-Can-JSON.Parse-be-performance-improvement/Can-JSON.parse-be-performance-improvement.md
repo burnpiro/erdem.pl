@@ -15,7 +15,7 @@ description: 'JSON.parse is a slow way to create copy of object. But can it actu
 
 ## Problem
 
-Creating copy of the object is common practice in JS. You've probably done that creating **reducers** in **Redux** or anywhere else. Currently most used syntax to do this is spread
+Creating copy of an object is common practice in JS. You've probably done that while creating **reducers** in **Redux** or anywhere else. Currently most used syntax to do this is spread
 
 ```javascript
 const objA = { name: 'Jack', surname: 'Sparrow' };
@@ -58,7 +58,7 @@ test with Object.assign: 36 ms.
 test with JSON.parse: 702 ms.
 ```
 
-Clearly `JSON.parse` is the slowest of them, and by some margin. Why should you even consider using it instead of spread then?
+Clearly `JSON.parse` is the slowest of them, and by some margin. Why should you even consider using it instead of spread?
 
 ## Not so obvious behavior of V8 engine
 
@@ -87,11 +87,11 @@ test(frodo);
 test(charles);
 ```
 
-Reason for that is because V8 is going to mark that function as **Monomorphic** and optimize it's code. As you know only time happen is when function is called with one and one one shape.
+Reason for that is because V8 is going to mark that function as **Monomorphic** and optimize it's code. As you know only time it happens is when function is called with one and only one shape.
 
 Let's check what kind of shapes are produced when using each of 3 copy methods:
 
-> Run code below using `d8 --allow-natives-syntax index.js` to get access to V8 internal methods like `%HaveSameMap()
+> Run code below using `d8 --allow-natives-syntax index.js` to get access to V8 internal methods like `%HaveSameMap()`
 
 ```javascript
 const objA = { name: 'Jack', surname: 'Sparrow' };
@@ -156,9 +156,9 @@ for (let i = 0; i < N; ++i) {
 }
 ```
 
-This is quite common scenario because we don't want to affect existing objects so we decided to create copy of it.
+This is quite common scenario. We don't want to affect existing objects, so we decided to create copy of it.
 
-If you set `N` to **10000** and run this loop you might be surprised by results:
+If you set `N` to **10000** and run this loop you might be surprised by the result:
 
 ```
 test with PARSE: 2522 ms.
@@ -179,6 +179,6 @@ In second test run that function becomes **Megamorphic** and V8 stops optimizing
 
 It's important to understand how JS optimisation works when designing complex computation methods in JavaScript. Sometimes even a simple thing can cause performance to drop and you can spend days trying to figure out what's happening.
 
-I'm not saying to replace all spread operators with `JSON.parse`, that would even decrease performance of your app. My point it that sometimes reducing performance of one thing can drastically improve performance of another. 
+I'm not saying to replace all spread operators with `JSON.parse`, that would definitely decrease performance of your app. My point it that sometimes reducing performance of one thing can drastically improve performance of another. 
 
-Case I've just describes is really special one and might affect you only when function does sth expensive but knowing that can help you approach problem differently.
+Case I've just describes is really special one, and might affect you only when function does sth expensive, but knowing that can help you approach problem differently.
