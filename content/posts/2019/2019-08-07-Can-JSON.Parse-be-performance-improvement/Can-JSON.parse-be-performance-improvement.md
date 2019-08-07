@@ -123,7 +123,7 @@ Here is our function
 function test(obj) {
   let result = '';
   // Any costly operation
-  for (let i = 0; i < N; i++) {
+  for (let i = 0; i < N; i += 1) {
     result += obj.name + obj.surname;
   }
   return result;
@@ -139,7 +139,7 @@ const charles = { name: 'Charles', surname: 'Xavier' };
 const legolas = { name: 'Legolas', surname: 'Thranduilion' };
 const indiana = { name: 'Indiana', surname: 'Jones' };
 
-for (let i = 0; i < N; ++i) {
+for (let i = 0; i < N; i += 1) {
   test(JSON.parse(JSON.stringify(jack)));
   test(JSON.parse(JSON.stringify(frodo)));
   test(JSON.parse(JSON.stringify(charles)));
@@ -147,7 +147,7 @@ for (let i = 0; i < N; ++i) {
   test(JSON.parse(JSON.stringify(indiana)));
 }
 
-for (let i = 0; i < N; ++i) {
+for (let i = 0; i < N; i += 1) {
   test({ ...jack });
   test({ ...frodo });
   test({ ...charles });
