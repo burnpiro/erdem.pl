@@ -21,7 +21,7 @@ module.exports = {
   ],
   author: {
     name: 'Kemal Erdem',
-    photo: '/main-photo.jpg',
+    photo: '/main.jpg',
     bio:
       'Javascript Architect, Freelance Consultant, IoT enthusiast, MTB lover',
     contacts: {
