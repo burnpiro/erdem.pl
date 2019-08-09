@@ -108,7 +108,7 @@ const createFiberFromElement = function(element, ...rest) {
       ? ReactWorkTags.HostComponent
       : ReactWorkTags.ClassComponent;
   const fiber = new FiberNode(fiberTag, ...rest);
-  fiber.elementType = element.type;
+  fiber.type = element.type;
 
   return fiber;
 };
@@ -148,7 +148,7 @@ console.log(%HaveSameMap(comp1, comp2)); // false
 
 As you might know every time there is a change in React, it has to go through reconciliation process. Reconciliation is using fibers to figure out next tree. How it works?
 
-Inside `ReactFiberWorkLoop` React calls `renderRoot` and then everything goes into `workLoop` (or `workLoopSync`). After than `performUnitOfWork` is called with "top" Fiber. `performUnitOfWork` is doing one of three things:
+Inside `ReactFiberWorkLoop` everything goes into `workLoopSync` (or `workLoop`). After than `performUnitOfWork` is called with "top" Fiber. `performUnitOfWork` is doing one of three things:
 
 - nothing
 - calls `beginWork` with current `unitOfWork` (Fiber)
@@ -156,7 +156,19 @@ Inside `ReactFiberWorkLoop` React calls `renderRoot` and then everything goes in
 
 at the end it returns null or result of one of those two functions (surprise... it's Fiber).
 
-From this point reconsiler is just looping over all Fibers using `performUnitOfWork` and waits until `workInProgress` is empty.
+From this point reconciler is just looping over all Fibers using `performUnitOfWork` and waits until `workInProgress` is empty.
+
+What is important is that React not using recursion to go through the tree. They are using simple while loops to avoid having large stacks.
+
+```
+while(sthToDo !== null) {
+    sthToDo = doSomeWork(sthToDo)
+}
+```
+
+![Object](./react-tree.png)
+
+> React has extra optimization for simple "Text" nodes to avoid creating extra elements, but we're ignoring it for now
 
 That's where we could spot optimization in React structure.
 
@@ -169,10 +181,11 @@ function doSomeWork(unitOfWork) {
 	for(let i=0; i<1000; i += 1) {
 		result += unitOfWork.name;
 	}
-	return unitOfWork;
+	return unitOfWork.nextFiber;
 }
 ```
 
+I know we're not referring to returned unitOfWork but that's just to run `doSomeWork` many times.
 ```javascript
 const N = 100000;
 
