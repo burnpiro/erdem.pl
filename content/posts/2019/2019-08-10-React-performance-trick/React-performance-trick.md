@@ -168,7 +168,7 @@ while(sthToDo !== null) {
 
 ![Object](./react-tree.png)
 
-> React has extra optimization for simple "Text" nodes to avoid creating extra elements, but we're ignoring it for now
+> React has extra optimization for simple "Text" nodes to avoid creating extra elements
 
 That's where we could spot optimization in React structure.
 
