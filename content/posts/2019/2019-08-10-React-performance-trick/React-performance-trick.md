@@ -148,7 +148,7 @@ console.log(%HaveSameMap(comp1, comp2)); // false
 
 As you might know every time there is a change in React, it has to go through reconciliation process. Reconciliation is using fibers to figure out next tree. How it works?
 
-Inside `ReactFiberWorkLoop` everything goes into `workLoopSync` (or `workLoop`). After than `performUnitOfWork` is called with "top" Fiber. `performUnitOfWork` is doing one of three things:
+Inside `ReactFiberWorkLoop` everything goes into `workLoopSync` (or `workLoop`). After that `performUnitOfWork` is called with "top" Fiber. `performUnitOfWork` is doing one of three things:
 
 - nothing
 - calls `beginWork` with current `unitOfWork` (Fiber)
@@ -239,7 +239,7 @@ but it can for fibers
 
 ![Object](./optimized-function.png)
 
-If you take a look on screenshoots above, you can notice that first time V8 goes through `premonomorphic (.) -> monomorphic (1) -> polymorphic (P)-> megamorphic (N)` states but second one stays in `premonomorphic (.) -> monomorphic (1)` state. In my [previous post](/2019/08/v-8-function-optimization#back-to-our-function) i've described how optimisation works in V8. In this case we have to deal with **Megamorphic** function and that means it won't be optimised by the engine. On the other hand we have **Monomorphic** function which is optimised for given Shape (Fiber's Shape). So even with extra layer (more complicated object), function might execute faster.
+If you take a look on screenshoots above, you can notice that first time V8 goes through `premonomorphic (.) -> monomorphic (1) -> polymorphic (P)-> megamorphic (N)` states but second one stays in `premonomorphic (.) -> monomorphic (1)` state. In my [previous post](/2019/08/v-8-function-optimization#back-to-our-function) I've described how optimisation works in V8. In this case we have to deal with **Megamorphic** function and that means it won't be optimised by the engine. On the other hand we have **Monomorphic** function which is optimised for given Shape (Fiber's Shape). So even with extra layer (more complicated object), function might execute faster.
 
 ## Conclusions
 
