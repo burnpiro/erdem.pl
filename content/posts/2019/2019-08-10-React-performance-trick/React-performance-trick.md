@@ -219,7 +219,7 @@ test with components: 4186 ms.
 test with fibers: 2431 ms.
 ```
 
-Why results are different? Mainly because of `FiberNode` wrapper. Every time function is called V8 creates sth called `Inline Cache` (IC). ICs are used to optimise function execution when object with the same `Shape` is passed into it. As you might remember our fibers have the same map:
+Why results are different? Mainly because of `FiberNode` wrapper. Every time function is called V8 creates sth called `Inline Cache` (IC). ICs are used to optimize function execution when object with the same `Shape` is passed into it. As you might remember our fibers have the same map:
 
 ```
 console.log(%HaveSameMap(fiber1, fiber2)); // true
@@ -231,7 +231,7 @@ and our components haven't
 console.log(%HaveSameMap(comp1, comp2)); // false
 ```
 
-Because of that simple thing, V8 cannot optimise `doSomeWork` for components
+Because of that simple thing, V8 cannot optimize `doSomeWork` for components
 
 ![Object](./deoptimized-function.png)
 
@@ -239,13 +239,13 @@ but it can for fibers
 
 ![Object](./optimized-function.png)
 
-If you take a look on screenshoots above, you can notice that first time V8 goes through `premonomorphic (.) -> monomorphic (1) -> polymorphic (P)-> megamorphic (N)` states but second one stays in `premonomorphic (.) -> monomorphic (1)` state. In my [previous post](/2019/08/v-8-function-optimization#back-to-our-function) I've described how optimisation works in V8. In this case we have to deal with **Megamorphic** function and that means it won't be optimised by the engine. On the other hand we have **Monomorphic** function which is optimised for given Shape (Fiber's Shape). So even with extra layer (more complicated object), function might execute faster.
+If you take a look on screenshoots above, you can notice that first time V8 goes through `premonomorphic (.) -> monomorphic (1) -> polymorphic (P)-> megamorphic (N)` states but second one stays in `premonomorphic (.) -> monomorphic (1)` state. In my [previous post](/2019/08/v-8-function-optimization#back-to-our-function) I've described how optimization works in V8. In this case we have to deal with **Megamorphic** function and that means it won't be optimized by the engine. On the other hand we have **Monomorphic** function which is optimized for given Shape (Fiber's Shape). So even with extra layer (more complicated object), function might execute faster.
 
 ## Conclusions
 
-This is just one of many optimisations done inside React codebase. Reason for describing this one is because it's useful outside React. Angular is using the same approach with sth called `View Nodes`. You might even want to implement this kind of structure inside our own application.
+This is just one of many optimizations done inside React codebase. Reason for describing this one is because it's useful outside React. Angular is using the same approach with sth called `View Nodes`. You might even want to implement this kind of structure inside our own application.
 
-I have to apologise for oversimplifying React structure. I really encourage you to check it out and see how workLoop actually works under the hood. My point was to show that even if you have to process a lot of different components there is a way to speed up function execution by creating "special" containers instead of passing components directly.
+I have to apologize for oversimplifying React structure. I really encourage you to check it out and see how workLoop actually works under the hood. My point was to show that even if you have to process a lot of different components there is a way to speed up function execution by creating "special" containers instead of passing components directly.
 
 If you want to run that code on your machine <a href="https://gist.github.com/burnpiro/fec834b8473ffecd439ae5c98855bc61" target="_blank">check out this gist</a>. Feel free to modify components or `FiberNode` implementation and see what happens.
 
