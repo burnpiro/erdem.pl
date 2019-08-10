@@ -50,7 +50,7 @@ and creates ReactElement which is just another kind of container.
 
 ## Simplify React internals
 
-I'm going to simplify React's internal structure a little bit, to make is easier to understand what it does. In addition to that i'm going to use class instead of function for `FiberNode`:
+I'm going to simplify React's internal structure a little bit, to make is easier to understand what it does. In addition to that I'm going to use class instead of function for `FiberNode`:
 
 ```javascript
 class Component {
