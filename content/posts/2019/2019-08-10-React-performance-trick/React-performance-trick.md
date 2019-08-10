@@ -158,7 +158,7 @@ at the end it returns null or result of one of those two functions (surprise... 
 
 From this point reconciler is just looping over all Fibers using `performUnitOfWork` and waits until `workInProgress` is empty.
 
-What is important is that React not using recursion to go through the tree. They are using simple while loops to avoid having large stacks.
+What is important is that React not using recursion to go through the tree. They are using simple while loops to avoid having large stacks (maybe if we could get [PTC](https://github.com/tc39/proposal-ptc-syntax) into JS that would be different).
 
 ```
 while(sthToDo !== null) {
