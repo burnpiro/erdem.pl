@@ -18,7 +18,7 @@ That's Symbol definition from current [spec](http://www.ecma-international.org/e
 
 > To understand recursion, you must first understand recursion
 
-In programming languages all primitive types are just bunch of bytes stored in memory. It doesn't matter if it's a string or number, from data perspective it's still just bytes. In case of symbols they are `tokens` that serves as unique IDs.
+In programming languages all primitive types are just a bunch of bytes stored in memory. It doesn't matter if it's a string or number, from a data perspective it's still just bytes. In case of symbols they are `tokens` that serves as unique IDs.
 
 #### How to use Symbol
 
@@ -34,7 +34,7 @@ We've just created `id` which is a Symbol. But important thing is that `id !== S
 
 #### Unless they aren't...
 
-There is another way to create Symbol and it's called
+There is another way to create Symbol, and it's called
 
 ```javascript
 Symbol.for('id');
@@ -44,7 +44,7 @@ assert(Symbol.for('id') === Symbol.for('id')); // true
 
 OK, what happened here? We've just used `global Symbol registry` to store our Symbol. As the name says it's a `global` registry and global in this case is also cross-realm (in JS that mean Symbol created inside iframe and is the same as in your current execution context).
 
-Aside note: You can check if Symbol is unique or not. For that you can use `Symbol.keyFor(yourSymbol)`. If `yourSymbol` is global then it returns Symbol's description (`id`) as a string, else it returns `undefined`.
+Aside note: You can check if Symbol is unique or not. For that you can use `Symbol.keyFor(yourSymbol)`. If `yourSymbol` is global, then it returns Symbol's description (`id`) as a string, else it returns `undefined`.
 
 ```javascript
 assert(Symbol.keyFor(Symbol.for('id')) === 'id');
@@ -55,7 +55,7 @@ assert(Symbol.keyFor(Symbol('id')) === undefined);
 
 - Symbol will never conflict with Object key. You can use Symbol as object key `store[Symbol.for('id')] = 42`.
 - Keys created using Symbol is not iterable. So when you call `Object.values(store)` you won't get `42` unless there is another key (not Symbol key) with that value. That's really useful property because it won't change library behaviour when you add another property.
-- To extract Symbols from object you can use `Object.getOwnPropertySymbols()`.
+- To extract Symbols from object, you can use `Object.getOwnPropertySymbols()`.
 - Symbols are copied to other objects. Every enumerable Symbol is copied from obj `a` into obj `b` when `Object.assign(a, b)` is called.
 
 ## Symbol's usefulness
@@ -103,7 +103,7 @@ validate: (...objectsToValidate) => {
 };
 ```
 
-`validate` is method from your library. But there are some cases when you want to give user option to apply their validation instead of your `standardValidation` method. Instead of defining list of string properties which user can use to attach their validation method, you've defined Symbol for it. That way there is 0% chance to have a conflict with any of existing keys on that object, so user cannot accidentally overwrite property you want to use.
+`validate` is a method from your library. But there are some cases when you want to give user option to apply their validation instead of your `standardValidation` method. Instead of defining a list of string properties which user can use to attach their validation method, you've defined Symbol for it. That way there is 0% chance to have a conflict with any of existing keys on that object, so a user cannot accidentally overwrite property you want to use.
 
 Ofc that example is not really useful IRL but you get an idea.
 
@@ -111,7 +111,7 @@ Ofc that example is not really useful IRL but you get an idea.
 
 > Well-known symbols are built-in Symbol values that are explicitly referenced by algorithms of this specification.
 
-Someone already thought about that by creating built-in Symbols in JS. Those Symbols are useful to overwrite/add functionalities of/to objects. For instance you can use `Symbol.iterator` to define iterator and enable your object to be iterable in the way you want.
+Someone already thought about that by creating built-in Symbols in JS. Those Symbols are useful to overwrite/add functionalities of/to objects. For instance, you can use `Symbol.iterator` to define iterator and enable your object to be iterable in the way you want.
 
 ```javascript
 const myObj = {
@@ -137,4 +137,4 @@ See ya!
 
 ### Conclusion
 
-Now you understand how powerful and useful Symbols might be. Probably you're going to use built-in Symbols more often then defining your own. But library creators (like you :P ) have another way for users to extend library functionality.
+Now you understand how powerful and useful Symbols might be. Probably you're going to use built-in Symbols more often than defining your own. But library creators (like you :P ) have another way for users to extend library functionality.

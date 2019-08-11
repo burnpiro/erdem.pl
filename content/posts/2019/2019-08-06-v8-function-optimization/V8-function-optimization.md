@@ -13,13 +13,13 @@ description: 'JS engines are complicated piece of software. I want to quickly ex
 
 ## Setup (optional)
 
-> If you don't want to run it on your computer please skip to [this section](#what-are-we-trying-to-optimize)
+> If you don't want to run it on your computer, please skip to [this section](#what-are-we-trying-to-optimize)
 
-First we need to install V8 to be able to run it without whole package (node or web browser). I've created gist describing process for Linux users.
+First, we need to install V8 to be able to run it without whole package (node or web browser). I've created gist describing the process for Linux users.
 
 <a href="https://gist.github.com/burnpiro/d85d836200df93af892877c2cf37f12c" target="_blank">https://gist.github.com/burnpiro/d85d836200df93af892877c2cf37f12c</a>
 
-If you're a Mac user it should apply to you as well. If you have any problems with installation process please refer to [Official Docs](https://v8.dev/docs/build)
+If you're a Mac user, it should apply to you as well. If you have any problems with installation process, please refer to [Official Docs](https://v8.dev/docs/build)
 
 After installing you should be able to run code like
 
@@ -57,7 +57,7 @@ Let's assume this function is called thousands of times during our script execut
 
 `Shape` contain a lot of staff, but when people use that name they mostly referring to it as a table of `descriptors` for object properties. Shape stores other information as well, like size of the object and pointers to constructors and prototypes. I'm going to show you that in the example soon.
 
-Let's start with simple object:
+Let's start with a simple object:
 
 ```javascript
 const obj = {
@@ -70,7 +70,7 @@ It's representation in V8 looks like
 
 ![Object](./Shapes.png)
 
-If you look on it, there is obvious distinction between object values and their description. Every property on that object is stored in memory according to `offset` defined in shape. In out case property `x` is stored with `offset: 12` which tells v8 to look for `obj.x` value by offsetting pointer by 12.
+If you look on it, there is an obvious distinction between object values and their description. Every property on that object is stored in memory according to `offset` defined in shape. In our case property `x` is stored with `offset: 12` which tells v8 to look for `obj.x` value by offsetting pointer by 12.
 
 ![Object](./memory-example.png)
 
@@ -78,7 +78,7 @@ Ok, so now you know what a Shape is but why is it so useful?
 
 ### Shape's usefulness
 
-When you create object you don't really want to store all information about it again if you have similar object in your system. That's why V8 is reusing it's shapes.
+When you create an object, you don't really want to store all information about it again if you have a similar object in your system. That's why V8 is reusing its shapes.
 
 ![Object](./multiple-object-shape.png)
 
@@ -113,7 +113,7 @@ obj2.x = 1;
 obj2.y = 1;
 ```
 
-they might look the same, but they have different shape. Shape of the first one we've already discussed. Shape of the second one is here
+they might look the same, but they have a different shape. Shape of the first one we've already discussed. Shape of the second one is here
 
 ![Object](./shape-transition.png)
 
@@ -135,7 +135,7 @@ obj2.y = 1;
 // "y": at offset 16
 ```
 
-the same goes when you creating classes
+the same goes when you're creating classes
 
 ```javascript
 class MyComponent {
@@ -158,7 +158,7 @@ To be 100% honest V8 doesn't store whole shapes when it does transitions between
 
 ![Object](./honest-shapes.png)
 
-It doesn't copy information about `x` property into `Shape M2`. That allows it to be shaped in tree like structure when having different objects.
+It doesn't copy information about `x` property into `Shape M2`. That allows it to be shaped in a tree like structure when having different objects.
 
 ```javascript
 const obj1 = {};
@@ -178,7 +178,7 @@ obj4.k = 1;
 
 ![Object](./shape-tree.png)
 
-Notice that even if we using the same attribute name as 3rd property, in `obj3` and `obj4`, these are two different shapes. Reason for that is because shape is related to transition. If you could have global shape that represents `k` property, it requires defined `offset` property. That might work with the same object structures in memory (offset is set base on how much space rest of the object takes before property). So if you have object like `obj4` then property `k` might have a different offset than property `k` on `obj3` (transition to Shape M7 is different).
+Notice that even if we using the same attribute name as 3rd property, in `obj3` and `obj4`, these are two different shapes. Reason for that is because shape is related to transition. If you could have a global shape that represents `k` property, it requires defined `offset` property. That might work with the same object structures in memory (offset is set base on how much space rest of the object takes before property). So if you have an object like `obj4` then property `k` might have a different offset than property `k` on `obj3` (transition to Shape M7 is different).
 
 ## Inline Cache (IC)
 
@@ -204,7 +204,7 @@ and then run this code like
 d8 --trace-ic index.js
 ```
 
-> Offtopic: you might wonder why we're running function that many times. It's because V8 won't try to optimise function unless that function is marked as `hot`. And you get `hot` status when running function many times.
+> Off-topic: you might wonder why we're running function that many times. It's because V8 won't try to optimise function unless that function is marked as `hot`. And you get `hot` status when running function many times.
 
 Now you can open `path/to/v8/tools/ic-explorer.html` in your browser. That page allows you to explore what is happening with inline cache.
 
@@ -224,7 +224,7 @@ In our case `state` is set to be monomorphic which means that function is optimi
 
 Now let's define what IC really is...
 
-Unfortunately we have to do it in the hard way. By looking into some bytecode (There's a [blog post](https://medium.com/dailyjs/understanding-v8s-bytecode-317d46c94775) about understanding bytecode by [Franziska Hinkelmann](https://twitter.com/fhinkel) if you're interested). To do that just run
+Unfortunately, we have to do it in the hard way. By looking into some bytecode (There's a [blog post](https://medium.com/dailyjs/understanding-v8s-bytecode-317d46c94775) about understanding bytecode by [Franziska Hinkelmann](https://twitter.com/fhinkel) if you're interested). To do that just run
 
 ```bash
 d8 --print-bytecode index.js
@@ -249,7 +249,7 @@ Constant pool (size = 1)
 Handler Table (size = 0)
 ```
 
-Take a look on `LdaNamedProperty`. This method is responsible for extracting named property from `a0`(argument 0). Property name (in our case `name`) is determined by `[0]` constant from `Constant pool`.
+Look on `LdaNamedProperty`. This method is responsible for extracting named property from `a0`(argument 0). Property name (in our case `name`) is determined by `[0]` constant from `Constant pool`.
 
 ```
  - map: 0x0741c8840789 <Map>
@@ -257,22 +257,22 @@ Take a look on `LdaNamedProperty`. This method is responsible for extracting nam
            0: 0x0741c8843eb9 <String[#4]: name>
 ```
 
-After getting property value form argument, function stores it in accumulator (function returns accumulator at the end).
+After getting property value from argument, function stores it in the accumulator (function returns accumulator at the end).
 
-That process generates sth we call `Inline Cache` (`IC`). Every time function runs with different object shape it creates new IC entry.
+That process generates sth we call `Inline Cache` (`IC`). Every time function runs with a different object shape it creates a new IC entry.
 
 ![Object](./ic-create.png)
 
-We've called `getMeName` with object that has given shape M0. First run of the function works as described before so V8 has to look up for named property on `a0` and store it into `acc`. After running bytecode it creates IC which contain two things:
+We've called `getMeName` with an object that has given shape M0. First run of the function works as described before so V8 has to look up for named property on `a0` and store it into `acc`. After running bytecode it creates IC which contain two things:
 
 - Shape
 - Way to get to property
 
-Now if we call the same function again with object that has the mame shape:
+Now if we call the same function again with an object that has the same shape:
 
 ![Object](./ic-use.png)
 
-V8 compares current shape with shape stored in IC and skipping whole process of calling `LdaNamedProperty`, because there is a "shortcut" for this "kind" of shape, stored in IC. That way we have nice optimisation of function call. But what if we call that function with different object (with different shape)?
+V8 compares current shape with shape stored in IC and skipping whole process of calling `LdaNamedProperty`, because there is a "shortcut" for this "kind" of shape, stored in IC. That way we have nice optimisation of the function call. But what if we call that function with a different object (different shape)?
 
 ![Object](./ic-add.png)
 
@@ -286,7 +286,7 @@ There are different states your function can be in, but we're mostly interested 
 - Polymorphic - 2-4 IC
 - Megamorphic - >5 IC
 
-While V8 decides if function should be optimized, it check current function state. Only two of them can be optimized: Monomorphic and Polymorphic. Reaching 5 ICs V8 basically means **_"I have no idea what I'm going, so call it a day"_**. At this point **TurboFan** is not going to store anything into IC, instead it fall back to global cache. Usually it doesn't matter if your function is Megamorphic, but if that function runs very often you might thing about optimizing it by reducing number of different shapes it accepts.
+While V8 decides if function should be optimized, it check current function state. Only two of them can be optimized: Monomorphic and Polymorphic. Reaching 5 ICs V8 basically means **_"I have no idea what I'm going, so call it a day"_**. At this point **TurboFan** is not going to store anything into IC, instead it fall back to global cache. Usually it doesn't matter if your function is Megamorphic, but if that function runs very often you might think about optimizing it by reducing a number of different shapes it accepts.
 
 ## Back to our function
 
@@ -363,7 +363,7 @@ If you open `v8/tools/ic-explorer.html` and run above code with `d8 --trace-ic i
 
 Result of that test is obvious and `test()` runs 7.8 times faster than `test2()`.
 
-You might ask why creating `test2()` if it looks the same? It's because after running `test()` with one shape it's already optimised for it. I didn't want to affect performance of second run, but still want to keep it in one file.
+You might ask why creating `test2()` if it looks the same? It's because after running `test()` with one shape it's already optimised for it. I didn't want to affect performance of the second run, but still want to keep it in one file.
 
 
 ## Extra
@@ -372,9 +372,9 @@ I've mentioned that shape contains more than just information about added proper
 
 ![Object](./full-maps.png)
 
-If you want you can generate that for your code by running
+If you want, you can generate that for your code by running
 ```bash
 d8 --trace-maps index.js
 ```
 
-and uploading `v8.log` into `v8/tools/map-processor.html`. When it generates chart, click on `Transitions` and explore list of them at the bottom of the page.
+and uploading `v8.log` into `v8/tools/map-processor.html`. When it generates chart, click on `Transitions` and explore a list of them at the bottom of the page.
