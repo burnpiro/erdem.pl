@@ -11,13 +11,13 @@ tags:
 description: 'How React is able to execute so fast and still remain flexible for a developer?'
 ---
 
-> This post requires basic knowledge about Shapes and Inline Cache. If you didn't read [V8 function optimization](/2019/08/v-8-function-optimization) it might be difficult to follow this one.
+> This post requires a basic knowledge about Shapes and Inline Cache. If you didn't read [V8 function optimization](/2019/08/v-8-function-optimization), it might be difficult to follow this one.
 
-Every time someones talk about "performance" in React it's usually about virtual DOM. It is important piece of react but we're going to focus on sth else today (still connected).
+Every time someones talk about "performance" in React it's usually about virtual DOM. It is an important piece of react but we will focus on sth else today (still connected).
 
 ## Fibers
 
-In 2017 on F8 conference React announced major rewrite of their core algorithm. That's where `Fiber` comes from. But what that exactly is?
+In 2017 on F8 conference React announced a major rewrite of their core algorithm. That's where `Fiber` comes from. But what that exactly is?
 
 A `Fiber` is work on a Component that needs to be done or was done. (another words "wrapper for processing"). There are different ways to create Fibers but all of them have the same data structure (that's important for us). These are only some of them:
 
@@ -50,7 +50,7 @@ and creates ReactElement which is just another kind of container.
 
 ## Simplify React internals
 
-I'm going to simplify React's internal structure a little bit, to make is easier to understand what it does. In addition to that I'm going to use class instead of function for `FiberNode`:
+I'm going to simplify React's internal structure a little bit, to make it easier to understand what it does. Besides that, I will use a class instead of function for `FiberNode`:
 
 ```javascript
 class Component {
@@ -114,7 +114,7 @@ const createFiberFromElement = function(element, ...rest) {
 };
 ```
 
-Here we have definition of our `FiberNode` and one way it could be created. It's important to know that when passing our element, FiberNode created from that element has the same shape as any other FiberNode (even if we're using different component types).
+Here we have a definition of our `FiberNode` and one way we could create it. It's important to know that when passing our element, FiberNode created from that element has the same shape as any other FiberNode (even if we're using different component types).
 
 ```javascript
 const comp1 = createElement(MyComponent1);
@@ -146,7 +146,7 @@ console.log(%HaveSameMap(comp1, comp2)); // false
 
 ## How that helps us run code faster
 
-As you might know every time there is a change in React, it has to go through reconciliation process. Reconciliation is using fibers to figure out next tree. How it works?
+As you might know, every time there is a change in React, it has to go through the reconciliation process. Reconciliation is using fibers to figure out the next tree. How does it works?
 
 Inside `ReactFiberWorkLoop` everything goes into `workLoopSync` (or `workLoop`). After that `performUnitOfWork` is called with "top" Fiber. `performUnitOfWork` is doing one of three things:
 
@@ -154,9 +154,9 @@ Inside `ReactFiberWorkLoop` everything goes into `workLoopSync` (or `workLoop`).
 - calls `beginWork` with current `unitOfWork` (Fiber)
 - calls `completeUnitOfWork` with current `unitOfWork` (also Fiber)
 
-at the end it returns null or result of one of those two functions (surprise... it's Fiber).
+In the end, it returns null or results of one of those two functions (surprise... it's Fiber).
 
-From this point reconciler is just looping over all Fibers using `performUnitOfWork` and waits until `workInProgress` is empty.
+From this point, reconciler is just looping over all Fibers using `performUnitOfWork` and waits until `workInProgress` is empty.
 
 What is important is that React not using recursion to go through the tree. They are using simple while loops to avoid having large stacks (maybe if we could get [PTC](https://github.com/tc39/proposal-ptc-syntax) into JS that would be different).
 
@@ -172,7 +172,7 @@ while(sthToDo !== null) {
 
 That's where we could spot optimization in React structure.
 
-Because all of it is complicated enough let's check how functions behave when they are called thousands of times with our simplified structure:
+Because all of it is complicated enough, let's check how functions behave when they are called thousands of times with our simplified structure:
 
 ```javascript
 function doSomeWork(unitOfWork) {
@@ -185,7 +185,7 @@ function doSomeWork(unitOfWork) {
 }
 ```
 
-I know we're not referring to returned unitOfWork but that's just to run `doSomeWork` many times.
+I know we're not referring to returned `unitOfWork`, but that's just to run `doSomeWork` many times.
 ```javascript
 const N = 100000;
 
@@ -219,7 +219,7 @@ test with components: 4186 ms.
 test with fibers: 2431 ms.
 ```
 
-Why results are different? Mainly because of `FiberNode` wrapper. Every time function is called V8 creates sth called `Inline Cache` (IC). ICs are used to optimize function execution when object with the same `Shape` is passed into it. As you might remember our fibers have the same map:
+Why the results are different? Mainly because of `FiberNode` wrapper. Every time function is called V8 creates sth called `Inline Cache` (IC). ICs are used to optimize function execution when object with the same `Shape` is passed into it. As you might remember our fibers have the same map:
 
 ```
 console.log(%HaveSameMap(fiber1, fiber2)); // true
@@ -239,13 +239,13 @@ but it can for fibers
 
 ![Object](./optimized-function.png)
 
-If you take a look on screenshoots above, you can notice that first time V8 goes through `premonomorphic (.) -> monomorphic (1) -> polymorphic (P)-> megamorphic (N)` states but second one stays in `premonomorphic (.) -> monomorphic (1)` state. In my [previous post](/2019/08/v-8-function-optimization#back-to-our-function) I've described how optimization works in V8. In this case we have to deal with **Megamorphic** function and that means it won't be optimized by the engine. On the other hand we have **Monomorphic** function which is optimized for given Shape (Fiber's Shape). So even with extra layer (more complicated object), function might execute faster.
+If you look on screenshots above, you can notice that first time V8 goes through `premonomorphic (.) -> monomorphic (1) -> polymorphic (P)-> megamorphic (N)` states but second one stays in `premonomorphic (.) -> monomorphic (1)` state. In my [previous post](/2019/08/v-8-function-optimization#back-to-our-function) I've described how optimization works in V8. Here we have to deal with **Megamorphic** function and that means it won't be optimized by the engine, on the other hand we have **Monomorphic** function which is optimized for a given Shape (Fiber's Shape). So even with an extra layer (more complicated object), function might execute faster.
 
 ## Conclusions
 
 This is just one of many optimizations done inside React codebase. Reason for describing this one is because it's useful outside React. Angular is using the same approach with sth called `View Nodes`. You might even want to implement this kind of structure inside our own application.
 
-I have to apologize for oversimplifying React structure. I really encourage you to check it out and see how workLoop actually works under the hood. My point was to show that even if you have to process a lot of different components there is a way to speed up function execution by creating "special" containers instead of passing components directly.
+I have to apologize for oversimplifying React structure. I really encourage you to check it out and see how workLoop actually works under the hood. My point was to show that even if you have to process a lot of different components, there is a way to speed up function execution by creating "special" containers instead of passing components directly.
 
 If you want to run that code on your machine <a href="https://gist.github.com/burnpiro/fec834b8473ffecd439ae5c98855bc61" target="_blank">check out this gist</a>. Feel free to modify components or `FiberNode` implementation and see what happens.
 
