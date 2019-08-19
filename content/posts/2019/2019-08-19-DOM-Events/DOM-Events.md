@@ -185,7 +185,7 @@ const dataEvent = new CustomEvent('addData', {
 clickedData.dispatchEvent(dataEvent);
 ```
 
-Lets add listeners to our tree to listen for our custom event
+Let's add listeners to our tree to listen for our custom event
 
 ![Object](./add-data-event.png)
 
@@ -224,7 +224,7 @@ I think sending data to elements it's obvious. A good example to show you why yo
 </div>
 ```
 
-In this case, We can hook into form's `submit` and `reset` events even before they reach our form component and add/modify data on submitting/resetting the form. I'm not saying to implement such behavior because there are better ways to do it.
+In this case, we can hook into form's `submit` and `reset` events even before they reach our form component and add/modify data on submitting/resetting the form. I'm not saying to implement such behavior because there are better ways to do it.
 
 If you want to play with events please check this sandbox
 <iframe src="https://codesandbox.io/embed/blissful-wilson-6ce25?fontsize=14" title="blissful-wilson-6ce25" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
