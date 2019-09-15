@@ -153,7 +153,7 @@ function reducer(state: AppState, action: ActionType) {
 
 ![Object](./react-simple-reducers.gif)
 
-If you follow the path, **AppState Reducer** is getting `ADD_TO_FAV` action with some payload. After that, it iterates through every single reducer in it and allows them to modify state. Everything looks great right? Not exactly, I've added all those reducers in the right order. If you change order to be sth different you can get a different result.
+If you follow the path, **AppState Reducer** is getting `ADD_TO_FAV` action with some payload. After that, it iterates through every single reducer in it and allows them to modify state. Everything looks great right? Not exactly, I've added all those reducers in the right order. If you change the order to be sth different you can get a different result.
 
 ```typescript
 function reducer(state: AppState, action: ActionType) {
@@ -189,6 +189,6 @@ return {
 
 ## Conclusion
 
-We've managed to split our mono-reducer into a couple smaller reducers. This approach allows us to separate logic for a different part of the state in the app. It has some disadvantages but because we're not dealing with really complicated states in small apps, removing complex state managers benefits us more. Here is a full code again (but you probably already gone through it either way :p ).
+We've managed to split our mono-reducer into a couple of smaller reducers. This approach allows us to separate logic for a different part of the state in the app. It has some disadvantages but because we're not dealing with really complicated states in small apps, removing complex state managers benefits us more. Here is a full code again (but you probably already gone through it either way :p ).
 
 [https://codesandbox.io/s/mutable-dust-yggp9?fontsize=14](https://codesandbox.io/s/mutable-dust-yggp9?fontsize=14)
