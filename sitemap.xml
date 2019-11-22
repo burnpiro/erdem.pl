@@ -28,4 +28,5 @@
 <url> <loc>https://erdem.pl/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/page/2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/contact/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/object-detection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>
