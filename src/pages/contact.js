@@ -7,7 +7,7 @@ import Page from '../components/Page';
 import { useSiteMetadata } from '../hooks';
 import ContactForm from '../components/ContactForm';
 
-const NotFoundTemplate = () => {
+const Contact = () => {
   const { title, subtitle, contactFormUrl } = useSiteMetadata();
 
   return (
@@ -20,4 +20,4 @@ const NotFoundTemplate = () => {
   );
 };
 
-export default NotFoundTemplate;
+export default Contact;
