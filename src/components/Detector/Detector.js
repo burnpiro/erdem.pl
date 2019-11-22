@@ -72,7 +72,10 @@ const Detector = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const isMobile = mobileDetector();
+  const isMobile =
+    typeof document !== `undefined` &&
+    typeof window !== `undefined` &&
+    mobileDetector();
 
   const predict = async stopDetection => {
     const video = webcamRef.current;
