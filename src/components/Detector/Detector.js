@@ -3,7 +3,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import * as wwDetector from '../../utils/get-prediction.worker.js';
-import mobileDetector from '../../utils/mobile-detection';
 
 const videoConstraints = {
   facingMode: 'user',
@@ -68,14 +67,8 @@ const Detector = () => {
   const classes = useStyles();
   const [hasWebcam, setHasWebcam] = useState(true);
   const [shouldDetect, setShouldDetect] = useState(true);
-  const [facingMode, setFacingMode] = useState(videoConstraints.facingMode);
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-
-  const isMobile =
-    typeof document !== `undefined` &&
-    typeof window !== `undefined` &&
-    mobileDetector();
 
   const predict = async stopDetection => {
     const video = webcamRef.current;
@@ -111,20 +104,13 @@ const Detector = () => {
     setShouldDetect(!shouldDetect);
   };
 
-  const toggleFacingMode = () => {
-    setFacingMode(facingMode === 'user' ? 'environment' : 'user');
-  };
-
   useEffect(() => {
     let stopDetection = !shouldDetect;
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia({
           audio: false,
-          video: {
-            ...videoConstraints,
-            facingMode,
-          },
+          video: videoConstraints,
         })
         .then(stream => {
           window.stream = stream;
@@ -181,7 +167,7 @@ const Detector = () => {
     return () => {
       stopDetection = true;
     };
-  }, [webcamRef, shouldDetect, facingMode]);
+  }, [webcamRef, shouldDetect]);
 
   return (
     <React.Fragment>
@@ -196,21 +182,6 @@ const Detector = () => {
       >
         {shouldDetect ? 'Turn OFF' : 'Turn ON'}
       </Button>
-      {isMobile && (
-        <Button
-          className={classes.toggler}
-          onClick={toggleFacingMode}
-          margin="normal"
-          fullWidth
-          variant="contained"
-          type="submit"
-          color="primary"
-        >
-          {facingMode === 'user'
-            ? 'Switch To Back Camera'
-            : 'Switch to Front Camera'}
-        </Button>
-      )}
       {!hasWebcam && <span>Cannot access webcam :(</span>}
       <div className={classes.container}>
         <video
