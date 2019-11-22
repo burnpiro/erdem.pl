@@ -30,8 +30,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const canvas = document.createElement('canvas');
-
 function drawBoxWithLabel(box, ctx) {
   const x = box.bbox[0];
   const y = box.bbox[1];
@@ -55,7 +53,15 @@ function drawBoxWithLabel(box, ctx) {
   ctx.fillText(box.class, x, y);
 }
 
-const detector = wwDetector();
+let detector = null;
+if (typeof Worker !== `undefined`) {
+  detector = wwDetector();
+}
+
+let canvas = null;
+if (typeof document !== `undefined`) {
+  canvas = document.createElement('canvas');
+}
 
 const Detector = () => {
   const classes = useStyles();
