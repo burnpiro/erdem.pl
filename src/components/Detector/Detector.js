@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import * as wwDetector from '../../utils/get-prediction.worker.js';
 
 const videoConstraints = {
-  facingMode: 'user',
+  facingMode: 'environment',
 };
 
 const useStyles = makeStyles(theme => ({
