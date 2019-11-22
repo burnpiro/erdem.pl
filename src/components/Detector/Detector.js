@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import * as wwDetector from '../../utils/get-prediction.worker.js';
+import icon from './loading.gif';
 
 const videoConstraints = {
   facingMode: 'environment',
@@ -27,6 +28,12 @@ const useStyles = makeStyles(theme => ({
   },
   toggler: {
     marginBottom: theme.spacing(2),
+  },
+  noModelMessage: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
 
@@ -67,6 +74,7 @@ const Detector = () => {
   const classes = useStyles();
   const [hasWebcam, setHasWebcam] = useState(true);
   const [shouldDetect, setShouldDetect] = useState(true);
+  const [modelLoaded, setModelLoaded] = useState(false);
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -143,6 +151,9 @@ const Detector = () => {
               predictionResults.result != null &&
               predictionResults.result[0]
             ) {
+              if (!modelLoaded) {
+                setModelLoaded(true);
+              }
               // Clear canvas before drawing
               ctx.clearRect(
                 0,
@@ -171,6 +182,12 @@ const Detector = () => {
 
   return (
     <React.Fragment>
+      {!modelLoaded && (
+        <h2 className={classes.noModelMessage}>
+          Give it a moment, model has to be loaded first (~16MB)
+          <img src={icon} alt={': ('} />
+        </h2>
+      )}
       <Button
         className={classes.toggler}
         onClick={toggleDetection}
