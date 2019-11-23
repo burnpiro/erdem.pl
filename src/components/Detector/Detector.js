@@ -184,7 +184,7 @@ const Detector = () => {
     <React.Fragment>
       {!modelLoaded && (
         <h2 className={classes.noModelMessage}>
-          Give it a moment, model has to be loaded first (~16MB)
+          Give it a moment, model has to be loaded first (~5MB)
           <img src={icon} alt={': ('} />
         </h2>
       )}
