@@ -145,15 +145,15 @@ const Detector = () => {
             if (canvasRef.current.height !== predictionResults.height) {
               canvasRef.current.height = predictionResults.height;
             }
+            if (!modelLoaded && predictionResults != null) {
+              setModelLoaded(true);
+            }
             const ctx = canvasRef.current.getContext('2d');
             if (
               predictionResults &&
               predictionResults.result != null &&
               predictionResults.result[0]
             ) {
-              if (!modelLoaded) {
-                setModelLoaded(true);
-              }
               // Clear canvas before drawing
               ctx.clearRect(
                 0,
