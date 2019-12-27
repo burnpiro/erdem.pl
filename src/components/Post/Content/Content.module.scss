@@ -50,6 +50,13 @@
 
     & img {
       max-width: 100%;
+
+      &[alt$='full'] {
+        max-width: none;
+        max-height: none;
+        width: 100vw !important;
+        margin-left: calc((-100vw + 100%) / 2) !important;
+      }
     }
   }
 }
