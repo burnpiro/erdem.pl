@@ -19,23 +19,50 @@
   }
 
   &__body {
+    & blockquote {
+      font-style: italic;
+      text-align: center;
+      @include margin-top(0);
+      background: #ededed;
+      color: #555555;
+      position: relative;
+      border-left: 8px solid $color-secondary;
+      @include padding(1, 0.5, 1, 1);
+
+      &:before {
+        content: '\201C';
+        color: $color-secondary;
+        font-size: $typographic-base-font-size * 4;
+        position: absolute;
+        @include top(1);
+        @include left(0);
+      }
+
+      &:after {
+        content: '';
+      }
+
+      & p {
+        max-width: $layout-post-width;
+        @include margin-top(0);
+        @include margin-bottom(0);
+        @include line-height(1.5);
+      }
+
+      & ul {
+        text-align: left;
+      }
+
+      & span {
+        display: block;
+        color: #333333;
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 1em;
+      }
+    }
     & figure {
       @include margin-bottom(1);
-
-      & blockquote {
-        font-style: italic;
-        text-align: center;
-        margin-top: 0;
-        @include padding(1, 0);
-
-        & p {
-          max-width: $layout-post-width;
-          font-size: $typographic-base-font-size * 1.6817;
-          margin-top: 0;
-          @include margin-bottom(1);
-          @include line-height(1.5);
-        }
-      }
     }
 
     & a {
@@ -50,6 +77,13 @@
 
     & img {
       max-width: 100%;
+
+      &[alt$='full'] {
+        max-width: none;
+        max-height: none;
+        width: 100vw !important;
+        margin-left: calc((-100vw + 100%) / 2) !important;
+      }
     }
   }
 }
