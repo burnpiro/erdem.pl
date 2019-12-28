@@ -1,0 +1,19 @@
+/**
+ * Position
+ */
+
+@mixin top($number) {
+  top: #{$number * $typographic-leading + 'px'};
+}
+
+@mixin right($number) {
+  right: #{$number * $typographic-leading + 'px'};
+}
+
+@mixin bottom($number) {
+  bottom: #{$number * $typographic-leading + 'px'};
+}
+
+@mixin left($number) {
+  left: #{$number * $typographic-leading + 'px'};
+}
