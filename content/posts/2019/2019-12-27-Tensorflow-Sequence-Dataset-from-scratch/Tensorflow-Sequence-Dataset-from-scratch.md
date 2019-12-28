@@ -31,7 +31,7 @@ According to documentation, Sequence is:
 > __Base object for fitting to a sequence of data, such as a dataset.__
 
 Sequence object is created using [__Sequence Class__](https://github.com/tensorflow/tensorflow/blob/r2.0/tensorflow/python/keras/utils/data_utils.py#L331-L406). The best thing about it is that we can extend it. Every Sequence has to implement 3 methods:
-- `__getitem__` - used to extract item from dataset
+- `__getitem__` - used to extract an item from dataset
 - `__len__` - returns the length of our dataset
 - `__init__` - initializing our dataset (this one is not required but we need some kind of initialization)
 
@@ -84,7 +84,7 @@ Now after we know how our dataset looks like we need to figure out what is an in
 >
 >Imho, it's beneficial to understand it but not required. I've selected this model because most of the guides are using simple examples from regression networks and it's hard to find a solution for a complex one.
 
-For this example we're going to use __MobileNetV2__ (`mobilenet_v2_0.75_224` to be precise), our model has input size of __224x224x3__ (width x height x RGB). So every example in our sentence has to produce input of that size.
+For this example, we're going to use __MobileNetV2__ (`mobilenet_v2_0.75_224` to be precise), our model has an input size of __224x224x3__ (width x height x RGB). So every example in our sentence has to produce input of that size.
 
 Output, on the other hand, is completely up to us. We're using MobileNet as a feature extractor that gives us output from the last Conv layer of __7x7x240__. We want to keep 7x7 grid and our detection requires only 5 values per grid (because we have only one class). In the end, our output should look like __7x7x5__ (grid width x grid width x number of classes times 5).
 
@@ -154,7 +154,7 @@ self.data_path = file_path
 - `self.debug` enables __debug__ mode
 - `self.data_path` stores path to images for later processing
 
-After initialization we need to check if paths are valid (if not there is no reason to create Sequence).
+After initialization, we need to check if paths are valid (if not there is no reason to create Sequence).
 
 ```python
 if not os.path.isfile(config_path):
@@ -177,7 +177,7 @@ with open(config_path) as fp:
         # in this loop we have to process each image definition
 ```
 
-We're going to read this file line by line but as you remember file is structured in a specyfic way:
+We're going to read this file line by line but as you remember file is structured in a specific way:
 
 ```
 File name
@@ -207,7 +207,7 @@ with open(config_path) as fp:
         cnt += 1
 ```
 
-First thing we have to do inside `while` loop is to extract how many boxes there are. To do this we're calling `int(tf.readline()` which returns next line value as integer. We're using this numer to iterate through next `num_of_obj` lines. Each line values are separated by empty string so we have to split values before processing `obj_box = fp.readline().split(' ')`. We're interested in first 4 values from each line but those values have to be integers. To extract those values it's easier to create helper function `get_box`:
+The first thing we have to do inside `while` loop is to extract how many boxes there are. To do this we're calling `int(tf.readline()` which returns next line value as an integer. We're using this number to iterate through the next `num_of_obj` lines. Each line values are separated by an empty string so we have to split values before processing `obj_box = fp.readline().split(' ')`. We're interested in the first 4 values from each line but those values have to be integers. To extract those values it's easier to create a helper function `get_box`:
 
 ```python
 # Input: [x0, y0, w, h, blur, expression, illumination, invalid, occlusion, pose]
@@ -220,7 +220,7 @@ def get_box(data):
     return x0, y0, w, h
 ```
 
-This function receives list of strings and returns 4 integers we need. After that we're appending our box to Sequence object `self.boxes.append((line.strip(), x0, y0, w, h))` and read next line.
+This function receives a list of strings and returns 4 integers we need. After that, we're appending our box to Sequence object `self.boxes.append((line.strip(), x0, y0, w, h))` and read the next line.
 
 Everything seems fine and we should be ready to move to the next part, but if we try to execute this code it will fail.
 
@@ -228,7 +228,7 @@ Everything seems fine and we should be ready to move to the next part, but if we
 ValueError: invalid literal for int() with base 10: '0--Parade/0_Parade_Parade_0_630.jpg\n'
 ```
 
-Did we make a mistake in the code? No we didn't. We just didn't explore our dataset carefully enough. If we jump to our __.txt__ file and find line with that sentence it's much clearer what just happen.
+Did we make a mistake in the code? No, we didn't. We just didn't explore our dataset carefully enough. If we jump to our __.txt__ file and find the line with that sentence it's much clearer what just happen.
 
 ```
 0--Parade/0_Parade_Parade_0_452.jpg
@@ -237,7 +237,7 @@ Did we make a mistake in the code? No we didn't. We just didn't explore our data
 0--Parade/0_Parade_Parade_0_630.jpg
 ```
 
-We didn't antycipated there are images wihtout faces and because of how our iteration is designed it's not going to skip line with zeros after reading `num_of_obj = 0`. Knowing that we can create quick fix just after for loop:
+We didn't anticipate there are images without faces and because of how our iteration is designed it's not going to skip line with zeros after reading `num_of_obj = 0`. Knowing that we can create a quick fix just after for loop:
 
 ```python
 if num_of_obj == 0:
@@ -246,7 +246,7 @@ if num_of_obj == 0:
     self.boxes.append((line.strip(), x0, y0, w, h))
 ```
 
-That way, when there are no faces on image we're going to create empty example.
+That way, when there are no faces on an image we're going to create an empty example.
 
 ### Return length of the dataset
 
@@ -285,7 +285,7 @@ batch_boxes = np.zeros((len(boxes), cfg.NN.GRID_SIZE, cfg.NN.GRID_SIZE, 5), dtyp
 ```
 
 - `batch_images` contains images and has a size of __16x224x224x3__. 
-- `batch_boxes` contains expected output in a grid and has size of __16x7x7x5__.
+- `batch_boxes` contains expected output in a grid and has a size of __16x7x7x5__.
 
 Now we have to iterate over our batch and process each example.
 
@@ -294,7 +294,7 @@ for i, row in enumerate(boxes):
     path, x0, y0, w, h = row
 ```
 
-First, we have to create input from image path. To do that we're going to use `tf.keras.preprocessing.image.load_img`.
+First, we have to create an input from the image path. To do that we're going to use `tf.keras.preprocessing.image.load_img`.
 
 ```python
 proc_image = tf.keras.preprocessing.image.load_img(self.data_path + path)
@@ -340,7 +340,7 @@ Next, we have to deal with box position and size. Original values are integers a
     batch_boxes[i, floor_y, floor_x, 4] = 1
 ```
 
-This section applyies extra validation to be sure that our point lays inside the image. Except that we're calculating relative position of that point to whatever grid cell it is in. 
+This section applies extra validation to be sure that our point lays inside the image. Except that we're calculating relative position of that point to whatever grid cell it is in. 
 
 ![Object](./grid.png)
 
@@ -360,7 +360,7 @@ After we process all examples in the batch we need to only return both arrays
 return batch_images, batch_boxes
 ```
 
-To use our generator just create instance of it and pass right paths
+To use our generator just create an instance of it and pass right paths
 
 ```python
 train_datagen = DataGenerator(file_path=cfg.TRAIN.DATA_PATH, config_path=cfg.TRAIN.ANNOTATION_PATH)
@@ -376,12 +376,12 @@ model.fit_generator(generator=train_datagen,
                         verbose=1)
 ```
 
-Here is a full code for __DataGenerator__ Class:
+Here is full code for __DataGenerator__ Class:
 [https://gist.github.com/burnpiro/c3835a1f914545f2034f4190b1e83153](https://gist.github.com/burnpiro/c3835a1f914545f2034f4190b1e83153)
 
 ## Summary
 
-If you're working with complex datasets (or just really large ones) it's a good idea to think about Sequences and create your won Sequence Class for data generation. It's efficient (multithreading out of the box) and easy to maintain way you'll appricieate, especially when working with the team of engineres and version controll.
+If you're working with complex datasets (or just really large ones) it's a good idea to think about Sequences and create your won Sequence Class for data generation. It's efficient (multithreading out of the box) and easy to maintain way you'll appreciate, especially when working with the team of engineers and version control.
 
 This code is just an example, your implementation may (and probably will) look different. Everything depends on specific problems and structure of the dataset but imho it's a lot easier to define data processing inside class than using C like approach you can find inside Tensorflow guides.
 
