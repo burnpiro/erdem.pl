@@ -28,6 +28,7 @@ module.exports = {
       email: 'kemalpiro@gmail.com',
       twitter: 'burnpiro',
       github: 'burnpiro',
+      linkedin: 'kemal-erdem-74837580',
       rss: '/rss.xml',
     },
   },
