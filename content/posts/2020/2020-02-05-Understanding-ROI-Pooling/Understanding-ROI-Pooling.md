@@ -16,7 +16,7 @@ description: 'Quick and easy explanation what is RoI Pooling and how it works? W
   <figcaption>Original Fast R-CNN architecture. Source: <a href="https://arxiv.org/pdf/1504.08083.pdf" target="_blank">https://arxiv.org/pdf/1504.08083.pdf</a></figcaption>
 </figure>
 
-> We're going to discuss original RoI pooling described in __Fast R-CNN__ paper (light blue rectangle on the image above). There is a second and a third version of that process called __RoIAlign__ and __RoIWarp__. There is going to be another post about them soon.
+> We're going to discuss original RoI pooling described in __Fast R-CNN__ paper (light blue rectangle on the image above). There is a second and a third version of that process called __RoIAlign__ and __RoIWarp__. I'm going to create another article about them soon.
 
 ## What is RoI?
 
@@ -46,7 +46,7 @@ Here we have 4 different RoIs. In the actual Fast R-CNN you might have thousands
   <figcaption>Regions of Interest</figcaption>
 </figure>
 
-It's important to remember that __RoI is NOT a bounding box__. IT might look like one but it's just a proposal for further processing. Many people are assuming it's true. The reason for that is simple, most of the papers and blog posts are creating proposals in place of actual objects because it's more convenient. I did it as well on my image. Here is an example of a different proposal area which also is going to be checked by Fast R-CNN (green box).
+It's important to remember that __RoI is NOT a bounding box__. It might look like one but it's just a proposal for further processing. Many people are assuming that because most of the papers and blog posts are creating proposals in place of actual objects. It's more convenient that way, I did it as well on my image. Here is an example of a different proposal area which also is going to be checked by Fast R-CNN (green box).
 
 <figure class="image">
   <img src="./cats-dummy-proposal.jpg" alt="RoIs">
@@ -91,7 +91,7 @@ If we put our original RoI on feature map it would look like this:
   <figcaption>Original Roi on the feature map</figcaption>
 </figure>
 
-We cannot really apply the pooling layer on it because some of the "boxes" are divided. What quantization is doing is that every result is rounded down before placing it on the matrix. 9.25 becomes 9, 4.53 becomes 4, etc.
+We cannot really apply the pooling layer on it because some of the "cells" are divided. What quantization is doing is that every result is rounded down before placing it on the matrix. __9.25__ becomes __9__, __4.53__ becomes __4__, etc.
 
 <figure class="image">
   <img src="./box-cropped.png" alt="RoI quantized">
@@ -116,7 +116,7 @@ Now when we have our RoI mapped onto feature map we can apply pooling on it. Onc
   <figcaption>Original Fast R-CNN architecture. Source: <a href="https://arxiv.org/pdf/1504.08083.pdf" target="_blank">https://arxiv.org/pdf/1504.08083.pdf</a></figcaption>
 </figure>
 
-After __RoI Pooling Layer__ there is a __Fully Connected layer__ with a fixed size. Because our RoIs have a different size we have to pool them into the same size (__3x3x512__ in our example). At this moment our mapped RoI is a size of __4x6x512__ and as you can imagine we __cannot divide 4 by 3__ :(. That's where quantization strikes again.
+After __RoI Pooling Layer__ there is a __Fully Connected layer__ with a fixed size. Because our RoIs have different sizes we have to pool them into the same size (__3x3x512__ in our example). At this moment our mapped RoI is a size of __4x6x512__ and as you can imagine we __cannot divide 4 by 3__ :(. That's where quantization strikes again.
 
 <figure class="image">
   <img src="./box-vs-roi.png" alt="Mapped Roi and poolig layer">
@@ -150,6 +150,8 @@ In this case, we've applied __Max Pooling__ but it might be different in your mo
   <img src="./full-size-of-pooling.png" alt="Roi Mapping">
   <figcaption>Full-size pooling output</figcaption>
 </figure>
+
+The same process is applied to every single RoI from our original image so in the end, we might have hundreds or even thousands of 3x3x512 matrixes. Every one of those matrixes has to be sent through the rest of the network (starting from FC layer). For each of them, the model is generating bbox and class separately.
 
 ### What next?
 
