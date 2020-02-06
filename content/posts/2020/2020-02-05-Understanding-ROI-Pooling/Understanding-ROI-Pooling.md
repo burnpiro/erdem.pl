@@ -151,7 +151,7 @@ In this case, we've applied __Max Pooling__ but it might be different in your mo
   <figcaption>Full-size pooling output</figcaption>
 </figure>
 
-The same process is applied to every single RoI from our original image so in the end, we might have hundreds or even thousands of 3x3x512 matrixes. Every one of those matrixes has to be sent through the rest of the network (starting from FC layer). For each of them, the model is generating bbox and class separately.
+The same process is applied to every single RoI from our original image so in the end, we might have hundreds or even thousands of 3x3x512 matrixes. Every one of those matrixes has to be sent through the rest of the network (starting from the FC layer). For each of them, the model is generating bbox and class separately.
 
 ### What next?
 
