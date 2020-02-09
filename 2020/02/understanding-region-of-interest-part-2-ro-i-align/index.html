@@ -190,7 +190,7 @@
 <li>X = X_box + (width/3) * 1 = 9.94</li>
 <li>Y = Y_box + (height/3) * 1 = 6.50</li>
 </ul>
-<p>To calculate the second point (bottom left) we have to change only Y:</p>
+<p>To calculate the second point (bottom left) we have to change only the Y:</p>
 <ul>
 <li>X = X_box + (width/3) * 1 = 9.94</li>
 <li>Y = Y_box + (height/3) * 2 = 7.01</li>
@@ -211,7 +211,7 @@
     </span>
   <figcaption>Bilinear Interpolation for the first point</figcaption>
 </figure>
-<p>When you take the first point from our box, you’re connecting it with closest neighboring cells (exactly to the middle), unless it’s already taken. In this case, our point has coordinates <strong>(9.44, 6.50)</strong>. Closest middle of the cell in top-left direction is <strong>(9.50, 6.50)</strong> (it would be (9.50, 5.50) if our point was only 0.01 higher on the grid). Then we have to select a bottom-left point and the closest one is <strong>(9.50, 7.50)</strong>. Following the same rule, we’re selecting <strong>(10.50, 6.50)</strong> and <strong>(10.50, 7.50)</strong> as top-right and bottom-right points. Above the RoI you could see the whole calculation to get the value for the first point (0.14).</p>
+<p>When you take the first point from our box, you’re connecting it with closest neighboring cells (exactly to the middle), unless it’s already taken. In this case, our point has coordinates <strong>(9.44, 6.50)</strong>. Closest middle of the cell in top-left direction is <strong>(9.50, 6.50)</strong> (it would be (9.50, 5.50) if our point was only 0.01 higher on the grid). Then we have to select a bottom-left point and the closest one is <strong>(9.50, 7.50)</strong>. Following the same rule, we’re selecting <strong>(10.50, 6.50)</strong> and <strong>(10.50, 7.50)</strong> as top-right and bottom-right points. Above the RoI, you could see the whole calculation to get the value for the first point (0.14).</p>
 <figure class="image">
   <span class="gatsby-resp-image-wrapper" style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 960px;">
       <span class="gatsby-resp-image-background-image" style="padding-bottom: 80.37848605577689%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAQCAYAAAAWGF8bAAAACXBIWXMAAC4jAAAuIwF4pT92AAADO0lEQVQ4y1VUa1fbRhT0//8j/d7HSdNS4oSQEMAhxhhq2dZzpdW+tHrYloGeMx0J2qYf9mg1e1f3zp25mlhrsd/vUVUV2rYdV+Xc/7CmaeC5HzDHs67rRqz6DhviBnxSluX4IqVEHEcQQiCKImitoZQa92mawNd+jBnehcgQMdaY72NSfthiUtc1jscelffo9j2z7OF9i8PhkR8Zsh7Qcd9ezXB88xY+Fdj1T+jaPavs0PePvNtgx7uH4+NLhQ0rLPMM5voEdnmO8tsUXXABPZ9C353CLD5AXvwGPzuFvD6FWkyhbqcob6bw958hb97DzE7g1nNMhjIPzGLzGNvzn2AzBRUnuLxY4e5G4PLrFZJoC2cK5CKCNyXC5AZ5sYIrc+TxBt5ppPfXSJlgMorSH2FEDLm8QLt7RllUuFvWCFYNMhvDN35sw9CO2ncofQ5b63HfDi1qKEyRQQdfXyl3O8h4jXT+DqZ1yIoYwVZgFWSYk8Y2jZBLXnAFZCkQqwdkejPutS1QaFYf3yEn/YmnGMfnv1ANgbdvoQ+SwWsEaYDcxVgkV9iQXm5DpDpgdQnWaobELlE4qqtWkM2g+iWKPz+xQlLuNiHK6e8ogxkFOsAoQ5UPsKqCrEKqaGE1vbkbzhxUNVQriVUvmPGoihRqNaMoXYt+FcD/+jM23854uYU1Bnmeo6k7RPIBxio4Sx8WEg3P4yKA1BkHwKMoCtTtDmLzALFghdYNk8IsESnefYDfN2NffMuqKoPUPUBTBONKYoZPBVGtST3luX6Jqy10HkAFV5iof0RJQ4Q3b9iPHJlas38hchNhrWkHu0KiAgi7GcUYehibJYQO2ccQwiVIkhmy5cdXUZ6e4SlKcv2ONujpqwpaaexoh9xuOZo16qqhF92ICRWOig/0rTa0Uw9JhsX9l/9sUxAoH76gPjyRMi8O3rQ1hOfM1o5UOZqHnmceJVmoWhGrX7AhmRKkfE1RXo1taczwjx+Y5QJi/p6L47Y4x2b+C8TyjP09R7Y4Q7H8jC3tldyeIL/9OMYNWPLpR0juJ8MvqO9Jk9QbRRpSwIkEHc3qOD0Nx2tY1YjJ8WzEGFf9G0eMBe34R/obp6icfeKiGXIAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;"></span>
