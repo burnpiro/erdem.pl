@@ -1,6 +1,6 @@
 ---
 title: Understanding Region of Interest - Part 2 (RoI Align)
-date: '2020-02-08'
+date: '2020-02-09'
 template: 'post'
 draft: false
 tags:
