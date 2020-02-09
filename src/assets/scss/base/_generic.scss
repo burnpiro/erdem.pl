@@ -157,6 +157,37 @@ figcaption {
   padding-right: 14px !important;
 }
 
+table {
+  width: 750px;
+  border-collapse: collapse;
+  margin:50px auto;
+
+  & tr {
+
+    /* Zebra striping */
+    &:nth-of-type(odd) {
+      background: #eee;
+    }
+
+    & th {
+      background: #3498db;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+      font-size: 18px;
+    }
+
+    & td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+      font-size: 18px;
+    }
+  }
+}
+
 @include breakpoint-sm {
   figure.float-left,
   figure.float-right {

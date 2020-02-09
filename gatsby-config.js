@@ -119,6 +119,10 @@ module.exports = {
             options: { maxWidth: 960 },
           },
           {
+            resolve: `gatsby-remark-images-medium-zoom`, // point!
+            options: {},
+          },
+          {
             resolve: 'gatsby-remark-responsive-iframe',
             options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
           },

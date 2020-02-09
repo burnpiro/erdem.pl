@@ -16,7 +16,9 @@ description: 'Quick and easy explanation what is RoI Pooling and how it works? W
   <figcaption>Original Fast R-CNN architecture. Source: <a href="https://arxiv.org/pdf/1504.08083.pdf" target="_blank">https://arxiv.org/pdf/1504.08083.pdf</a></figcaption>
 </figure>
 
-> We're going to discuss original RoI pooling described in __Fast R-CNN__ paper (light blue rectangle on the image above). There is a second and a third version of that process called __RoIAlign__ and __RoIWarp__. I'm going to create another article about them soon.
+> We're going to discuss original RoI pooling described in __Fast R-CNN__ paper (light blue rectangle on the image above). There is a second and a third version of that process called __RoIAlign__ and __RoIWarp__.
+>
+>If you're interested in those two please check out [Second Part of this article](https://erdem.pl/2020/02/understanding-region-of-interest-part-2-ro-i-align)
 
 ## What is RoI?
 
@@ -163,3 +165,9 @@ After pooling is done, we're certain that our input is a size of __3x3x512__ so 
 </figure>
 
 This might be a problem because each "cell" contains a huge amount of data (1x1x512 on feature map which loosely translates to 32x32x3 on an original image but please do not use that reference, because that's not how convolutional layer works). There is a way to fix that (RoIAlign) and I'm going to write a second article about it soon.
+
+> Edit: Here is a second article about RoIAlign and RoIWarp
+> [https://erdem.pl/2020/02/understanding-region-of-interest-part-2-ro-i-align](/2020/02/understanding-region-of-interest-part-2-ro-i-align)
+
+### References:
+ - Fast R-CNN https://arxiv.org/pdf/1504.08083.pdf
