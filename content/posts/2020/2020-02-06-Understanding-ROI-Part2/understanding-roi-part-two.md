@@ -8,7 +8,7 @@ tags:
   - 'Machine Learning'
   - 'AI'
   - 'Neural Networks'
-description: 'Visual explanation of how RoI Align works, why is it better than standard RoI Pooling?'
+description: 'A visual explanation of how RoI Align works and why is it better than standard RoI Pooling?'
 ---
 
 <figure class="image">
@@ -109,7 +109,7 @@ In our case we're calculating first point (top left) coordinates like this:
 - X = X_box + (width/3) \* 1 = 9.94
 - Y = Y_box + (height/3) \* 1 = 6.50
 
-To calculate the second point (bottom left) we have to change only Y:
+To calculate the second point (bottom left) we have to change only the Y:
 
 - X = X_box + (width/3) \* 1 = 9.94
 - Y = Y_box + (height/3) \* 2 = 7.01
@@ -128,7 +128,7 @@ Instead of trying to understand this equation please take a look on a graphical 
   <figcaption>Bilinear Interpolation for the first point</figcaption>
 </figure>
 
-When you take the first point from our box, you're connecting it with closest neighboring cells (exactly to the middle), unless it's already taken. In this case, our point has coordinates **(9.44, 6.50)**. Closest middle of the cell in top-left direction is **(9.50, 6.50)** (it would be (9.50, 5.50) if our point was only 0.01 higher on the grid). Then we have to select a bottom-left point and the closest one is **(9.50, 7.50)**. Following the same rule, we're selecting **(10.50, 6.50)** and **(10.50, 7.50)** as top-right and bottom-right points. Above the RoI you could see the whole calculation to get the value for the first point (0.14).
+When you take the first point from our box, you're connecting it with closest neighboring cells (exactly to the middle), unless it's already taken. In this case, our point has coordinates **(9.44, 6.50)**. Closest middle of the cell in top-left direction is **(9.50, 6.50)** (it would be (9.50, 5.50) if our point was only 0.01 higher on the grid). Then we have to select a bottom-left point and the closest one is **(9.50, 7.50)**. Following the same rule, we're selecting **(10.50, 6.50)** and **(10.50, 7.50)** as top-right and bottom-right points. Above the RoI, you could see the whole calculation to get the value for the first point (0.14).
 
 <figure class="image">
   <img src="./roi-align-second-dot.png" alt="Second dot interpolation">
