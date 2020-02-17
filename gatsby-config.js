@@ -133,6 +133,10 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {},
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
