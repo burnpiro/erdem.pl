@@ -113,7 +113,7 @@ $$
 p_{j|i} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(- \left \| x_i - x_l \right \|^2 / 2\sigma_i^2)} 
 $$
 
-This is an original formula to calculate $p_{j|i}. Why did I lie to you? First, because it's easier to get an intuition about how it works. Second, because I was going to show you the trough either way.
+This is an original formula to calculate $p_{j|i}$. Why did I lie to you? First, because it's easier to get an intuition about how it works. Second, because I was going to show you the trough either way.
 
 #### Perplexity
 
@@ -137,7 +137,7 @@ When you look on this formula you might notice that our Gaussian is converted in
 
 ![Object](./original-dist.png)
 
-If you play with $\sigma^2$ for a while you can notice that blue curve remanins fixed at point $x = 0$. It only streatches when $\sigma^2$ increases.
+If you play with $\sigma^2$ for a while you can notice that the blue curve remains fixed at point $x = 0$. It only stretches when $\sigma^2$ increases.
 
 ![Object](./original-dist-2.png)
 
@@ -163,7 +163,7 @@ If you're more "visual" person this might help (values on X-axis are distributed
 
 ![Object](./dist-difference.png)
 
-Using Student distribution has exactly what we need. It "falls" quickly and has a "long tail" so points won't get squashed into a single point. This time we don't have to bother with $\sigma^2$ because we don't have one in $q_{ij}$ formula. I won't generate the whole process of calculating $q_{ij}$ because it works exactly the same as $p_{ij}. Instead, just leave you with those two formulas and skip to sth more important:
+Using Student distribution has exactly what we need. It "falls" quickly and has a "long tail" so points won't get squashed into a single point. This time we don't have to bother with $\sigma^2$ because we don't have one in $q_{ij}$ formula. I won't generate the whole process of calculating $q_{ij}$ because it works exactly the same as $p_{ij}$. Instead, just leave you with those two formulas and skip to sth more important:
 
 $$
 p_{ij} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq l} \exp(- \left \| x_k - x_l \right \|^2 / 2\sigma_i^2)} 
@@ -211,16 +211,16 @@ If you remember examples from the top of the article, not it's time to show you 
 
 <figure class="image">
   <img src="./nonlineary2.png" alt="NonLinearData1">
-  <img src="./pre5-2.png" alt="preplexity 5">
-  <figcaption>Preplexity 5, Source: <a href="https://distill.pub/2016/misread-tsne/" target="_blank">https://distill.pub/2016/misread-tsne/</a></figcaption>
+  <img src="./pre5-2.png" alt="perplexity 5">
+  <figcaption>Perplexity 5, Source: <a href="https://distill.pub/2016/misread-tsne/" target="_blank">https://distill.pub/2016/misread-tsne/</a></figcaption>
 </figure>
 
 
 <figure class="image">
   <img src="./nonlineary1.png" alt="NonLinearData1">
-  <img src="./pre5-3.png" alt="preplexity 5">
-  <img src="./pre2-3.png" alt="preplexity 2">
-  <figcaption>Preplexity 5(top) and 2(bottom), Source: <a href="https://distill.pub/2016/misread-tsne/" target="_blank">https://distill.pub/2016/misread-tsne/</a></figcaption>
+  <img src="./pre5-3.png" alt="perplexity 5">
+  <img src="./pre2-3.png" alt="perplexity 2">
+  <figcaption>Perplexity 5(top) and 2(bottom), Source: <a href="https://distill.pub/2016/misread-tsne/" target="_blank">https://distill.pub/2016/misread-tsne/</a></figcaption>
 </figure>
 
 All runs performed 5000 iterations.
