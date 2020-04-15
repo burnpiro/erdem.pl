@@ -34,7 +34,7 @@ Let's start with **SNE** part of t-SNE. I'm far better with explaining things vi
 
 ![Object](./dataset.png)
 
-It has 3 different classes and you can easily distinguish them from each other. The first part of the algorithm is to create a **probability distribution** that represents similarities between neighbors. What is "similarity"? [Original paper](1) states "**similarity of datapoint $x_j$ to datapoint $x_i$ is the conditional probability, $p_{j|i}$, that $x_i$ would pick $x_j$ as its neighbor**". 
+It has 3 different classes and you can easily distinguish them from each other. The first part of the algorithm is to create a **probability distribution** that represents similarities between neighbors. What is "similarity"? [Original paper][1] states "**similarity of datapoint $x_j$ to datapoint $x_i$ is the conditional probability, $p_{j|i}$, that $x_i$ would pick $x_j$ as its neighbor**". 
 
 ![Object](./pick-a-point.png)
 
@@ -107,7 +107,7 @@ Where $N$ is a number of dimensions.
 
 ### The lie :)
 
-Now when we have everything scaled to 1 (yes, the sum of all $f(x_j)$ equals 1), I can tell you that I wasn't completely honest about while the process with you :) Calculation all of that would be quite painful for the algorithm and that's not what exactly is in [t-SNE paper](1).
+Now when we have everything scaled to 1 (yes, the sum of all $f(x_j)$ equals 1), I can tell you that I wasn't completely honest about while the process with you :) Calculation all of that would be quite painful for the algorithm and that's not what exactly is in [t-SNE paper][1].
 
 $$
 p_{j|i} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(- \left \| x_i - x_l \right \|^2 / 2\sigma_i^2)} 
@@ -145,7 +145,7 @@ That helps distinguish neighbor's probabilities and because you've already under
 
 ### Create low-dimensional space
 
-The next part of t-SNE is to create low-dimensional space with the same number of points as in the original space. Points should be spread randomly on a new space. The goal of this algorithm is to find similar probability distribution is low-dimensional space. The most obvious choice for new distribution would be to use Gaussian again. That's not the best idea, unfortunately. One of the properties of Gaussian is that it has a "short tail" and because of that it creates a **crowding problem**. To solve that we're going to use **Student t-distribution** with a single degree of freedom. More of how this distribution was selected and why Gaussian is not the best idea you can find in the [paper](1). I decided not to spend much time on it and allow you to read this article within a reasonable time. So now our new formula will look like:
+The next part of t-SNE is to create low-dimensional space with the same number of points as in the original space. Points should be spread randomly on a new space. The goal of this algorithm is to find similar probability distribution in low-dimensional space. The most obvious choice for new distribution would be to use Gaussian again. That's not the best idea, unfortunately. One of the properties of Gaussian is that it has a "short tail" and because of that it creates a **crowding problem**. To solve that we're going to use **Student t-distribution** with a single degree of freedom. More of how this distribution was selected and why Gaussian is not the best idea you can find in the [paper][1]. I decided not to spend much time on it and allow you to read this article within a reasonable time. So now our new formula will look like:
 
 $$
 q_{ij} =\frac{(1 + \left \| y_i - y_j \right \|^2 )^{-1}}{\sum_{k \neq l} (1 + \left \| y_k - y_l \right \|^2 )^{-1} } 
