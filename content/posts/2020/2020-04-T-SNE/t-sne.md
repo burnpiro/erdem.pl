@@ -110,7 +110,7 @@ Where $N$ is a number of dimensions.
 Now when we have everything scaled to 1 (yes, the sum of all $f(x_j)$ equals 1), I can tell you that I wasn't completely honest about while the process with you :) Calculation all of that would be quite painful for the algorithm and that's not what exactly is in [t-SNE paper][1].
 
 $$
-p_{j|i} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(- \left \| x_i - x_l \right \|^2 / 2\sigma_i^2)} 
+p_{j|i} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(- \left \| x_i - x_k \right \|^2 / 2\sigma_i^2)} 
 $$
 
 This is an original formula to calculate $p_{j|i}$. Why did I lie to you? First, because it's easier to get an intuition about how it works. Second, because I was going to show you the trough either way.
@@ -130,7 +130,7 @@ Where ${-\sum{p_{j|i}log_2p_{j|i}}}$ is **Shannon entropy**. But unless you want
 ### Oryginal formula interpretation
 
 $$
-p_{j|i} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(- \left \| x_i - x_l \right \|^2 / 2\sigma_i^2)} 
+p_{j|i} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(- \left \| x_i - x_k \right \|^2 / 2\sigma_i^2)} 
 $$
 
 When you look on this formula you might notice that our Gaussian is converted into $\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)$. Let me show you how that looks like:
