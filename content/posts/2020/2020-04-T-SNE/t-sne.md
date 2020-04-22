@@ -127,7 +127,7 @@ $$
 
 Where ${-\sum{p_{j|i}log_2p_{j|i}}}$ is **Shannon entropy**. But unless you want to implement t-SNE yourself, the only thing you need to know is that perplexity you choose is positively correlated with the value of $\mu_i$ and for the same perplexity you will have multiple different $\mu_i$, base on distances. Typical perplexity value ranges between 5 and 50.
 
-### Oryginal formula interpretation
+### Original formula interpretation
 
 $$
 p_{j|i} = \frac{\exp(-\left \| x_i - x_j \right \|^2 / 2\sigma_i^2)}{\sum_{k \neq i} \exp(- \left \| x_i - x_k \right \|^2 / 2\sigma_i^2)} 
