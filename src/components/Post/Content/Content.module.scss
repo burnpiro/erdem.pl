@@ -53,13 +53,13 @@
         text-align: left;
       }
 
-      & span {
-        display: block;
-        color: #333333;
-        font-style: normal;
-        font-weight: bold;
-        margin-top: 1em;
-      }
+      //& span {
+      //  display: block;
+      //  color: #333333;
+      //  font-style: normal;
+      //  font-weight: bold;
+      //  margin-top: 1em;
+      //}
     }
     & figure {
       @include margin-bottom(1);
