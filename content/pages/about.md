@@ -6,10 +6,10 @@ slug: "/pages/about"
 
 ### Hi! I'm Kemal
 
-I'm a software engineer and consultant specializing in Javascript applications. When did I start? Long time ago... 2001 maybe. But back then there wasn't really anything even remotely similar with current technology. I didn't start writing code directly in JS, my first language was Pascal and then C/C++. Web started couple years later, around 2005/2006. Currently I'm dealing mostly with Machine Learning and Tensorflow.
+I'm a software engineer and consultant specializing in Javascript applications. When did I start? Long time ago... 2001 maybe. But back then there wasn't really anything even remotely similar with current technology. I didn't start writing code directly in JS, my first language was Pascal and then C/C++. Web started couple years later, around 2005/2006. Currently, I'm dealing mostly with Machine Learning and Tensorflow.
 
-But what do I do exactly? Mostly everything related with Javascript:
-- AI (TensorFlow and TensorflowJS)
+But, what do I do exactly? Mostly everything related with Machine Learning and JavaScript:
+- ML (TensorFlow and TensorflowJS)
 - FrontEnd (list is really long but main technology is React)
 - NodeJS (Koa, Hapi, Express)
 - IoT (JohnnyFive, CyclonJS, duino, NodeRED)

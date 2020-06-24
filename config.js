@@ -15,6 +15,10 @@ module.exports = {
       path: '/pages/about',
     },
     {
+      label: 'Work/Projects',
+      path: '/pages/work',
+    },
+    {
       label: 'Contact me',
       path: '/contact',
     },
@@ -22,7 +26,8 @@ module.exports = {
   author: {
     name: 'Kemal Erdem',
     photo: '/main.jpg',
-    bio: 'Javascript Architect, Freelance Consultant, AI enthusiast, MTB lover',
+    bio:
+      'ML Developer, Software Architect, Freelance Consultant, JS Engineer, MTB lover',
     contacts: {
       email: 'kemalpiro@gmail.com',
       twitter: 'burnpiro',

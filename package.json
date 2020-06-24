@@ -25,16 +25,10 @@
   "license": "MIT",
   "keywords": [
     "gatsby",
-    "graphql",
-    "pagination",
-    "tags",
-    "prismjs",
     "static",
     "blog",
-    "minimal",
     "react",
-    "theme",
-    "disqus"
+    "theme"
   ],
   "dependencies": {
     "@material-ui/core": "^4.9.2",
