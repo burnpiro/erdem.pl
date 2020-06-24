@@ -1,6 +1,7 @@
 /**
  * Generic
  */
+@import '../mixins';
 html {
   font-size: $typographic-root-font-size;
 }
@@ -201,5 +202,18 @@ table {
 
   .float-left {
     float: left;
+  }
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@include breakpoint-sm {
+  .flex-container {
+    flex-direction: row;
+    align-items: start;
   }
 }
