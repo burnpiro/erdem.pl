@@ -16,7 +16,7 @@ description: 'How to find a correlation between different length of time series 
 
 If you've ever worked with data analysis it's highly likely that you know about the idea of [data correlation](https://en.wikipedia.org/wiki/Correlation_and_dependence). There are many ways of calculating correlation within your data, and most of them are already implemented in popular data science toolkits. What I want to show you today is how to figure out a correlation between different length of time series vectors and target result (or any other value).
 
-This might come really handy when trying to design models that rely on time series data. Let me give you an example. Imagine you're dealing with weather data. Your goal is to predict the population at some point in the future. That population is not dependent on current weather conditions but rather on the past.
+This might come handy when trying to design models that rely on time series data. Let me give you an example. Imagine you're dealing with weather data. Your goal is to predict the population at some point in the future. That population is not dependent on current weather conditions but rather on the past.
 
 ### Data Sample
 
@@ -60,13 +60,13 @@ Recently, a different idea is gaining popularity. It's called Predictive Power S
 
 When you're calculating PP for one variable (A) predicting another variable (B), we have to treat our variable **B as the target**, and **A as the only feature**. After that, we're creating a Decision Tree (either Regressor or Classifier) and calculate meaningful metrics (e.g. MAE for regression problem or F1 for classification).
 
-Basically, you have to repeat that process for every pair of variables. Normalization of the score is optional because usually the raw score already has a meaning. In most of cases **you don't have to calculate PPS for all possible combinations of features**. It's enough to calculate only PPS between each feature and target. In our example, we would calculate PPS for pairs: **(Temp, Population)**, **(Prec, Population)**, **(Humidity, Population)**.
+Basically, you have to repeat that process for every pair of variables. Normalization of the score is optional because usually the raw score already has a meaning. In most cases, **you don't have to calculate PPS for all possible combinations of features**. It's enough to calculate only PPS between each feature and target. In our example, we would calculate PPS for pairs: **(Temp, Population)**, **(Prec, Population)**, **(Humidity, Population)**.
 
 The only problem with this method is that it's not solving our problem :)
 
 ## Extended PPS
 
-If we look at the standard PPS we're able to check predictive power of one variable. Our problem is a little different and let me show you how that looks like.
+If we look at the standard PPS we're able to check the predictive power of one variable. Our problem is a little different and let me show you how that looks like.
 
 | Temp [C] | Prec [mm] | Humidity [%] | Population |
 | -------- | --------- | ------------ | ---------- |
@@ -228,7 +228,7 @@ Y = [
 ]
 ```
 
-## Real life example
+## Real-life example
 
 If you wonder how this method behaves on real-life data here is an example:
 
@@ -238,7 +238,7 @@ Each column represents one feature and each row represents a different length of
 
 #### Which features should I choose?
 
-There are a couple rules to select the right features. The first one (and the most obvious one) is to **select features with the lowest MAE score**. We can sort those columns and start selecting ones with the lowest values. The question is "How many columns?". The answer might not surprise you, it depends :). When you have more training data you can allow your model to be larger and so, select more features. If you have only a handful of training data you cannot design a model with >200 features because you're getting into [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) territory.
+There are a couple of rules to select the right features. The first one (and the most obvious one) is to **select features with the lowest MAE score**. We can sort those columns and start selecting ones with the lowest values. The question is "How many columns?". The answer might not surprise you, it depends :). When you have more training data you can allow your model to be larger and so, select more features. If you have only a handful of training data you cannot design a model with >200 features because you're getting into the [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) territory.
 
 Another thing if the length of each column. As you can see on this example `reanalysis_specific_humidity_g_per_kg` is a useful feature (one of the best we have) with `2 minimum values of MAE`. When we have a case like this we usually selecting a shorter vector. So the decision is to select a vector length of 14 instead of 27, even if both have the same value of MAE (30).
 
@@ -246,7 +246,7 @@ Another thing to discuss is the last column. Some of the columns shouldn't be tr
 
 #### Some tradeoffs
 
-Sometimes you might want to make some tradeoffs when selecting vector length. Look on feature 15 (`station_min_temp_c`). It scores 35 MAE with a length of 3 and then beats that score with a length of 26. The difference between two scores is only **1** and we're adding 23 extra features just to get that 1 MAE. You have to remember that when building a model with multiple features, at the end length of your input vector is a sum of all vectors you've selected. Increasing input length by 23 forces you to have more training data and larger model. In this case, I would personally select a 3 item vector rather than 26, or just test two different models. If the result won't improve when changing from 3 to 26 items you should **use 3 because it produces a simpler hypothesis** (according to the [Occam's razor](https://en.wikipedia.org/wiki/Occam%27s_razor) rule).  
+Sometimes you might want to make some tradeoffs when selecting vector length. Look on feature 15 (`station_min_temp_c`). It scores 35 MAE with a length of 3 and then beats that score with a length of 26. The difference between two scores is only **1** and we're adding 23 extra features just to get that 1 MAE. You have to remember that when building a model with multiple features, at the end length of your input vector is a sum of all vectors you've selected. Increasing input length by 23 forces you to have more training data and a larger model. In this case, I would personally select a 3 item vector rather than 26, or just test two different models. If the result won't improve when changing from 3 to 26 items you should **use 3 because it produces a simpler hypothesis** (according to the [Occam's razor](https://en.wikipedia.org/wiki/Occam%27s_razor) rule).  
 
 #### Mistakes when selecting features without extended PPS
 
