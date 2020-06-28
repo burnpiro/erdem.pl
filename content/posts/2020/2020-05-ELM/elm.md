@@ -223,7 +223,7 @@ Where:
 
 I didn't find training times for ELMs so there was no way to compare them with results from other networks but all those multiplaiers (**20x**, **30x**) are relative differences in training time based on training of **ELM 1000 on CIFAR-10**. If there is a 30x time increase between **ELM 1000** and **ELM 3500** then you can imagine how long it would take to train DELM which has 15000 neurons.
 
-## Conclussion
+## Conclusion
 
 ELMs are not as accurate as traditional neural networks, but they can be used when dealing with problems which require real-time retraining of the network. I'm going to write another article describing evolution and usage of ELMs soon. For now, it's up to you to create an opinion about those networks.
 
