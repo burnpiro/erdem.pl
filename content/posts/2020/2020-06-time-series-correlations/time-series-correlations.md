@@ -14,13 +14,13 @@ description: 'How to find a correlation between different length of time series 
 
 ## Problem description
 
-If you've ever worked with data analysis it's highly likely that you know about idea of [data correlation](https://en.wikipedia.org/wiki/Correlation_and_dependence). There are many ways of calculating correlation within your data, and most of them are already implemented in popular data science toolkits. What I want to show you today is how to figure out a correlation between diferent length of time series vectors and target result (or any other value).
+If you've ever worked with data analysis it's highly likely that you know about the idea of [data correlation](https://en.wikipedia.org/wiki/Correlation_and_dependence). There are many ways of calculating correlation within your data, and most of them are already implemented in popular data science toolkits. What I want to show you today is how to figure out a correlation between different length of time series vectors and target result (or any other value).
 
-This might come really handy when trying to desing models which relay on time series data. Let me give you an example. Imagine you're dealing with weather data. Your goal is to predict population at some point in the future. That population it's not dependent on current weather conditions but rather on the past.
+This might come really handy when trying to design models that rely on time series data. Let me give you an example. Imagine you're dealing with weather data. Your goal is to predict the population at some point in the future. That population is not dependent on current weather conditions but rather on the past.
 
 ### Data Sample
 
-| Temp [C] | Perc [mm] | Humidity [%] | Population |
+| Temp [C] | Prec [mm] | Humidity [%] | Population |
 | -------- | --------- | ------------ | ---------- |
 | 21       | 0         | 45           | 100        |
 | 22       | 10        | 95           | 85         |
@@ -28,9 +28,9 @@ This might come really handy when trying to desing models which relay on time se
 | 25       | 0         | 55           | 255        |
 | 19       | 8         | 88           | 476        |
 
-Here we have a few samples from our dataset. It shows five consecutive time periods with some population number and the end of each period. **Our goal is to predict a population in each time period**. Usually to solve that problem we need to design some kind of model. Model itself doesn't matter that much, important thing is to find what kind of features we should feed into it.
+Here we have a few samples from our dataset. It shows five consecutive time periods with some population numbers and the end of each period. **Our goal is to predict a population in each time period**. Usually to solve that problem we need to design some kind of model. The model itself doesn't matter that much, important thing is to find what kind of features we should feed into it.
 
-We know that current population doesn't depend on current conditions but rather than on the condition through its life cycle. We can search for publication on that subject and try to figure out right amount of data. After a while we decided that our population problably depends on temperature from last 4 weeks, percipation from 6 weeks and humidity in the last 2 weeks. That's ok but is there a better way to find that correlation in the data? Can we even check if our periods are corrects?
+We know that the current population doesn't depend on current conditions but rather on the condition through its life cycle. We can search for publication on that subject and try to figure out the right amount of data. After a while, we decided that our population probably depends on temperature from the last 4 weeks, precipitation from 6 weeks and humidity in the last 2 weeks. That's ok but is there a better way to find that correlation in the data? Can we even check if our periods are corrects?
 
 ## Problems with standard correlations
 
@@ -60,7 +60,7 @@ Recently, a different idea is gaining popularity. It's called Predictive Power S
 
 When you're calculating PP for one variable (A) predicting another variable (B), we have to treat our variable **B as target**, and **A as only feature**. After that we're creating a Decision Tree (either Regressor or Classifier) and calculate meaningful metric (e.g. MAE for regression problem or F1 for classification).
 
-Basically, you have to repeat that process for every pair of variables. Normalization of the score is optional because usually raw score already has a meaning. In most of the cases **you don't have to calculate PPS for all possible combinations of features**. It's enough to calculate only PPS between each feature and target. In our example we would calculate PPS for pairs: **(Temp, Population)**, **(Perc, Population)**, **(Humidity, Population)**.
+Basically, you have to repeat that process for every pair of variables. Normalization of the score is optional because usually raw score already has a meaning. In most of the cases **you don't have to calculate PPS for all possible combinations of features**. It's enough to calculate only PPS between each feature and target. In our example we would calculate PPS for pairs: **(Temp, Population)**, **(Prec, Population)**, **(Humidity, Population)**.
 
 Only problem with this method is that it's not solving our problem :)
 
@@ -68,7 +68,7 @@ Only problem with this method is that it's not solving our problem :)
 
 If we look on the standard PPS we're able to check predictive power of one variable. Our problem is a little different and let me show you how that looks like.
 
-| Temp [C] | Perc [mm] | Humidity [%] | Population |
+| Temp [C] | Prec [mm] | Humidity [%] | Population |
 | -------- | --------- | ------------ | ---------- |
 | 21       | 0         | 45           | 100        |
 | 22       | 10        | 95           | 85         |
@@ -195,7 +195,7 @@ Let's assume that the result looks like that:
 
 Base on this we can decide that the right length of the **Temp** vector is **4** (the lowest error). No we perform similar process for every single feature there is and come up with final set of features.
 
-| Temp [C] | Perc [mm] | Humidity [%] | Population |
+| Temp [C] | Prec [mm] | Humidity [%] | Population |
 | -------- | --------- | ------------ | ---------- |
 | 21       | 0         | 45           | 100        |
 | 22       | 10        | 95           | 85         |
@@ -209,7 +209,7 @@ Base on this we can decide that the right length of the **Temp** vector is **4**
 | **27**   | **0**     | **38**       | 12         |
 | **22**   | **0**     | **36**       | **76**     |
 
-**Bold** selection shows a set of feature for one training sample with a target of 76. When designing NN we can then assume 14 (4 x Temp + 2 x Perc + 8 x Humidity) input features. So our training set for bottom 3 samples will look like:
+**Bold** selection shows a set of feature for one training sample with a target of 76. When designing NN we can then assume 14 (4 x Temp + 2 x Prec + 8 x Humidity) input features. So our training set for bottom 3 samples will look like:
 
 ```python
 X = [
