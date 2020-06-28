@@ -73,14 +73,14 @@
       />
     </span></p>
 <h2 id="problem-description"><a href="#problem-description" aria-label="problem description permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Problem description</h2>
-<p>If you’ve ever worked with data analysis it’s highly likely that you know about idea of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">data correlation</a>. There are many ways of calculating correlation within your data, and most of them are already implemented in popular data science toolkits. What I want to show you today is how to figure out a correlation between diferent length of time series vectors and target result (or any other value).</p>
-<p>This might come really handy when trying to desing models which relay on time series data. Let me give you an example. Imagine you’re dealing with weather data. Your goal is to predict population at some point in the future. That population it’s not dependent on current weather conditions but rather on the past.</p>
+<p>If you’ve ever worked with data analysis it’s highly likely that you know about the idea of <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence">data correlation</a>. There are many ways of calculating correlation within your data, and most of them are already implemented in popular data science toolkits. What I want to show you today is how to figure out a correlation between different length of time series vectors and target result (or any other value).</p>
+<p>This might come really handy when trying to design models that rely on time series data. Let me give you an example. Imagine you’re dealing with weather data. Your goal is to predict the population at some point in the future. That population is not dependent on current weather conditions but rather on the past.</p>
 <h3 id="data-sample"><a href="#data-sample" aria-label="data sample permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Data Sample</h3>
 <table>
 <thead>
 <tr>
 <th>Temp [C]</th>
-<th>Perc [mm]</th>
+<th>Prec [mm]</th>
 <th>Humidity [%]</th>
 <th>Population</th>
 </tr>
@@ -118,8 +118,8 @@
 </tr>
 </tbody>
 </table>
-<p>Here we have a few samples from our dataset. It shows five consecutive time periods with some population number and the end of each period. <strong>Our goal is to predict a population in each time period</strong>. Usually to solve that problem we need to design some kind of model. Model itself doesn’t matter that much, important thing is to find what kind of features we should feed into it.</p>
-<p>We know that current population doesn’t depend on current conditions but rather than on the condition through its life cycle. We can search for publication on that subject and try to figure out right amount of data. After a while we decided that our population problably depends on temperature from last 4 weeks, percipation from 6 weeks and humidity in the last 2 weeks. That’s ok but is there a better way to find that correlation in the data? Can we even check if our periods are corrects?</p>
+<p>Here we have a few samples from our dataset. It shows five consecutive time periods with some population numbers and the end of each period. <strong>Our goal is to predict a population in each time period</strong>. Usually to solve that problem we need to design some kind of model. The model itself doesn’t matter that much, important thing is to find what kind of features we should feed into it.</p>
+<p>We know that the current population doesn’t depend on current conditions but rather on the condition through its life cycle. We can search for publication on that subject and try to figure out the right amount of data. After a while, we decided that our population probably depends on temperature from the last 4 weeks, precipitation from 6 weeks and humidity in the last 2 weeks. That’s ok but is there a better way to find that correlation in the data? Can we even check if our periods are corrects?</p>
 <h2 id="problems-with-standard-correlations"><a href="#problems-with-standard-correlations" aria-label="problems with standard correlations permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Problems with standard correlations</h2>
 <p>When thinking about data correlation we usually think about a correlation between a number, and the other number. Ocassionally we might calculate correlations between categorical variables. This case is different. If we take under concideration series of temperatures like that:</p>
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mn>21</mn><mo separator="true">,</mo><mn>22</mn><mo separator="true">,</mo><mn>21</mn><mo separator="true">,</mo><mn>25</mn><mo separator="true">,</mo><mn>19</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[21, 22, 21, 25, 19]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">2</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mclose">]</span></span></span></span></span>
@@ -131,7 +131,7 @@
 <h2 id="predictive-power-score-pps"><a href="#predictive-power-score-pps" aria-label="predictive power score pps permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Predictive Power Score (PPS)</h2>
 <p>Recently, a different idea is gaining popularity. It’s called Predictive Power Score (PPS) and is based on calculating predicting power for every property in the dataset. <strong>Predictive power is a measurement of the success of a Decision Tree model predicting a target variable with a help of a predictor variable</strong>.</p>
 <p>When you’re calculating PP for one variable (A) predicting another variable (B), we have to treat our variable <strong>B as target</strong>, and <strong>A as only feature</strong>. After that we’re creating a Decision Tree (either Regressor or Classifier) and calculate meaningful metric (e.g. MAE for regression problem or F1 for classification).</p>
-<p>Basically, you have to repeat that process for every pair of variables. Normalization of the score is optional because usually raw score already has a meaning. In most of the cases <strong>you don’t have to calculate PPS for all possible combinations of features</strong>. It’s enough to calculate only PPS between each feature and target. In our example we would calculate PPS for pairs: <strong>(Temp, Population)</strong>, <strong>(Perc, Population)</strong>, <strong>(Humidity, Population)</strong>.</p>
+<p>Basically, you have to repeat that process for every pair of variables. Normalization of the score is optional because usually raw score already has a meaning. In most of the cases <strong>you don’t have to calculate PPS for all possible combinations of features</strong>. It’s enough to calculate only PPS between each feature and target. In our example we would calculate PPS for pairs: <strong>(Temp, Population)</strong>, <strong>(Prec, Population)</strong>, <strong>(Humidity, Population)</strong>.</p>
 <p>Only problem with this method is that it’s not solving our problem :)</p>
 <h2 id="extended-pps"><a href="#extended-pps" aria-label="extended pps permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extended PPS</h2>
 <p>If we look on the standard PPS we’re able to check predictive power of one variable. Our problem is a little different and let me show you how that looks like.</p>
@@ -139,7 +139,7 @@
 <thead>
 <tr>
 <th>Temp [C]</th>
-<th>Perc [mm]</th>
+<th>Prec [mm]</th>
 <th>Humidity [%]</th>
 <th>Population</th>
 </tr>
@@ -310,7 +310,7 @@ Temp_two <span class="token operator">=</span> <span class="token punctuation">[
 <thead>
 <tr>
 <th>Temp [C]</th>
-<th>Perc [mm]</th>
+<th>Prec [mm]</th>
 <th>Humidity [%]</th>
 <th>Population</th>
 </tr>
@@ -384,7 +384,7 @@ Temp_two <span class="token operator">=</span> <span class="token punctuation">[
 </tr>
 </tbody>
 </table>
-<p><strong>Bold</strong> selection shows a set of feature for one training sample with a target of 76. When designing NN we can then assume 14 (4 x Temp + 2 x Perc + 8 x Humidity) input features. So our training set for bottom 3 samples will look like:</p>
+<p><strong>Bold</strong> selection shows a set of feature for one training sample with a target of 76. When designing NN we can then assume 14 (4 x Temp + 2 x Prec + 8 x Humidity) input features. So our training set for bottom 3 samples will look like:</p>
 <div class="gatsby-highlight" data-language="python"><pre class="language-python"><code class="language-python">X <span class="token operator">=</span> <span class="token punctuation">[</span>
     <span class="token punctuation">[</span><span class="token number">26</span><span class="token punctuation">,</span> <span class="token number">29</span><span class="token punctuation">,</span> <span class="token number">27</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">88</span><span class="token punctuation">,</span> 
      <span class="token number">97</span><span class="token punctuation">,</span> <span class="token number">75</span><span class="token punctuation">,</span> <span class="token number">53</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">38</span><span class="token punctuation">,</span> <span class="token number">36</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
