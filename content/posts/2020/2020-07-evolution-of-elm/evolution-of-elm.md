@@ -10,7 +10,7 @@ tags:
 description: 'How ELMs were evolving through the years and what is their status right now?'
 ---
 
-> Note! This is just a major overview of the evoltion of ELMs. It doens't include all possible versions and tweaks done to ELMs throught the years.
+> Note! This is just a major overview of the ELM evolution. It doesn't include all possible versions and tweaks done to ELMs through the years.
 
 ## What is ELM?
 
