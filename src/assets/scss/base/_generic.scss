@@ -216,10 +216,10 @@ table {
     flex-direction: row;
     align-items: start;
   }
-}
 
-.center-all {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
