@@ -217,3 +217,9 @@ table {
     align-items: start;
   }
 }
+
+.center-all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
