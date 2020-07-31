@@ -1,5 +1,5 @@
 ---
-title: DengAI - How to aproach Data Science competitions? (EDA)
+title: DengAI - How to approach Data Science competitions? (EDA)
 date: '2020-07-31'
 template: 'post'
 draft: false
@@ -7,7 +7,7 @@ tags:
   - 'Data Science'
   - 'MachineLearning'
   - 'Data Analysis'
-description: 'Step by step explanation on how to deal with Kaggle like competitions. What are the things we should focus on and what should be ignored.'
+description: 'Step by step explanation on how to deal with Kaggle like competitions. What are the things we should focus on and what should be ignored?'
 ---
 
 <figure class="image">
@@ -16,19 +16,19 @@ description: 'Step by step explanation on how to deal with Kaggle like competiti
 </figure>
 
 
-> This article is based on my entry into [DengAI competition on DrivenData platform](https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/). I've managed to score within 0.2% (14/9069 as on 02 Jun 2020). Some of the ideas presented here are strictly designed for competitions like that and might not be useful IRL.
+> This article is based on my entry into [DengAI competition on the DrivenData platform](https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/). I've managed to score within 0.2% (14/9069 as on 02 Jun 2020). Some of the ideas presented here are strictly designed for competitions like that and might not be useful IRL.
 
 Before we start I have to warn you that some parts might be obvious for more advanced data engineers, and it's a very long article. You might read it section by section of just pick the parts that are interesting for you.
 
 ## Problem description
 
-First, we need to discuss competition itself. DengAI's goal was (actually, at this moment even is, because administration of DrivenData decided to make it "ongoing" competition, so you can join and try youself) to predict a number of dengue cases in the particular week base on weather data and location. Each participant was given a [training dataset](https://github.com/burnpiro/dengai-predicting-disease-spread/blob/master/dengue_features_train.csv) and [test dataset](https://github.com/burnpiro/dengai-predicting-disease-spread/blob/master/dengue_features_test.csv) (not validation dataset). **MAE** (**Mean Absolute Error**) is a metric used to calculate score and the train dataset covers 28 years of weekly values for 2 cities (1456 weeks). Test data is smaller and spans over 5 and 3 years (depends on the city).
+First, we need to discuss the competition itself. DengAI's goal was (actually, at this moment even is, because the administration of DrivenData decided to make it "ongoing" competition, so you can join and try yourself) to predict a number of dengue cases in the particular week base on weather data and location. Each participant was given a [training dataset](https://github.com/burnpiro/dengai-predicting-disease-spread/blob/master/dengue_features_train.csv) and [test dataset](https://github.com/burnpiro/dengai-predicting-disease-spread/blob/master/dengue_features_test.csv) (not validation dataset). **MAE** (**Mean Absolute Error**) is a metric used to calculate score and the training dataset covers 28 years of weekly values for 2 cities (1456 weeks). Test data is smaller and spans over 5 and 3 years (depends on the city).
 
-For those who doesn't know, Dengue fever is a mosquito-borne diesese that occurs in tropical and sub-tropical parst of the world. Because it's caried by mosquitoes, the transmision is related with climate and weather variables.
+For those who don't know, Dengue fever is a mosquito-borne disease that occurs in tropical and sub-tropical parts of the world. Because it's carried by mosquitoes, the transmission is related to climate and weather variables.
 
 ## Dataset
 
-If we look on the train dataset it has multiple features:
+If we look at the training dataset it has multiple features:
 
 **City and date indicators:**
 - **city** - City abbreviations: **sj** for San Juan and **iq** for Iquitos
@@ -63,7 +63,7 @@ degree scale):**
 - **ndvi\_ne** - Pixel northeast of city centroid
 - **ndvi\_nw** - Pixel northwest of city centroid
 
-Additionally we have an information about **total\_cases** in each week.
+Additionally, we have information about number of **total\_cases** in each week.
 
 #### Input example:
 
@@ -109,7 +109,7 @@ $$
 
 ## Data Analysis
 
-Before even starting designing our models we need to look on the raw data and fix it. To acomplish that we're going to use [Pandas Library](https://pandas.pydata.org/). Usually we can just inport `.csv` files out of the box and work on the imported DataFrame, but sometimes (especially when there is no column description in the first row) we have to provide list of columns.
+Before even starting designing the models we need to look at the raw data and fix it. To accomplish that we're going to use [Pandas Library](https://pandas.pydata.org/). Usually, we can just import `.csv` files out of the box and work on the imported DataFrame, but sometimes (especially when there is no column description in the first row) we have to provide a list of columns.
 
 ```python
 import pandas as pd
@@ -119,7 +119,7 @@ df = pd.read_csv('./dengue_features_train_with_out.csv')
 df.describe()
 ```
 
-Pandas has build-in method called `describe` which display basic statistical info about columns in a dataset.
+Pandas has a build-in method called `describe` which displays basic statistical info about columns in a dataset.
 
 <div class="center-all">
 
@@ -136,25 +136,25 @@ Pandas has build-in method called `describe` which display basic statistical inf
 
 </div>
 
-Naturally, this method works only on numerical data. If we have non-numerical columns we have to do some preprocessing first. In our case only column that is a categorical column is **city**. This column contains only two values **sj** and **iq** and we're going to deal with it later.
+Naturally, this method works only on numerical data. If we have non-numerical columns we have to do some preprocessing first. In our case, the only column that is a categorical column is **city**. This column contains only two values **sj** and **iq** and we're going to deal with it later.
 
 Back to the main table. Each row contains a different kind of information:
-- **count** - describes number of non NaN values, basically how many values are correct, not empty number
+- **count** - describesthe number of non-NaN values, basically how many values are correct, not empty number
 - **mean** - mean value from the whole column (useful for normalization)
 - **std** - standard deviation (also useful for normalization)
 - **min** --> **max** - shows us a range in which values are contained (useful for scaling)
 
-Lets start with the **count**. It is important to know how many records in your dataset has missing data (one or many) an decide what to do with them. If you look on the **ndvi\_nw** value, it is empty in 13.3% of cases. That might be a problem if you decide to replace missing values with some arbitrary value like 0. Usually there are two common solutions to this problem:
+Let us start with the **count**. It is important to know how many records in your dataset has missing data (one or many) an decide what to do with them. If you look at the **ndvi\_nw** value, it is empty in 13.3% of cases. That might be a problem if you decide to replace missing values with some arbitrary value like 0. Usually, there are two common solutions to this problem:
 - set an **average** value
 - do the **interpolation**
 
 #### Interpolation (dealing with missing data)
 
-When dealing with series data (like we do) it's easier to interpolate (average from just the neighbours) value from its neighbours instead of replacing it with just an average from the entire set. Usually series data have some corelation between values in the series and using neighbours gives the better result. Let me give you an example.
+When dealing with series data (like we do) it's easier to interpolate (average from just the neighbors) value from its neighbors instead of replacing it with just an average from the entire set. Usually, series data have some correlation between values in the series, and using neighbors gives a better result. Let me give you an example.
 
-Suppose you're dealing with temperature data, and your entire dataset consists of the values from January to December. Average value from the entire year is going to be invalid replacement for missing day throught most of the year. If you take days from July then you might have values like **[28, 27, --, --, 30]** (or **[82, 81, --, --, 86]** for those who prefer imperial units). If that would be a London then an annual average temperature is **11C** (or 52F). Using 11 seams wrong in this case, doesn't it? That's why we should use interpolation instead of the average. With interpolation (even in the case when there is a wider gap) we should be able to achieve better result. If you calculate values you should get $(27 + 30)/2 = 28.5$ and $(28.5 + 30)/2 = 29.25$ so at the end our dataset will look like **[28, 27, 28.5, 29.25, 30]**, way better than **[28, 27, 11, 11, 30]**.
+Suppose you're dealing with temperature data, and your entire dataset consists of the values from January to December. The average value from the entire year is going to be an invalid replacement for missing days throughout most of the year. If you take days from July then you might have values like **[28, 27, --, --, 30]** (or **[82, 81, --, --, 86]** for those who prefer imperial units). If that would be a London then an annual average temperature is **11C** (or 52F). Using 11 seams wrong in this case, doesn't it? That's why we should use interpolation instead of the average. With interpolation (even in the case when there is a wider gap) we should be able to achieve a better result. If you calculate values you should get $(27 + 30)/2 = 28.5$ and $(28.5 + 30)/2 = 29.25$ so at the end our dataset will look like **[28, 27, 28.5, 29.25, 30]**, way better than **[28, 27, 11, 11, 30]**.
 
-#### Spliting dataset into cities
+#### Splitting dataset into cities
 
 Because we've already covered some important things lets define a method which allows us to redefine our categorical column (**city**) into binary column vectors and interpolate data:
 
@@ -182,11 +182,11 @@ def extract_data(train_file_path, columns, categorical_columns=CATEGORICAL_COLUM
 
 > All constants (like CATEGORICAL_COLUMNS) are defined in [this Gist](https://gist.github.com/burnpiro/30610b5cf9fd685905fe36a0572ab292).
 
-This function returns dataset with two binary columns called **sj** and **iq** which are having true values where **city** was set to be either **sj** or **iq**.
+This function returns a dataset with two binary columns called **sj** and **iq** which are having true values where **city** was set to be either **sj** or **iq**.
 
-#### Ploting the data
+#### Plotting the data
 
-It is important to plot your data to get a visual understanding of how values are distributes in the series. We're going to use library called [Seaborn](https://seaborn.pydata.org/) to help us with ploting data.
+It is important to plot your data to get a visual understanding of how values are distributed in the series. We're going to use a library called [Seaborn](https://seaborn.pydata.org/) to help us with plotting data.
 
 ```python
 sns.pairplot(dataset[["precipitation_amt_mm", "reanalysis_sat_precip_amt_mm", "station_precip_mm"]], diag_kind="kde")
@@ -197,20 +197,20 @@ sns.pairplot(dataset[["precipitation_amt_mm", "reanalysis_sat_precip_amt_mm", "s
   <figcaption>reanalysis_min_air_temp_k in the training dataset</figcaption>
 </figure>
 
-Here we have just one feature from the dataset, and we can clearly distinguish seasons and cities (point when average value drops from ~297K to ~292K).
+Here we have just one feature from the dataset, and we can clearly distinguish seasons and cities (the point when the average value drops from ~297K to ~292K).
 
-Another thing that could be useful is **pair correlation** between different features. That way we could be able to remove some of the redundant features from our dataset.
+Another thing that could be useful is a **pair correlation** between different features. That way we could be able to remove some of the redundant features from our dataset.
 
 <figure class="image">
-  <img src="./perc-corr.png" alt="percipitation correlation chart">
-  <figcaption>Percipation pairplot</figcaption>
+  <img src="./perc-corr.png" alt="precipitation correlation chart">
+  <figcaption>Precipitation pairplot</figcaption>
 </figure>
 
-As you can notice, we can drop one of the percipitation features right away. It might be unintuicional at first but because we have a data from different sources, the same kind of data (like percipitation) won't always be fully corelated with each other. This might be due to different measurement methods or something else.
+As you can notice, we can drop one of the precipitation features right away. It might be unintentional at first but because we have data from different sources, the same kind of data (like precipitation) won't always be fully correlated with each other. This might be due to different measurement methods or something else.
 
 #### Data Correlation
 
-When working with a lot of features we don't really have to plot pair plots for every pair like that. Other option is just to calculate sth called **Correlation Score**. There are a different types of correlations for different type of data. Because our dataset consists only of numerical data we can use builtin method called `.corr()` to generate correlatons for each city.
+When working with a lot of features we don't really have to plot pair plots for every pair like that. Another option is just to calculate sth called **Correlation Score**. There are different types of correlations for a different types of data. Because our dataset consists only of numerical data we can use the builtin method called `.corr()` to generate correlations for each city.
 
 > If there are categorical columns which shouldn't be treated as binary you could calculate [Cramér's V measure of association](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V) to find out a "correlation" between them and the rest of the data.
  
@@ -253,9 +253,9 @@ ax.set_xticklabels(
 
 You could do the same for **iq** city and compare both of them (correlations are different).
 
-If you look on this heatmap it's obvious which features are correlated with each other and which are not. You should be aware there are positive and negative correlations (dark blueish and dark red). Features without correlation are white. There are groups of positively correlated features and unsuprisely they are refering to the same type of measurement (correlation between *station\_min\_temp\_c* and *station\_avg\_temp\_c*). But there are also correlations between different kind of features (like *reanalysis\_specific\_humidity\_g\_per\_kg* and *reanalysis\_dew\_point\_temp\_k*). We should also focus on the correlation between **total\_cases** and the rest of features because that's what we have to predict.
+If you look at this heatmap it's obvious which features are correlated with each other and which are not. You should be aware there are positive and negative correlations (dark blueish and dark red). Features without correlation are white. There are groups of positively correlated features and unsurprisingly they are referring to the same type of measurement (correlation between *station\_min\_temp\_c* and *station\_avg\_temp\_c*). But there are also correlations between different kind of features (like *reanalysis\_specific\_humidity\_g\_per\_kg* and *reanalysis\_dew\_point\_temp\_k*). We should also focus on the correlation between **total\_cases** and the rest of the features because that's what we have to predict.
 
-This time we're out of lack because nothing is really strongly correlated with our target. But we still should be able to pick most important features for out model. Looking on the heatmap is not that useful right now so let me switch to bar plot.
+This time we're out of lack because nothing is really strongly correlated with our target. But we still should be able to pick the most important features for our model. Looking on the heatmap is not that useful right now so let me switch to the bar plot.
 
 ```python
 sorted_y = corr.sort_values(by='total_cases', axis=0).drop('total_cases')
@@ -266,14 +266,14 @@ ax.set_title('Correlation with total_cases in "sj"')
 
 <figure class="image">
   <img src="./sj-corr-total.png" alt="sj correlation to target">
-  <figcaption>Correlation to target value for <b>sj</b> city</figcaption>
+  <figcaption>Correlation to the target value for <b>sj</b> city</figcaption>
 </figure>
 
-Usually when picking a features to our model we're choosing features which have the **highest absolute correlation** value with our target. It's up to you to decide how many features you choose, you might even choose all of them but that's usually not the best idea.
+Usually, when picking features to our model we're choosing features that have the **highest absolute correlation** value with our target. It's up to you to decide how many features you choose, you might even choose all of them but that's usually not the best idea.
 
 #### Target value distribution
 
-It is also important to look on how target values are distributes within our dataset. We can easly do that using pandas:
+It is also important to look at how target values are distributed within our dataset. We can easily do that using pandas:
 
 ```python
 sj_train_y = sj_train.pop(LABEL_COLUMN)
@@ -287,21 +287,21 @@ sj_train_y.plot.hist(bins=12, alpha=0.5)
   <figcaption><b>iq</b> total cases histogram</figcaption>
 </figure>
 
-Usually number of cases for a week is quite low. Only from time to time (once a year) total number of cases jumps to some higher value. We need to remember about that when designing our model because even if we manage to find that "jumps" we might lost a lot diring the weeks with little or non cases.
+On an average number of cases for a week is quite low. Only from time to time (once a year), total number of cases jumps to some higher value. We need to remember that when designing our model because even if we manage to find that "jumps" we might lose a lot during the weeks with little or none cases.
 
-#### What is a NDVI value?
+#### What is an NDVI value?
 
-Last thing we have to discuss in this article in a **NDVI index** ([Normalized difference vegetation index](https://en.wikipedia.org/wiki/Normalized_difference_vegetation_index)). This index is an indicator of vegetation. Usually high negative values correspond to water, values close to 0 represent rocks/sand/snow and values close to 1 tropical forests. In given dataset we have 4 different NDVI values for each city (each for a different corner on the map).
+Last thing we have to discuss in this article in an **NDVI index** ([Normalized difference vegetation index](https://en.wikipedia.org/wiki/Normalized_difference_vegetation_index)). This index is an indicator of vegetation. High negative values correspond to water, values close to 0 represent rocks/sand/snow, and values close to 1 tropical forests. In the given dataset, we have 4 different NDVI values for each city (each for a different corner on the map).
 
-Even if overall NDVI index is quite useful to understand a type of terain we're dealing with and if we would need to design model for multiple cities that might come in handy, but in this case we have only two cities which climate and position on the map is known. We don't have to train our model to figure out which kind of environment we're dealing with, instead we can just train two separate models for each city.
+Even if the overall NDVI index is quite useful to understand a type of terrain we're dealing with and if we would need to design a model for multiple cities that might come in handy, but in this case, we have only two cities which climate and position on the map are known. We don't have to train our model to figure out which kind of environment we're dealing with, instead, we can just train two separate models for each city.
 
-I've spent a while trying to make use of those values (especially that interpolation is hard in this case because we're using a lot of information during the process). Using NDVI index might be also missleading because changes in values doesn't have to corespond to changes in vegetation process.
+I've spent a while trying to make use of those values (especially that interpolation is hard in this case because we're using a lot of information during the process). Using the NDVI index might be also misleading because changes in values don't have to correspond to changes in the vegetation process.
 
-If you want to check those cities out pleas refer to [San Juan, Puerto Rico](https://www.google.com/maps/place/San+Juan,+Puerto+Rico/@18.2818311,-67.176171,8.79z/data=!4m5!3m4!1s0x8c03686fe268196f:0xad6b7f0f5c935adc!8m2!3d18.4655394!4d-66.1057355) and [Iquitos, Peru](https://www.google.com/maps/place/Iquitos,+Peru/@-3.7626024,-73.5930914,9.54z/data=!4m5!3m4!1s0x91ea10b0e440c1cb:0x9210b8d7040a6692!8m2!3d-3.7436735!4d-73.2516326).
+If you want to check those cities out pleas refer to [San Juan, Puerto Rico](https://www.google.com/maps/place/San+Juan,+Puerto+Rico/@18.2818311,-67.176171,8.79z/data=!4m5!3m4!1s0x8c03686fe268196f:0xad6b7f0f5c935adc!8m2!3d18.4655394!4d-66.1057355), and [Iquitos, Peru](https://www.google.com/maps/place/Iquitos,+Peru/@-3.7626024,-73.5930914,9.54z/data=!4m5!3m4!1s0x91ea10b0e440c1cb:0x9210b8d7040a6692!8m2!3d-3.7436735!4d-73.2516326).
 
 ## Conclusion
 
-At this point you should be aware of how our dataset looks like. We didn't even started designing first model but already know that some of the features are less important then others and some of them are just repeating the same data. If you would need to take with you one thing from this entire article, it is "Try to understand your data first!".
+At this point, you should be aware of how our dataset looks like. We didn't even start designing the first model but already know that some of the features are less important than others and some of them are just repeating the same data. If you would need to take with you one thing from this entire article, it is "Try to understand your data first!".
 
 ## References:
 - DengAI: Predicting Disease Spread [https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/](https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/)
