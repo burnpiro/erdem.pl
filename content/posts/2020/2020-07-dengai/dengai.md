@@ -63,7 +63,16 @@ degree scale):**
 - **ndvi\_ne** - Pixel northeast of city centroid
 - **ndvi\_nw** - Pixel northwest of city centroid
 
-Additionally, we have information about number of **total\_cases** in each week.
+Additionally, we have information about the number of **total\_cases** in each week.
+
+It is easy to spot that for each row in the dataset we have multiple features describing similar kinds of data. There are four categories:
+
+- temperature
+- precipitation
+- humidity
+- ndvi (those four features are referring to different points in the cities, so they are not exactly the same data)
+
+Because of that, we should be able to remove some of the redundant data from the input. Ofc, we cannot just pick one temperature randomly. If we look at just temperature data there is a distinguishing between ranges (min, avg, max) and even type (mean dew point or diurnal).
 
 #### Input example:
 
