@@ -34,7 +34,7 @@ On the left side we have dataset that consists of two features and one of them h
 ## What is a Normalization and what is Scalling?
 
 #### [Normalization](https://en.wikipedia.org/wiki/Normalization_(statistics))
-In the standard sence, normalization refers to the process of adjusting value distribution range to fit into **<-1, 1>**. Standard normalization is done by **subtracting mean value from each value in the set and dividing result by the standard diviation**.
+In the standard sence, normalization refers to the process of adjusting value distribution range to fit into **<-1, 1>** (id doesn't have to be exact -1 to 1 but within the same order of magnitude so the range ). Standard normalization is done by **subtracting mean value from each value in the set and dividing result by the standard diviation**.
 
 $$
 {\frac {x-\mu }{\sigma }}
@@ -176,7 +176,43 @@ if scale_cols:
 
 This time we're passing one parameter called `feature_range` to be sure that our scale is in range <0,1>. As in the previous example we're passing scaling dataset to fit to and transform selected columns.
 
-At the end, we're returning transformed `new_data` and additionally `train_scale` for further preprocessing. But wait the second! What further preprocessing? Remember that we're dealing not only with training dataset but also with test dataset. We have to apply the same data processing for both of them to have the same input for the model. If we would simply use `preproc_data()` in the same way for the test dataset we would apply completely different normalization and scaling. Reason why is because normalization and scaling is done by `.fit()` method and this method uses some given dataset to calculate **mean** and other required values. If you use test dataset which might have a different range of values (there was a hot summer because of global warming etc.) your value of 28C in test dataset will be normalized with a different parameters. 
+At the end, we're returning transformed `new_data` and additionally `train_scale` for further preprocessing. But wait the second! What further preprocessing? Remember that we're dealing not only with training dataset but also with test dataset. We have to apply the same data processing for both of them to have the same input for the model. If we would simply use `preproc_data()` in the same way for the test dataset we would apply completely different normalization and scaling. Reason why is because normalization and scaling is done by `.fit()` method and this method uses some given dataset to calculate **mean** and other required values. If you use test dataset which might have a different range of values (there was a hot summer because of global warming etc.) your value of 28C in test dataset will be normalized with a different parameters. Let me show you an example:
+
+Training Dataset:
+$$
+[22,23,23,24,25,26,24]
+$$
+$$
+\mu = 23.86
+$$
+$$
+\sigma = 1.25
+$$
+
+Testing Dataset:
+$$
+[24,24,25,26,25,24,26]
+$$
+$$
+\mu = 24.86
+$$
+$$
+\sigma = 0.83
+$$
+
+Normalizing Testing Dataset using mean and SD from Training Dataset gives us:
+
+$$
+[0.11, 0.11, 0.91, 1.71, 0.91, 0.11, 1.71]
+$$
+
+But if you use mean and SD from Testing dataset you'll end up with:
+
+$$
+[-1.04, -1.04, 0.17, 1.37, 0.17, -1.04, 1.37]
+$$
+
+You might think that second one is better describing the datset but that's only true when dealing with **only** testing dataset. 
 
 ## Conclusion
 
