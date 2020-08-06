@@ -7,7 +7,7 @@ tags:
   - 'Data Science'
   - 'MachineLearning'
   - 'Data Analysis'
-description: 'Step by step explanation on how to deal with Kaggle like competitions. What are the things we should focus on and what should be ignored?'
+description: 'How to preprocess data for the ML competitions? Example based on DengAI.'
 ---
 
 <figure class="image">
@@ -18,30 +18,30 @@ description: 'Step by step explanation on how to deal with Kaggle like competiti
 
 > This article is based on my entry into [DengAI competition on the DrivenData platform](https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/). I've managed to score within 0.2% (14/9069 as on 02 Jun 2020).
 
-In this article I assume that you're already familiar with [DengAI - EDA](https://erdem.pl/2020/07/deng-ai-how-to-approach-data-science-competitions-eda). You don't have to read it to understand everything here, but it would be a lot easier if you do.
+In this article, I assume that you're already familiar with [DengAI - EDA](https://erdem.pl/2020/07/deng-ai-how-to-approach-data-science-competitions-eda). You don't have to read it to understand everything here, but it would be a lot easier if you do.
 
 ## Why do we have to preprocess data?
 
-When designing ML models we have to remember that some of them are based on gradient method. Problem with the gradient is that it performs better on normalized/scaled data. Let me show an example:
+When designing ML models we have to remember that some of them are based on the gradient method. The problem with the gradient is that it performs better on normalized/scaled data. Let me show an example:
 
 <figure class="image">
   <img src="./feature-scaling.png" alt="gradient descent">
   <figcaption>Gradient descent examples. Source: <a href="https://www.machinelearningman.com/post/best-explanation-batch-gradient-descent-mini-batch-gradient-descent-stochastic-gradient-descent" target="_blank">Machine Learning Man</a></figcaption>
 </figure>
 
-On the left side we have dataset that consists of two features and one of them has larger scale than the other. In both cases gradient method works, but it takes a lot less steps to reach optimum when features lies on similar scales (right image).
+On the left side, we have a dataset that consists of two features and one of them has a larger scale than the other. In both cases, the gradient method works, but it takes a lot fewer steps to reach optimum when features lie on similar scales (right image).
 
-## What is a Normalization and what is Scalling?
+## What is a Normalization and what is Scaling?
 
 #### [Normalization](https://en.wikipedia.org/wiki/Normalization_(statistics))
-In the standard sence, normalization refers to the process of adjusting value distribution range to fit into **<-1, 1>** (id doesn't have to be exact -1 to 1 but within the same order of magnitude so the range ). Standard normalization is done by **subtracting mean value from each value in the set and dividing result by the standard diviation**.
+In the standard sense, normalization refers to the process of adjusting the value distribution range to fit into **<-1, 1>** (id doesn't have to be exact -1 to 1 but within the same order of magnitude so the range ). Standard normalization is done by **subtracting mean value from each value in the set and the dividing result by the standard deviation**.
 
 $$
 {\frac {x-\mu }{\sigma }}
 $$
 
-#### [Scalling](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization))
-You can see it called "min-max normalization" but scalling is another value adjustment to fit in range, but this time range is **<0, 1>**.
+#### [Scaling](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization))
+You can see it called "min-max normalization" but scaling is another value adjustment to fit in range, but this time range is **<0, 1>**.
 
 $$
 {\frac  {x-{\text{min}}(x)}{{\text{max}}(x)-{\text{min}}(x)}}
@@ -49,9 +49,9 @@ $$
 
 ## Normalization or Scaling?
 
-There are two types of operation you can perform on the feature. You can either normalize or scale its values. Which one you choose depends on the feature itself. If you consider features which have some positive and negative values and that values are important, you should perform normalization. On the feature where negative values make no sense, you should apply scalling.
+There are two types of operations you can perform on the feature. You can either normalize or scale its values. Which one you choose depends on the feature itself. If you consider features that have some positive and negative values and that values are important, you should perform normalization. On the feature where negative values make no sense, you should apply scaling.
 
-It's not always that black and white. Let's consider feature like temperature. Depends on which scale you choose (Kelvin or Celsius/Fahrenheit) there might be different interpretations what that temperature could be. Kelvin scale is an **absolute thermodynamic temperature scale** (starte with absolute zero and cannot go below that). On the other hand we have scales used IRL where negative numbers are meaningful for us. When the temperature drops below 0 Celsius, water frezes. The same goes for Fahrenheit scale, its 0 degrees describe freazing point of the [brine](https://en.wikipedia.org/wiki/Brine) (concentrated solution of salt in water). Stright forward choice would be to scale Kelvins and normalize Celsius and Fahrenheit. That that's not always work. We can show it on DengAI's dataset:
+It's not always black and white. Let's consider a feature like a temperature. Depends on which scale you choose (Kelvin or Celsius/Fahrenheit) there might be different interpretations of what that temperature could be. Kelvin scale is an **absolute thermodynamic temperature scale** (starts with absolute zero and cannot go below that). On the other hand, we have scales used IRL where negative numbers are meaningful for us. When the temperature drops below 0 Celsius, water freezes. The same goes for the Fahrenheit scale, its 0 degrees describe the freezing point of the [brine](https://en.wikipedia.org/wiki/Brine) (concentrated solution of salt in water). The straight forward choice would be to scale Kelvins and normalize Celsius and Fahrenheit. That does not always work. We can show it on DengAI's dataset:
 
 <div class="center-all">
 
@@ -68,13 +68,13 @@ It's not always that black and white. Let's consider feature like temperature. D
 
 </div>
 
-Some of the temperatures are in Kelvin scale, and some in Celsius scale. That's not what is important here. If you look closely you should be able to group those temperatures by type:
+Some of the temperatures are on the Kelvin scale, and some on the Celsius scale. That's not what is important here. If you look closely you should be able to group those temperatures by type:
 - temperature with absolute minimum value
 - temperature without absolute minimum value (can be negative)
 
-An example of the first one is **station\_diur\_temp\_rng\_c**. This is something called [Diurnal temperature variation](https://en.wikipedia.org/wiki/Diurnal_temperature_variation) and defines a variation between minimum and maximum temperature withing some period of time. That value cannot have negative values (because difference between minimum and maximum cannot be lower than 0). That's where we should use scalling instead of normalization.
+An example of the first one is **station\_diur\_temp\_rng\_c**. This is something called [Diurnal temperature variation](https://en.wikipedia.org/wiki/Diurnal_temperature_variation) and defines a variation between minimum and maximum temperature withing some period of time. That value cannot have negative values (because the difference between minimum and maximum cannot be lower than 0). That's where we should use scaling instead of normalization.
 
-Another example is **reanalysis\_air\_temp\_k**. It is an air temperature and important feature. We cannot define a minimum value that temperature could get. If we really want there is a arbitrary minimum temperature for each city that we should never get below but that's not what we want to do. Things like temperature in problems like our might have another meaing when training models. There could be some positive and negative impact of the temperature value. In this case it might be that temperatures below 298K positively affecting number of cases (fewer mosquitos). That's why we should use normalization for this one.
+Another example is **reanalysis\_air\_temp\_k**. It is the air temperature and important feature. We cannot define a minimum value that temperature could get. If we really want there is an arbitrary minimum temperature for each city that we should never get below but that's not what we want to do. Things like the temperature in problems like ours might have another meaning when training models. There could be some positive and negative impacts of the temperature value. In this case, it might be that temperatures below 298K positively affecting a number of cases (fewer mosquitos). That's why we should use normalization for this one.
 
 After checking an entire dataset we can come up with the list of features to normalize, scale and copy from [our list of features](https://erdem.pl/2020/07/deng-ai-how-to-approach-data-science-competitions-eda#dataset):
 
@@ -115,7 +115,7 @@ After checking an entire dataset we can come up with the list of features to nor
 
 ## Why Copy?
 
-If we look at the definition of NDVI index, we can decide there is no reason for scalling or normalizing those values. NDVI values are already in **<-1, 1>** range. Sometimes we might want to copy values directly like that. Especially when original values are within the same order of magnitude as our normalized features. It might be <0,2> or <1,4>, but it shouldn't cause a problem for the model.
+If we look at the definition of the NDVI index, we can decide there is no reason for scalling or normalizing those values. NDVI values are already in **<-1, 1>** range. Sometimes we might want to copy values directly like that. Especially when original values are within the same order of magnitude as our normalized features. It might be <0,2> or <1,4>, but it shouldn't cause a problem for the model.
 
 ## The code
 
@@ -150,12 +150,12 @@ def preproc_data(data, norm_cols=cols_to_norm, scale_cols=cols_to_scale, train_s
     return new_data, train_scale
 ```
 
-As an input to our function we expect to send 3 or 4 variables. When dealing with the training set we're sending 3 variables:
+As an input to our function, we expect to send 3 or 4 variables. When dealing with the training set we're sending 3 variables:
 - training dataset (as pandas Dataframe)
 - list of columns to normalize
 - list of columns to scale
 
-When we're processing training data we have to define dataset for scaling/normalization process. This dataset is used to get values like **mean** or **standard diviation**. Because at the point of processing training dataset we don't have any external datasets, we're using training dataset. At line 19 we're normalizing selected columns using `StandardScaler()`:
+When we're processing training data we have to define the dataset for the scaling/normalization process. This dataset is used to get values like **mean** or **standard deviation**. Because at the point of processing the training dataset we don't have any external datasets, we're using the training dataset. At line 19 we're normalizing selected columns using `StandardScaler()`:
 
 ```python {numberLines: 17}
 if norm_cols:
@@ -163,9 +163,9 @@ if norm_cols:
     new_data[norm_cols] = StandardScaler().fit(train_scale[norm_cols]).transform(new_data[norm_cols])
 ```
 
-StandardScaler doesn't require any parameters when initializing, but it require scale dataset to fit to. We could just past the `new_data` twice and it would work but then we need to create another preprocessing for test dataset.
+StandardScaler doesn't require any parameters when initializing, but it requires scale dataset to fit to. We could just past the `new_data` twice and it would work but then we need to create another preprocessing for the test dataset.
 
-Next we're doing the same thing but with `MinMaxScaler()`.
+Next, we're doing the same thing but with `MinMaxScaler()`.
 
 ```python {numberLines: 21}
 if scale_cols:
@@ -174,9 +174,9 @@ if scale_cols:
         new_data[scale_cols])
 ```
 
-This time we're passing one parameter called `feature_range` to be sure that our scale is in range <0,1>. As in the previous example we're passing scaling dataset to fit to and transform selected columns.
+This time we're passing one parameter called `feature_range` to be sure that our scale is in range <0,1>. As in the previous example, we're passing the scaling dataset to fit to and transform selected columns.
 
-At the end, we're returning transformed `new_data` and additionally `train_scale` for further preprocessing. But wait the second! What further preprocessing? Remember that we're dealing not only with training dataset but also with test dataset. We have to apply the same data processing for both of them to have the same input for the model. If we would simply use `preproc_data()` in the same way for the test dataset we would apply completely different normalization and scaling. Reason why is because normalization and scaling is done by `.fit()` method and this method uses some given dataset to calculate **mean** and other required values. If you use test dataset which might have a different range of values (there was a hot summer because of global warming etc.) your value of 28C in test dataset will be normalized with a different parameters. Let me show you an example:
+In the end, we're returning transformed `new_data` and additionally `train_scale` for further preprocessing. But wait the second! What further preprocessing? Remember that we're dealing not only with the training dataset but also with the test dataset. We have to apply the same data processing for both of them to have the same input for the model. If we would simply use `preproc_data()` in the same way for the test dataset, we would apply completely different normalization and scaling. The reason why is because normalization and scaling are done by the `.fit()` method and this method uses some given dataset to calculate **mean** and other required values. If you use a test dataset that might have a different range of values (there was a hot summer because of global warming etc.) your value of 28C in the test dataset will be normalized with different parameters. Let me show you an example:
 
 Training Dataset:
 $$
@@ -200,7 +200,7 @@ $$
 \sigma = 0.83
 $$
 
-Normalizing Testing Dataset using mean and SD from Training Dataset gives us:
+Normalizing Testing Dataset using mean and SD from the test Dataset gives us:
 
 $$
 [0.11, 0.11, 0.91, 1.71, 0.91, 0.11, 1.71]
@@ -212,7 +212,7 @@ $$
 [-1.04, -1.04, 0.17, 1.37, 0.17, -1.04, 1.37]
 $$
 
-You might think that second one is better describing the datset but that's only true when dealing with **only** the testing dataset. 
+You might think that the second one is better describing the dataset but that's only true when dealing with **only** the testing dataset. 
 
 That's why when building our model we have to execute it like that:
 
@@ -229,9 +229,9 @@ normalized_test_data, _ = preproc_data(unnormalized_test_data, norm_cols, scale_
 
 ## Conclusion
 
-We've just gone through quite standard normalization proces for our dataset. It is important to understand the difference between normalization and scalling. Another thing which might be even more important is feature selection for normalization (example with different temperature features), you should alwyas try to understand your features, not only apply some hardcoded rules from the internet.
+We've just gone through a quite standard normalization process for our dataset. It is important to understand the difference between normalization and scaling. Another thing which might be even more important is feature selection for normalization (example with different temperature features), you should always try to understand your features, not only apply some hardcoded rules from the internet.
 
-Last thing that i have to mention (and you've probalby already though about it) is difference between data range in training and testing dataset. You know that normalization of the testing data should be done with the variables from training data, but whouldn't we adjust the process to fit into different range? Lets say training dataset has temperature range between 15C and 23C and testing dataset has range between 18C and 28C. Isn't that a problem for our model? Actually it isn't :) Models doesn't really care about small changes like that because they are aproximating continous functions (or distributions) and unless your range differes a lot (it's from different distribution) you shouldn't have any issues with it.
+The last thing that I have to mention (and you've probably already thought about it) is the difference between data range in training and testing dataset. You know that normalization of the testing data should be done with the variables from training data, but shouldn't we adjust the process to fit into a different range? Let's say the training dataset has a temperature range between 15C and 23C and the testing dataset has range between 18C and 28C. Isn't that a problem with our model? Actually it isn't :) Models don't really care about small changes like that because they are approximating continuous functions (or distributions) and unless your range differs a lot (it's from different distribution) you shouldn't have any issues with it.
 
 
 ## References:

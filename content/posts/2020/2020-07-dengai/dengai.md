@@ -120,7 +120,7 @@ $$
 
 Before even starting designing the models we need to look at the raw data and fix it. To accomplish that we're going to use [Pandas Library](https://pandas.pydata.org/). Usually, we can just import `.csv` files out of the box and work on the imported DataFrame, but sometimes (especially when there is no column description in the first row) we have to provide a list of columns.
 
-```python
+```python {numberLines}
 import pandas as pd
 pd.set_option("display.precision", 2)
 
@@ -167,7 +167,7 @@ Suppose you're dealing with temperature data, and your entire dataset consists o
 
 Because we've already covered some important things lets define a method which allows us to redefine our categorical column (**city**) into binary column vectors and interpolate data:
 
-```python
+```python {numberLines}
 def extract_data(train_file_path, columns, categorical_columns=CATEGORICAL_COLUMNS, categories_desc=CATEGORIES,
                  interpolate=True):
     # Read csv file and return
@@ -223,7 +223,7 @@ When working with a lot of features we don't really have to plot pair plots for 
 
 > If there are categorical columns which shouldn't be treated as binary you could calculate [Cramér's V measure of association](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V) to find out a "correlation" between them and the rest of the data.
  
-```python
+```python {numberLines}
 import pandas as pd
 import seaborn as sns
 
@@ -266,7 +266,7 @@ If you look at this heatmap it's obvious which features are correlated with each
 
 This time we're out of lack because nothing is really strongly correlated with our target. But we still should be able to pick the most important features for our model. Looking on the heatmap is not that useful right now so let me switch to the bar plot.
 
-```python
+```python {numberLines}
 sorted_y = corr.sort_values(by='total_cases', axis=0).drop('total_cases')
 plt.figure(figsize=(20, 10))
 ax = sns.barplot(x=sorted_y.total_cases, y=sorted_y.index, color="b")
