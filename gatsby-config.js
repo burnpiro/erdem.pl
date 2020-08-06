@@ -128,9 +128,9 @@ module.exports = {
           },
           'gatsby-remark-autolink-headers',
           {
-            resolve: 'gatsby-remark-prismjs',
+            resolve: 'gatsby-remark-vscode',
             options: {
-              showLineNumbers: true,
+              theme: 'Quiet Light',
             },
           },
           'gatsby-remark-copy-linked-files',
