@@ -80,7 +80,7 @@ After checking an entire dataset we can come up with the list of features to nor
 
 #### Normalized features
 
-```
+```bash
 'reanalysis_air_temp_k'
 'reanalysis_avg_temp_k'
 'reanalysis_dew_point_temp_k'
@@ -92,7 +92,7 @@ After checking an entire dataset we can come up with the list of features to nor
 ```
 
 #### Scaled features
-```
+```bash
 'station_diur_temp_rng_c'
 'reanalysis_tdtr_k'
 'precipitation_amt_mm'
@@ -106,7 +106,7 @@ After checking an entire dataset we can come up with the list of features to nor
 ```
 
 #### Copied features
-```
+```bash
 'ndvi_ne'
 'ndvi_nw'
 'ndvi_se'
@@ -121,7 +121,7 @@ If we look at the definition of NDVI index, we can decide there is no reason for
 
 Now we have to write some code to preprocess our data. We're going to use [StandardScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) and [MinMaxScaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html) from [sklearn](https://scikit-learn.org/stable/) library.
 
-```python
+```python {numberLines}
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from data_info import cols_to_norm, cols_to_scale
@@ -155,9 +155,9 @@ As an input to our function we expect to send 3 or 4 variables. When dealing wit
 - list of columns to normalize
 - list of columns to scale
 
-When we're processing training data we have to define dataset for scaling/normalization process. This dataset is used to get values like **mean** or **standard diviation**. Because at the point of processing training dataset we don't have any external datasets, we're using training dataset. At line 17 we're normalizing selected columns using `StandardScaler()`:
+When we're processing training data we have to define dataset for scaling/normalization process. This dataset is used to get values like **mean** or **standard diviation**. Because at the point of processing training dataset we don't have any external datasets, we're using training dataset. At line 19 we're normalizing selected columns using `StandardScaler()`:
 
-```python
+```python {numberLines: 17}
 if norm_cols:
     # Normalize temp and percipation
     new_data[norm_cols] = StandardScaler().fit(train_scale[norm_cols]).transform(new_data[norm_cols])
@@ -167,7 +167,7 @@ StandardScaler doesn't require any parameters when initializing, but it require 
 
 Next we're doing the same thing but with `MinMaxScaler()`.
 
-```python
+```python {numberLines: 21}
 if scale_cols:
     # Scale year and week no but within (0,1)
     new_data[scale_cols] = MinMaxScaler(feature_range=(0, 1)).fit(train_scale[scale_cols]).transform(
@@ -212,10 +212,26 @@ $$
 [-1.04, -1.04, 0.17, 1.37, 0.17, -1.04, 1.37]
 $$
 
-You might think that second one is better describing the datset but that's only true when dealing with **only** testing dataset. 
+You might think that second one is better describing the datset but that's only true when dealing with **only** the testing dataset. 
+
+That's why when building our model we have to execute it like that:
+
+```python
+unnormalized_train_data = extract_data(path_to_train_file)
+
+normalized_train_data, train_scale = preproc_data(unnormalized_train_data, norm_cols, scale_cols)
+
+// Create and train model
+
+unnormalized_test_data = extract_data(path_to_test_file)
+normalized_test_data, _ = preproc_data(unnormalized_test_data, norm_cols, scale_cols, train_scale)
+```
 
 ## Conclusion
 
+We've just gone through quite standard normalization proces for our dataset. It is important to understand the difference between normalization and scalling. Another thing which might be even more important is feature selection for normalization (example with different temperature features), you should alwyas try to understand your features, not only apply some hardcoded rules from the internet.
+
+Last thing that i have to mention (and you've probalby already though about it) is difference between data range in training and testing dataset. You know that normalization of the testing data should be done with the variables from training data, but whouldn't we adjust the process to fit into different range? Lets say training dataset has temperature range between 15C and 23C and testing dataset has range between 18C and 28C. Isn't that a problem for our model? Actually it isn't :) Models doesn't really care about small changes like that because they are aproximating continous functions (or distributions) and unless your range differes a lot (it's from different distribution) you shouldn't have any issues with it.
 
 
 ## References:
