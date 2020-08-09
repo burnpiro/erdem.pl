@@ -25,8 +25,8 @@ In this article, I assume that you're already familiar with [DengAI - EDA](https
 When designing ML models we have to remember that some of them are based on the gradient method. The problem with the gradient is that it performs better on normalized/scaled data. Let me show an example:
 
 <figure class="image">
-  <img src="./feature-scaling.png" alt="gradient descent">
-  <figcaption>Gradient descent examples. Source: <a href="https://www.machinelearningman.com/post/best-explanation-batch-gradient-descent-mini-batch-gradient-descent-stochastic-gradient-descent" target="_blank">Machine Learning Man</a></figcaption>
+  <img src="./descent.png" alt="gradient descent">
+  <figcaption>Gradient descent examples.</figcaption>
 </figure>
 
 On the left side, we have a dataset that consists of two features and one of them has a larger scale than the other. In both cases, the gradient method works, but it takes a lot fewer steps to reach optimum when features lie on similar scales (right image).
