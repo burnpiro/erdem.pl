@@ -6,12 +6,6 @@ slug: "/pages/work"
 
 ## My recent work/project
 
-#### Tweet Dataset Annotator [(GitHub)](https://github.com/burnpiro/tweet-annotator) (PL)
-
-Application to annotate tweets and create the first polish annotated dataset.
-
-![Annotation website](images/tweet-annotator.png)
-
 #### Temporal Network of city bicycles [(GitHub)](https://github.com/burnpiro/wod-bike-dataset-generator) [(Website)](https://burnpiro.github.io/wod-bike-dataset-generator/)
 
 Creation of usage network to provide historical information about trends and users preferences.
@@ -89,6 +83,12 @@ YOLOv3 implementation in TensorFlow 2.0
 </figure>
 
 </div>
+
+#### Tweet Dataset Annotator [(GitHub)](https://github.com/burnpiro/tweet-annotator) (PL)
+
+Application to annotate tweets and create the first polish annotated dataset.
+
+![Annotation website](images/tweet-annotator.png)
 
 #### Puppeteer Screenshot Tester [(GitHub)](https://github.com/burnpiro/puppeteer-screenshot-tester) [(NPM)](https://www.npmjs.com/package/puppeteer-screenshot-tester)
 
