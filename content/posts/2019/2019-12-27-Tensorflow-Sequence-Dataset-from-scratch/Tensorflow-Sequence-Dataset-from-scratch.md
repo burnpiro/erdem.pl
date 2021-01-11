@@ -202,8 +202,8 @@ with open(config_path) as fp:
             if h == 0:
                 # remove boxes with no height
                 continue
-            self.boxes.append((line.strip(), x0, y0, w, h))
-        line = fp.readline()
+            self.boxes.append((image_name.strip(), x0, y0, w, h))
+        image_name = fp.readline()
         cnt += 1
 ```
 
@@ -220,7 +220,7 @@ def get_box(data):
     return x0, y0, w, h
 ```
 
-This function receives a list of strings and returns 4 integers we need. After that, we're appending our box to Sequence object `self.boxes.append((line.strip(), x0, y0, w, h))` and read the next line.
+This function receives a list of strings and returns 4 integers we need. After that, we're appending our box to Sequence object `self.boxes.append((image_name.strip(), x0, y0, w, h))` and read the next line.
 
 Everything seems fine and we should be ready to move to the next part, but if we try to execute this code it will fail.
 
@@ -243,7 +243,7 @@ We didn't anticipate there are images without faces and because of how our itera
 if num_of_obj == 0:
     obj_box = fp.readline().split(' ')
     x0, y0, w, h = get_box(obj_box)
-    self.boxes.append((line.strip(), x0, y0, w, h))
+    self.boxes.append((image_name.strip(), x0, y0, w, h))
 ```
 
 That way, when there are no faces on an image we're going to create an empty example.
