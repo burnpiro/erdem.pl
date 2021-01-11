@@ -6,6 +6,10 @@ slug: "/pages/work"
 
 ## My recent work/project
 
+#### FAT (Farm Animal Tracking) [(Github)](https://github.com/burnpiro/farm-animal-tracking) [(Example)](https://www.youtube.com/watch?v=ifHIbjOHczI)
+
+Tracking and recognition of farm animals (pigs) with CNN and Siamese network.
+
 #### Temporal Network of city bicycles [(GitHub)](https://github.com/burnpiro/wod-bike-dataset-generator) [(Website)](https://burnpiro.github.io/wod-bike-dataset-generator/)
 
 Creation of usage network to provide historical information about trends and users preferences.
@@ -127,6 +131,10 @@ Simple library to validate git branch name before pushing it to repository. Help
 
 
 ## Talks/presentation
+
+#### Explainable AI [Slides](https://tugot17.github.io/XAI-Presentation/#/)
+
+A quick roundup on how XAI works. More on Lime and Integrated Gradient.
 
 #### Airport Gate Optimization Problem [Slides](https://burnpiro.github.io/agap-presentation/#/)
 
