@@ -16,7 +16,7 @@ Creation of usage network to provide historical information about trends and use
 
 ![Application website](images/temp-network.png)
 
-#### DengAI: Predicting Disease Spread [(DrivenData)](https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/)
+#### DengAI: Predicting Disease Spread [(DrivenData)](https://www.drivendata.org/competitions/44/dengai-predicting-disease-spread/) [(Report)](https://github.com/burnpiro/dengai-predicting-disease-spread/blob/master/Report_Dengue_Erdem.pdf)
 
 <div class="flex-container">
 
