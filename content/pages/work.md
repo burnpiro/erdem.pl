@@ -132,7 +132,7 @@ Simple library to validate git branch name before pushing it to repository. Help
 
 ## Talks/presentation
 
-#### Explainable AI [Slides](https://tugot17.github.io/XAI-Presentation/#/)
+#### Explainable AI [Slides](https://tugot17.github.io/XAI-Presentation/#/) [(Report - PL)](https://github.com/tugot17/XAI-Presentation/blob/master/XAI_Raport_Erdem__Mazurek__Rarus.pdf)
 
 A quick roundup on how XAI works. More on Lime and Integrated Gradient.
 
