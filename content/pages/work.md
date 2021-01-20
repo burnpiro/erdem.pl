@@ -6,9 +6,11 @@ slug: "/pages/work"
 
 ## My recent work/project
 
-#### FAT (Farm Animal Tracking) [(Github)](https://github.com/burnpiro/farm-animal-tracking) [(Example)](https://www.youtube.com/watch?v=ifHIbjOHczI)
+#### FAT (Farm Animal Tracking) [(Github)](https://github.com/burnpiro/farm-animal-tracking) [(Example)](https://www.youtube.com/watch?v=ifHIbjOHczI) [(Presentation)](https://docs.google.com/presentation/d/1mxaBre5yrApX7LIijgDAWB04z2IriVpcyB9XnURZkWM/edit?usp=sharing)
 
 Tracking and recognition of farm animals (pigs) with CNN and Siamese network.
+
+![Tracking example](images/fat-tracking.png)
 
 #### Temporal Network of city bicycles [(GitHub)](https://github.com/burnpiro/wod-bike-dataset-generator) [(Website)](https://burnpiro.github.io/wod-bike-dataset-generator/)
 
