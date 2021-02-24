@@ -140,7 +140,9 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-material-ui`,
-      options: {},
+      options: {
+        pathToStylesProvider: `src/styles-provider-props`,
+      },
     },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
