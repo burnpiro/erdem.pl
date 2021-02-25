@@ -137,22 +137,6 @@ blockquote {
   text-align: center;
 }
 
-figure {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-figcaption {
-  @include line-height(0.75);
-  @include margin-top(0.25);
-  color: $color-base;
-  font-size: $typographic-small-font-size;
-  font-style: italic;
-  margin-bottom: 0;
-  text-align: center;
-}
-
 .anchor {
   margin-left: -30px !important;
   padding-right: 14px !important;
@@ -187,6 +171,26 @@ table {
       font-size: 18px;
     }
   }
+}
+
+figure {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  table {
+    margin-bottom: 0;
+  }
+}
+
+figcaption {
+  @include line-height(0.75);
+  @include margin-top(0.25);
+  color: $color-base;
+  font-size: $typographic-small-font-size;
+  font-style: italic;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 @include breakpoint-sm {
