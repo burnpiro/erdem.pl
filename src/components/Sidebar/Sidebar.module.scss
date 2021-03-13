@@ -3,6 +3,9 @@
 
 .sidebar {
   width: 100%;
+  &--slim {
+    max-width: 160px;
+  }
   &__inner {
     position: relative;
     padding: 25px 20px 0;

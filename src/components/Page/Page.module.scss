@@ -4,6 +4,10 @@
 .page {
   @include margin-bottom(2);
 
+  &--wide {
+    lost-column: 4/5;
+  }
+
   &__inner {
     padding: 25px 20px;
   }
@@ -36,6 +40,10 @@
 @include breakpoint-md {
   .page {
     lost-column: 2/3;
+
+    &--wide {
+      lost-column: 4/5;
+    }
 
     &__inner {
       padding: 40px 35px;

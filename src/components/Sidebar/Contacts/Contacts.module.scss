@@ -14,6 +14,11 @@
     margin: 10px -3px;
     width: $button-height * 8;
 
+    &--slim {
+      flex-flow: wrap;
+      width: 100px;
+    }
+
     &-item {
       padding: 0;
       margin: 4px;

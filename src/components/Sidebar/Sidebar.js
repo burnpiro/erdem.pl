@@ -9,17 +9,20 @@ import { useSiteMetadata } from '../../hooks';
 
 type Props = {
   isIndex?: boolean,
+  slim?: boolean,
 };
 
-const Sidebar = ({ isIndex }: Props) => {
+const Sidebar = ({ isIndex, slim }: Props) => {
   const { author, copyright, menu } = useSiteMetadata();
 
+  const sidebarClass = slim ? styles['sidebar'] + ' ' + styles['sidebar--slim'] : styles['sidebar'];
+
   return (
-    <div className={styles['sidebar']}>
+    <div className={sidebarClass}>
       <div className={styles['sidebar__inner']}>
-        <Author author={author} isIndex={isIndex} />
+        <Author author={author} isIndex={isIndex} showBio={!slim} />
         <Menu menu={menu} />
-        <Contacts contacts={author.contacts} />
+        <Contacts contacts={author.contacts} slim={slim} />
         <Copyright copyright={copyright} />
       </div>
     </div>
