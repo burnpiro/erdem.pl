@@ -12,7 +12,6 @@ module.exports = {
     disqusShortname: siteConfig.disqusShortname,
     menu: siteConfig.menu,
     author: siteConfig.author,
-    contactFormUrl: siteConfig.contactFormUrl,
   },
   plugins: [
     {
