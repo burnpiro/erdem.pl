@@ -23,8 +23,8 @@ const initialState = {
   [grids.maskedInputAttribution]: [0, 0, 0, 0, 0.49, 0, 0, 0, 0],
   [grids.maskedInput]: [0, 0, 0, 0, 0.25, 0, 0, 0, 0],
   selected: {
-    gridName: null,
-    index: null,
+    gridName: grids.MASK,
+    index: 4,
   },
   scores: {
     is: [0, 0],
