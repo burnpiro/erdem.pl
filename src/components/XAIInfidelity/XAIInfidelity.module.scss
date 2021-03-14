@@ -48,6 +48,39 @@
   @include padding(1, 1, 1)
 }
 
+.infidelity-scores {
+  margin-top: 20px;
+  .chart {
+    position: relative;
+    display: grid;
+    grid-gap: 0.1em;
+    margin-top: 2em;
+    padding: 0;
+
+    &__title {
+      font-size: 1.5em;
+      overflow: hidden;
+    }
+
+    &__value {
+      padding: 0.1em 0.7em;
+      border-radius: 0 .6em .6em 0;
+      overflow: hidden;
+      transition: 0.3s ease-in-out;
+
+      &__inlabel {
+        white-space: nowrap;
+      }
+
+      &__outlabel {
+        white-space: nowrap;
+        margin-left: -70px;
+        position: absolute;
+      }
+    }
+  }
+}
+
 @include breakpoint-sm {
   .small-devide-info {
     display: none;

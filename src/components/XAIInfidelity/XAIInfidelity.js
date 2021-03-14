@@ -1,11 +1,12 @@
 // @flow
-import React, { useRef, useEffect, useState, useReducer } from 'react';
-import { Typography } from '@material-ui/core';
+import React, { useEffect, useState, useReducer } from 'react';
+import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import ImageGrid from './ImageGrid';
 
 import styles from './XAIInfidelity.module.scss';
+import Scores from './Scores';
 
 const grids = {
   INPUT: 'INPUT',
@@ -40,7 +41,6 @@ const actions = {
 };
 
 function reducer(state, action) {
-  console.log(action);
   switch (action.type) {
     case actions.SET:
       return {
@@ -60,7 +60,6 @@ function reducer(state, action) {
         },
       };
     case actions.SET_SCORE:
-      console.log();
       return {
         ...state,
         scores: {
@@ -102,11 +101,6 @@ const XAIInfidelity = () => {
     if (data != null) {
       const inputStr = state[grids.INPUT].map(el => el.toFixed(2)).join('_');
       const maskStr = state[grids.MASK].map(el => el.toFixed(2)).join('_');
-      console.log(`${inputStr}-${maskStr}`);
-      console.log(
-        JSON.stringify(data[`${inputStr}-${maskStr}`].ia) ===
-          JSON.stringify(data[`${inputStr}-${maskStr}`].mia)
-      );
       dispatch({
         type: actions.REPLACE,
         value: {
@@ -184,7 +178,7 @@ const XAIInfidelity = () => {
             state.selected.gridName === grids.MASK ? state.selected.index : null
           }
           onValueSelect={onValueSelect}
-          title="Mask"
+          title="Noise (select cell)"
         />
         <ImageGrid
           values={state[grids.maskedInput]}
@@ -199,27 +193,15 @@ const XAIInfidelity = () => {
           title="Masked Input Attribution"
         />
       </div>
-      <Typography variant={'h3'} color={'primary'} align={'justify'}>
-        {`Scores`}
-      </Typography>
-      <Typography variant={'body1'} color={'textPrimary'} align={'justify'}>
-        {`Original Input: Class 0 = ${state.scores.is[0]}, Class 1 = ${state.scores.is[1]}`}
-        <br />
-        {`Masked Input: Class 0 = ${state.scores.mis[0]}, Class 1 = ${state.scores.mis[1]}`}
-        <br />
-        {`inf: ${state.scores.infidelity}`}
-      </Typography>
-      <div className={styles['infidelity-controls']}>
-        <Typography variant={'h5'} color={'primary'} align={'justify'}>
-          {`Controlls`}
-        </Typography>
-        <Typography id="discrete-slider" gutterBottom>
-          {`Value`}
-        </Typography>
-        {state.selected.gridName && (
+      {state.selected.gridName && (
+        <React.Fragment>
+          <Typography id="discrete-slider" gutterBottom style={{marginTop: '20px'}}>
+            {`Noise value`}
+          </Typography>
           <Slider
             defaultValue={0}
             // getAriaValueText={valuetext}
+            aria-label={'Value'}
             aria-labelledby="discrete-slider"
             valueLabelDisplay="on"
             onChange={onSliderChange}
@@ -229,8 +211,13 @@ const XAIInfidelity = () => {
             min={-0.4}
             max={0.5}
           />
-        )}
-      </div>
+        </React.Fragment>
+      )}
+      <Scores
+        inputScores={state.scores.is}
+        maskedInputScores={state.scores.mis}
+        infidelity={state.scores.infidelity}
+      />
     </React.Fragment>
   );
 };
