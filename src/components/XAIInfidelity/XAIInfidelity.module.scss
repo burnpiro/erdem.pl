@@ -1,0 +1,55 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.small-devide-info {
+  display: block;
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: auto auto auto auto;
+  justify-content: center;
+  row-gap: 10px;
+
+  .grid-item {
+    grid-row-start: span 2;
+    &--noise {
+      grid-row-start: 2;
+      grid-row-end: span 2;
+      grid-column-start: 3;
+    }
+  }
+}
+
+.grid-cell {
+  text-align: center;
+  font-size: 1.2rem;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+
+  &--clickable {
+    cursor: pointer;
+
+    &:hover {
+      background-color: skyblue !important;
+    }
+  }
+
+  &--selected {
+    background-color: skyblue !important;
+  }
+}
+
+.infidelity-controls {
+  @include padding(1, 1, 1)
+}
+
+@include breakpoint-sm {
+  .small-devide-info {
+    display: none;
+  }
+}
