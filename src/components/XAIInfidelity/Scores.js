@@ -8,11 +8,13 @@ const Scores = ({
   inputScores = [0, 0],
   maskedInputScores = [0.0],
   infidelity = 0,
+  sensitivity = 0,
 }) => {
   return (
     <div className={styles['infidelity-scores']}>
       <Typography variant={'h4'} color={'primary'} align={'justify'}>
-        {`Infidelity: ${infidelity}`}
+        {`Infidelity: ${infidelity}, `}
+        {`Sensitivity: ${sensitivity}`}
       </Typography>
       <ul className={styles['chart']}>
         <li className={styles['chart__title']}>Masked Input Score</li>

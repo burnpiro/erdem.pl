@@ -11,11 +11,11 @@ const ObjectDetection = () => {
 
   return (
     <Layout
-      title={`Infidelity Metric step by step - ${title}`}
+      title={`Infidelity and Sensitivity step by step - ${title}`}
       description={subtitle}
     >
       <Sidebar slim={true} />
-      <Page title="How infidelity metric works?" wide={true}>
+      <Page title="How infidelity and Sensitivity works?" wide={true}>
         <XAIInfidelity />
       </Page>
     </Layout>

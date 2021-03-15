@@ -39,13 +39,24 @@
     }
   }
 
+  &--matched-values {
+    position: relative;
+    &:after {
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: forestgreen;
+      content: '✔';
+    }
+  }
+
   &--selected {
     background-color: skyblue !important;
   }
 }
 
 .infidelity-controls {
-  @include padding(1, 1, 1)
+  @include padding(1, 1, 1);
 }
 
 .infidelity-scores {
@@ -64,7 +75,7 @@
 
     &__value {
       padding: 0.1em 0.7em;
-      border-radius: 0 .6em .6em 0;
+      border-radius: 0 0.6em 0.6em 0;
       overflow: hidden;
       transition: 0.3s ease-in-out;
 

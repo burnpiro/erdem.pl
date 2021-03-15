@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const ImageGrid = ({
   values = [],
+  compareValues = [],
   onValueSelect = null,
   gridId = '',
   title = '',
@@ -43,13 +44,16 @@ const ImageGrid = ({
       <div className={classes.gridContainer}>
         {values.map((value, index) => {
           const intValue = Number(value);
-          const colorValue = 255 - Number.parseInt(Number(value) * 255, 10);
-          const fontColor = colorValue < 170 ? '#eee' : '#000';
+          const colorValue = 100 - Number.parseInt(Number(value) * 100, 10);
+          const fontColor = colorValue < 60 ? '#eee' : '#000';
+          const isSame =
+            compareValues.length === values.length &&
+            compareValues[index] === values[index];
           return (
             <div
               key={String(index)}
               style={{
-                backgroundColor: `rgb(${colorValue}, ${colorValue}, ${colorValue})`,
+                backgroundColor: `hsl(0, 0%, ${colorValue}%)`,
                 color: fontColor,
               }}
               className={
@@ -57,11 +61,14 @@ const ImageGrid = ({
                 ' ' +
                 (onValueSelect != null ? styles['grid-cell--clickable'] : '') +
                 ' ' +
+                (isSame ? styles['grid-cell--matched-values'] : '') +
+                ' ' +
                 (selected != null && selected === index
                   ? styles['grid-cell--selected']
                   : '')
               }
               onClick={actions[index]}
+              title={intValue.toFixed(7)}
             >
               {intValue.toFixed(2)}
             </div>

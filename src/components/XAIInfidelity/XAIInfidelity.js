@@ -30,6 +30,7 @@ const initialState = {
     is: [0, 0],
     mis: [0, 0],
     infidelity: 0,
+    sensitivity: 0,
   },
 };
 
@@ -66,6 +67,7 @@ function reducer(state, action) {
           is: action.value.is,
           mis: action.value.mis,
           infidelity: action.value.inf,
+          sensitivity: action.value.s,
         },
       };
     default:
@@ -121,6 +123,7 @@ const XAIInfidelity = () => {
           is: data[`${inputStr}-${maskStr}`].is,
           mis: data[`${inputStr}-${maskStr}`].mis,
           inf: data[`${inputStr}-${maskStr}`].i,
+          s: data[`${inputStr}-${maskStr}`].s,
         },
       });
     }
@@ -188,6 +191,7 @@ const XAIInfidelity = () => {
         />
         <ImageGrid
           values={state[grids.maskedInputAttribution]}
+          compareValues={state[grids.inputAttribution]}
           gridId={grids.maskedInputAttribution}
           className={styles['grid-item']}
           title="Masked Input Attribution"
@@ -217,6 +221,7 @@ const XAIInfidelity = () => {
         inputScores={state.scores.is}
         maskedInputScores={state.scores.mis}
         infidelity={state.scores.infidelity}
+        sensitivity={state.scores.sensitivity}
       />
     </React.Fragment>
   );
