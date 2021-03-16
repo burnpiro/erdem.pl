@@ -2,6 +2,7 @@ module.exports = {
   markdownRemark: {
     id: 'test-123',
     html: '<p>test</p>',
+    htmlAst: { children: [], data: { quirksMode: false }, type: 'root' },
     fields: {
       tagSlugs: ['/test_0', '/test_1'],
     },

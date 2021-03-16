@@ -37,12 +37,9 @@ Array [
           </div>
           <div
             className="content__body"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<p>test</p>",
-              }
-            }
-          />
+          >
+            <div />
+          </div>
         </div>
       </div>
       <div

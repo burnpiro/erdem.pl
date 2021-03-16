@@ -8,6 +8,7 @@ describe('Content', () => {
     const props = {
       title: 'test',
       body: '<p>test</p>',
+      htmlAst: { children: [], data: { quirksMode: false }, type: 'root' },
       date: '2019-07-10',
       readTime: {
         text: '5 minutes',
