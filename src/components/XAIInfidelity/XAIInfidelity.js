@@ -145,7 +145,7 @@ const XAIInfidelity = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className={styles['xai-continaer']}>
       <Typography
         className={styles['small-devide-info']}
         variant={'subtitle1'}
@@ -197,33 +197,39 @@ const XAIInfidelity = () => {
           title="Masked Input Attribution"
         />
       </div>
-      {state.selected.gridName && (
-        <React.Fragment>
-          <Typography id="discrete-slider" gutterBottom style={{marginTop: '20px'}}>
-            {`Noise value`}
-          </Typography>
-          <Slider
-            defaultValue={0}
-            // getAriaValueText={valuetext}
-            aria-label={'Value'}
-            aria-labelledby="discrete-slider"
-            valueLabelDisplay="on"
-            onChange={onSliderChange}
-            value={state[state.selected.gridName][state.selected.index]}
-            step={0.1}
-            marks
-            min={-0.4}
-            max={0.5}
-          />
-        </React.Fragment>
-      )}
-      <Scores
-        inputScores={state.scores.is}
-        maskedInputScores={state.scores.mis}
-        infidelity={state.scores.infidelity}
-        sensitivity={state.scores.sensitivity}
-      />
-    </React.Fragment>
+      <div>
+        {state.selected.gridName && (
+          <div style={{ marginLeft: '100px' }}>
+            <Typography
+              id="discrete-slider"
+              gutterBottom
+              style={{ marginTop: '20px' }}
+            >
+              {`Noise value`}
+            </Typography>
+            <Slider
+              defaultValue={0}
+              // getAriaValueText={valuetext}
+              aria-label={'Value'}
+              aria-labelledby="discrete-slider"
+              valueLabelDisplay="on"
+              onChange={onSliderChange}
+              value={state[state.selected.gridName][state.selected.index]}
+              step={0.1}
+              marks
+              min={-0.4}
+              max={0.5}
+            />
+          </div>
+        )}
+        <Scores
+          inputScores={state.scores.is}
+          maskedInputScores={state.scores.mis}
+          infidelity={state.scores.infidelity}
+          sensitivity={state.scores.sensitivity}
+        />
+      </div>
+    </div>
   );
 };
 

@@ -209,6 +209,10 @@ figcaption {
   }
 }
 
+div.wide-container {
+  max-width: 90vw;
+}
+
 .flex-container {
   display: flex;
   flex-direction: column;

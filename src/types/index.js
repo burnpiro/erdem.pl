@@ -73,5 +73,6 @@ export type MarkdownRemark = {
     title: string,
   },
   html: string,
+  htmlAst: string,
   id: string,
 };

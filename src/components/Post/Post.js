@@ -14,7 +14,7 @@ type Props = {
 };
 
 const Post = ({ post }: Props) => {
-  const { html } = post;
+  const { html, htmlAst } = post;
   const {
     fields: { tagSlugs, readTime, slug },
   } = post;
@@ -31,6 +31,7 @@ const Post = ({ post }: Props) => {
       <div className={styles['post__content']}>
         <Content
           body={html}
+          htmlAst={htmlAst}
           title={title}
           date={date}
           readTime={readTime}

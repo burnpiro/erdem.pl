@@ -12,7 +12,12 @@ const Scores = ({
 }) => {
   return (
     <div className={styles['infidelity-scores']}>
-      <Typography variant={'h4'} color={'primary'} align={'justify'}>
+      <Typography
+        variant={'h4'}
+        color={'primary'}
+        align={'justify'}
+        style={{ whiteSpace: 'nowrap', marginLeft: '-40px', width: '670px' }}
+      >
         {`Infidelity: ${infidelity}, `}
         {`Sensitivity: ${sensitivity}`}
       </Typography>

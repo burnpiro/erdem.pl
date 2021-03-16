@@ -83,6 +83,7 @@ module.exports = {
                     node {
                       excerpt(pruneLength: 250)
                       html
+                      htmlAst
                       fields { 
                         slug
                       }
@@ -134,6 +135,10 @@ module.exports = {
           },
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          {
+            resolve: 'gatsby-remark-component',
+            options: { components: ['xai-infidelity'] },
+          },
         ],
       },
     },
