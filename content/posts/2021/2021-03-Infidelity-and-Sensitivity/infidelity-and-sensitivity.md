@@ -84,7 +84,7 @@ $$
 - $\Phi$ is an explanation function
 - $\mathbf{f}$ is a black-box model
 - $\mathbf{x}$ is an input
-- $I$ is a _significant petrurbation_
+- $I$ is a _significant perturbation_
 
 This time we're dealing with a __significant perturbation__. The paper discusses that perturbation a lot but in the end, we're left with 2 main options:
 
