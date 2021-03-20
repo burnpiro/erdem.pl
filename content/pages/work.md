@@ -12,7 +12,7 @@ Tracking and recognition of farm animals (pigs) with CNN and Siamese network.
 
 ![Tracking example](images/fat-tracking.png)
 
-#### Temporal Network of city bicycles [(GitHub)](https://github.com/burnpiro/wod-bike-dataset-generator) [(Website)](https://burnpiro.github.io/wod-bike-dataset-generator/)
+#### Temporal Network of city bicycles [(GitHub)](https://github.com/burnpiro/wod-bike-temporal-network) [(Website)](https://burnpiro.github.io/wod-bike-temporal-network)
 
 Creation of usage network to provide historical information about trends and users preferences.
 
