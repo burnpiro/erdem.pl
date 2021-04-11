@@ -1,7 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
 import useD3 from '../../hooks/use-d3';
-import { animationWidth, animationHeight } from './data';
 
 const fontSize = 19;
 
@@ -108,7 +107,7 @@ function drawLine(line, svg) {
 
 let arrowDef = null;
 
-function DiagramGenerator({ data, step }) {
+function DiagramGenerator({ data, step, animationWidth = 1200, animationHeight = 500 }) {
   const ref = useD3(
     svg => {
       if (arrowDef == null) {
