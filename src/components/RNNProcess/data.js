@@ -3,6 +3,7 @@ import React from 'react';
 const firstRowPosition = 0.01;
 const boxPadding = 0.07;
 const bottomRowPosition = 0.8;
+const topRowPosition = 0.1;
 const animationWidth = 1200;
 const animationHeight = 500;
 const boxSize = 50;
@@ -12,6 +13,7 @@ const step1 = {
     borderColor: '#A35A00',
     size: `${boxSize}px`,
     blockName: 'inputs',
+    blockType: 'rect',
     items: [
       {
         id: 'x1',
@@ -64,6 +66,7 @@ const step1 = {
     borderColor: '#00838F',
     size: `${boxSize}px`,
     blockName: 'hidden',
+    blockType: 'rect',
     items: [],
   },
   state: {
@@ -71,6 +74,7 @@ const step1 = {
     borderColor: '#636600',
     size: `${boxSize}px`,
     blockName: 'state',
+    blockType: 'rect',
     items: [],
   },
   context: {
@@ -78,6 +82,7 @@ const step1 = {
     borderColor: '#660000',
     size: `${boxSize}px`,
     blockName: 'context',
+    blockType: 'rect',
     items: [],
   },
   output: {
@@ -85,7 +90,28 @@ const step1 = {
     borderColor: '#147A00',
     size: `${boxSize}px`,
     blockName: 'output',
+    blockType: 'rect',
     items: [],
+  },
+  text: {
+    color: '#CAFFBF',
+    borderColor: '#333',
+    sizeX: `300px`,
+    sizeY: `50px`,
+    blockName: 'text',
+    blockType: 'text',
+    items: [
+      {
+        id: 'textBlock1',
+        val: `<span>
+          <strong>Input</strong>: Sequence x<sub>1</sub>, …, x<sub>T</sub>
+        </span>`,
+        position: [
+          (firstRowPosition + boxPadding) * animationWidth,
+          (topRowPosition + 0.2) * animationHeight,
+        ],
+      },
+    ],
   },
 };
 
@@ -98,6 +124,9 @@ const step2 = {
         id: 'h1',
         val: `<span>
           h<sub>1</sub>
+        </span>`,
+        tooltipValue: `<span>
+          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
         </span>`,
         position: [
           firstRowPosition * animationWidth,
@@ -130,6 +159,9 @@ const step3 = {
         id: 'h2',
         val: `<span>
           h<sub>2</sub>
+        </span>`,
+        tooltipValue: `<span>
+          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
         </span>`,
         position: [
           (firstRowPosition + boxPadding) * animationWidth,
@@ -172,6 +204,9 @@ const step4 = {
         id: 'h3',
         val: `<span>
           h<sub>3</sub>
+        </span>`,
+        tooltipValue: `<span>
+          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
         </span>`,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 2,
@@ -216,6 +251,9 @@ const step5 = {
         val: `<span>
           h<sub>4</sub>
         </span>`,
+        tooltipValue: `<span>
+          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
+        </span>`,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -259,6 +297,11 @@ const step6 = {
         val: `<span>
           s<sub>0</sub>
         </span>`,
+        tooltipValue: `
+          <span>
+          <strong>Initial decoder state</strong>
+          </span>
+        `,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 5,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -288,6 +331,12 @@ const step6 = {
         val: `<span>
           c
         </span>`,
+        tooltipValue: `
+          <span>
+           <strong>Context vector</strong><br/>
+           c = h<sub>T</sub> (usually)
+          </span>
+        `,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 5,
           bottomRowPosition * animationHeight,
@@ -312,6 +361,27 @@ const step6 = {
 
 const step7 = {
   ...step6,
+  text: {
+    color: '#CAFFBF',
+    borderColor: '#333',
+    sizeX: `300px`,
+    sizeY: `100px`,
+    blockName: 'text',
+    blockType: 'text',
+    items: [
+      {
+        id: 'textBlock1',
+        val: `<span>
+          <strong>Input</strong>: Sequence x<sub>1</sub>, …, x<sub>T</sub><br/>
+          <strong>Output</strong>: Sequence y<sub>1</sub>, …, y<sub>T'</sub>
+        </span>`,
+        position: [
+          (firstRowPosition + boxPadding) * animationWidth,
+          (topRowPosition + 0.2) * animationHeight,
+        ],
+      },
+    ],
+  },
   state: {
     ...step6.state,
     items: [
@@ -321,6 +391,11 @@ const step7 = {
         val: `<span>
           s<sub>1</sub>
         </span>`,
+        tooltipValue: `
+          <span>
+           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, h<sub>t-1</sub>, c)
+          </span>
+        `,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 7,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -430,6 +505,11 @@ const step9 = {
         val: `<span>
           s<sub>2</sub>
         </span>`,
+        tooltipValue: `
+          <span>
+           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, h<sub>t-1</sub>, c)
+          </span>
+        `,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 8,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -543,6 +623,11 @@ const step10 = {
         val: `<span>
           s<sub>3</sub>
         </span>`,
+        tooltipValue: `
+          <span>
+           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, h<sub>t-1</sub>, c)
+          </span>
+        `,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 9,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -656,6 +741,11 @@ const step11 = {
         val: `<span>
           s<sub>4</sub>
         </span>`,
+        tooltipValue: `
+          <span>
+           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, h<sub>t-1</sub>, c)
+          </span>
+        `,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 10,
           (bottomRowPosition - 0.2) * animationHeight,

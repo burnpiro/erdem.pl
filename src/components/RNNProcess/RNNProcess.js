@@ -3,10 +3,10 @@ import React, { useEffect, useState, useReducer } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
-import RNNAnimation from './RNNAnimation';
+import DiagramGenerator from './../DiagramGenerator/DiagramGenerator';
 import ProcessControls from './ProcessControls';
 
-import { steps } from './data';
+import { steps, animationWidth, animationHeight } from './data';
 
 import styles from './RNNProcess.module.scss';
 
@@ -25,7 +25,12 @@ const RNNProcess = () => {
 
   return (
     <div className={styles['rnn-continaer']}>
-      <RNNAnimation data={currStep} step={step} />
+      <DiagramGenerator
+        data={currStep}
+        step={step}
+        animationHeight={animationHeight}
+        animationWidth={animationWidth}
+      />
       <ProcessControls
         onStepForward={onStepForward}
         onStepBackward={onStepBackward}
