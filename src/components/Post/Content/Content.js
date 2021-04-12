@@ -4,6 +4,8 @@ import rehypeReact from 'rehype-react';
 import styles from './Content.module.scss';
 import Meta from '../Meta';
 import XAIInfidelity from '../../XAIInfidelity';
+import RNNProcess from '../../RNNProcess/RNNProcess';
+import RNNWithAttention from '../../RNNWithAttention/RNNWithAttention';
 
 type Props = {
   body: string,
@@ -18,7 +20,11 @@ type Props = {
 
 const renderAst = new rehypeReact({
   createElement: React.createElement,
-  components: { 'xai-infidelity': XAIInfidelity },
+  components: {
+    'xai-infidelity': XAIInfidelity,
+    'rnn-process': RNNProcess,
+    'rnn-with-attention': RNNWithAttention,
+  },
 }).Compiler;
 
 const Content = ({ body, htmlAst, title, date, readTime }: Props) => (

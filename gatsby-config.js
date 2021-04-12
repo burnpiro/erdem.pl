@@ -137,7 +137,13 @@ module.exports = {
           'gatsby-remark-smartypants',
           {
             resolve: 'gatsby-remark-component',
-            options: { components: ['xai-infidelity'] },
+            options: {
+              components: [
+                'xai-infidelity',
+                'rnn-process',
+                'rnn-with-attention',
+              ],
+            },
           },
         ],
       },
