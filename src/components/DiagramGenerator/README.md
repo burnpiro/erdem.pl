@@ -39,11 +39,12 @@
           step1.inputs.items[0].position[0] + boxSize / 2,
           step1.inputs.items[0].position[1],
         ], // [ x, y ]
-        to: [
-          firstRowPosition * animationWidth + boxSize / 2,
-          (bottomRowPosition - 0.2) * animationHeight + boxSize,
-        ], // [ x, y ]
-        orientation: 'horizontal' | 'vertical', // vertical is defaul (optional)
+        points: [
+            [x, y],
+            [x, y],
+        ], // (optional) only when "multi" type selected
+        to: [ x,y ], // [ x, y ]
+        orientation: 'horizontal' | 'vertical' | 'multi-squared' | 'multi-curved', // vertical is defaul (optional)
       },
     ]
 }
