@@ -517,8 +517,8 @@ const step9 = {
         lines: [
           {
             from: [
-              step8.state.items[0].position[0] + boxSize,
-              step8.state.items[0].position[1] + boxSize / 2,
+              step8.state.items[1].position[0] + boxSize,
+              step8.state.items[1].position[1] + boxSize / 2,
             ],
             to: [
               (firstRowPosition + boxPadding) * animationWidth * 8,
@@ -635,8 +635,8 @@ const step10 = {
         lines: [
           {
             from: [
-              step9.state.items[1].position[0] + boxSize,
-              step9.state.items[1].position[1] + boxSize / 2,
+              step9.state.items[2].position[0] + boxSize,
+              step9.state.items[2].position[1] + boxSize / 2,
             ],
             to: [
               (firstRowPosition + boxPadding) * animationWidth * 9,
@@ -753,8 +753,8 @@ const step11 = {
         lines: [
           {
             from: [
-              step10.state.items[2].position[0] + boxSize,
-              step10.state.items[2].position[1] + boxSize / 2,
+              step10.state.items[3].position[0] + boxSize,
+              step10.state.items[3].position[1] + boxSize / 2,
             ],
             to: [
               (firstRowPosition + boxPadding) * animationWidth * 10,
