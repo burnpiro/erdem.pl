@@ -6,6 +6,7 @@ import Meta from '../Meta';
 import XAIInfidelity from '../../XAIInfidelity';
 import RNNProcess from '../../RNNProcess/RNNProcess';
 import RNNWithAttention from '../../RNNWithAttention/RNNWithAttention';
+import ImageWithAttention from '../../ImageWithAttention/ImageWithAttention';
 
 type Props = {
   body: string,
@@ -24,6 +25,7 @@ const renderAst = new rehypeReact({
     'xai-infidelity': XAIInfidelity,
     'rnn-process': RNNProcess,
     'rnn-with-attention': RNNWithAttention,
+    'image-with-attention': ImageWithAttention,
   },
 }).Compiler;
 

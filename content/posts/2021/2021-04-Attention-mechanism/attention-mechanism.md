@@ -18,3 +18,7 @@ escription: 'How Attention was created? Why does it work and why it is one of th
 <div class="center-all">
     <rnn-with-attention></rnn-with-attention>
 </div>
+
+<div class="center-all">
+    <image-with-attention></image-with-attention>
+</div>
