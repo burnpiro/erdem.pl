@@ -56,7 +56,7 @@ c<sub>t</sub> = <span style="font-size: 26px">∑</span><sub>i</sub> a<sub>t,i</
 const attentionDesc = `<span>
 <strong>Intuition!</strong><br/>
 <strong>Context c<sub>t</sub></strong> <u>attends</u> to the part of the input relevant to state:<br/>
-"we are learning" ~ "uczymy" (it's complicated in polish)<br/>
+"uczymy" gives the most attention to "learning", some less to "we" (in polish the form of verb imply the person) and "are"<br/>
 proposed weights: 
 a<sub>1,1</sub> = 0.4; a<sub>1,2</sub> = 0.19; a<sub>1,3</sub> = 0.4; a<sub>1,4</sub> = 0.01;  
 </span>
@@ -64,7 +64,7 @@ a<sub>1,1</sub> = 0.4; a<sub>1,2</sub> = 0.19; a<sub>1,3</sub> = 0.4; a<sub>1,4<
 const attentionDesc2 = `<span>
 <strong>Intuition!</strong><br/>
 <strong>Context c<sub>t</sub></strong> <u>attends</u> to the part of the input relevant to state:<br/>
-"we are learning" ~ "się" (like i've said, it's complicated)<br/>
+"się" gives the most attention to "we" and "are", some less to "learning" (it's complicated in polish)<br/>
 proposed weights: 
 a<sub>1,1</sub> = 0.35; a<sub>1,2</sub> = 0.35; a<sub>1,3</sub> = 0.29; a<sub>1,4</sub> = 0.01;  
 </span>
