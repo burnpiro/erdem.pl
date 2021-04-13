@@ -303,7 +303,7 @@ const step2 = {
       {
         id: 'e11',
         val: `<span>
-          e<sub>11</sub>
+          e<sub>1,1</sub>
         </span>`,
         tooltipValue: `
           <span>
@@ -351,7 +351,7 @@ const step2 = {
       {
         id: 'e12',
         val: `<span>
-          e<sub>12</sub>
+          e<sub>1,2</sub>
         </span>`,
         tooltipValue: `
           <span>
@@ -401,7 +401,7 @@ const step2 = {
       {
         id: 'e13',
         val: `<span>
-          e<sub>13</sub>
+          e<sub>1,3</sub>
         </span>`,
         tooltipValue: `
           <span>
@@ -452,7 +452,7 @@ const step2 = {
       {
         id: 'e14',
         val: `<span>
-          e<sub>14</sub>
+          e<sub>1,4</sub>
         </span>`,
         tooltipValue: `
           <span>
@@ -572,7 +572,7 @@ const step4 = {
       {
         id: 'a11',
         val: `<span>
-          a<sub>11</sub>
+          a<sub>1,1</sub>
         </span>`,
         position: [
           firstRowPosition * animationWidth,
@@ -594,7 +594,7 @@ const step4 = {
       {
         id: 'a12',
         val: `<span>
-          a<sub>12</sub>
+          a<sub>1,2</sub>
         </span>`,
         position: [
           (firstRowPosition + boxPadding) * animationWidth,
@@ -618,7 +618,7 @@ const step4 = {
       {
         id: 'a13',
         val: `<span>
-          a<sub>13</sub>
+          a<sub>1,3</sub>
         </span>`,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 2,
@@ -643,7 +643,7 @@ const step4 = {
       {
         id: 'a14',
         val: `<span>
-          a<sub>14</sub>
+          a<sub>1,4</sub>
         </span>`,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
@@ -1140,7 +1140,7 @@ const step10 = {
       {
         ...step9.attention.items[0],
         val: `<span>
-          e<sub>21</sub>
+          e<sub>2,1</sub>
         </span>`,
         lines: [
           {
@@ -1170,7 +1170,7 @@ const step10 = {
       {
         ...step9.attention.items[1],
         val: `<span>
-          e<sub>22</sub>
+          e<sub>2,2</sub>
         </span>`,
         lines: [
           {
@@ -1202,7 +1202,7 @@ const step10 = {
       {
         ...step9.attention.items[2],
         val: `<span>
-          e<sub>23</sub>
+          e<sub>2,3</sub>
         </span>`,
         lines: [
           {
@@ -1234,7 +1234,7 @@ const step10 = {
       {
         ...step9.attention.items[3],
         val: `<span>
-          e<sub>24</sub>
+          e<sub>2,4</sub>
         </span>`,
         lines: [
           {
@@ -1266,25 +1266,25 @@ const step10 = {
       {
         ...step9.attention.items[4],
         val: `<span>
-          a<sub>21</sub>
+          a<sub>2,1</sub>
         </span>`,
       },
       {
         ...step9.attention.items[5],
         val: `<span>
-          a<sub>22</sub>
+          a<sub>2,2</sub>
         </span>`,
       },
       {
         ...step9.attention.items[6],
         val: `<span>
-          a<sub>23</sub>
+          a<sub>2,3</sub>
         </span>`,
       },
       {
         ...step9.attention.items[7],
         val: `<span>
-          a<sub>24</sub>
+          a<sub>2,4</sub>
         </span>`,
       },
     ],
@@ -1462,7 +1462,7 @@ const step13 = {
       {
         ...step12.attention.items[0],
         val: `<span>
-            e<sub>31</sub>
+            e<sub>3,1</sub>
           </span>`,
         lines: [
           {
@@ -1492,7 +1492,7 @@ const step13 = {
       {
         ...step12.attention.items[1],
         val: `<span>
-              e<sub>32</sub>
+              e<sub>3,2</sub>
             </span>`,
         lines: [
           {
@@ -1524,7 +1524,7 @@ const step13 = {
       {
         ...step12.attention.items[2],
         val: `<span>
-              e<sub>33</sub>
+              e<sub>3,3</sub>
             </span>`,
         lines: [
           {
@@ -1556,7 +1556,7 @@ const step13 = {
       {
         ...step12.attention.items[3],
         val: `<span>
-              e<sub>34</sub>
+              e<sub>3,4</sub>
             </span>`,
         lines: [
           {
@@ -1588,25 +1588,25 @@ const step13 = {
       {
         ...step12.attention.items[4],
         val: `<span>
-          a<sub>31</sub>
+          a<sub>3,1</sub>
         </span>`,
       },
       {
         ...step12.attention.items[5],
         val: `<span>
-              a<sub>32</sub>
+              a<sub>3,2</sub>
             </span>`,
       },
       {
         ...step12.attention.items[6],
         val: `<span>
-              a<sub>33</sub>
+              a<sub>3,3</sub>
             </span>`,
       },
       {
         ...step12.attention.items[7],
         val: `<span>
-              a<sub>34</sub>
+              a<sub>3,4</sub>
             </span>`,
       },
     ],
@@ -1787,7 +1787,7 @@ const step16 = {
       {
         ...step15.attention.items[0],
         val: `<span>
-            e<sub>41</sub>
+            e<sub>4,1</sub>
           </span>`,
         lines: [
           {
@@ -1817,7 +1817,7 @@ const step16 = {
       {
         ...step15.attention.items[1],
         val: `<span>
-              e<sub>42</sub>
+              e<sub>4,2</sub>
             </span>`,
         lines: [
           {
@@ -1849,7 +1849,7 @@ const step16 = {
       {
         ...step15.attention.items[2],
         val: `<span>
-              e<sub>43</sub>
+              e<sub>4,3</sub>
             </span>`,
         lines: [
           {
@@ -1881,7 +1881,7 @@ const step16 = {
       {
         ...step15.attention.items[3],
         val: `<span>
-              e<sub>44</sub>
+              e<sub>4,4</sub>
             </span>`,
         lines: [
           {
@@ -1913,25 +1913,25 @@ const step16 = {
       {
         ...step15.attention.items[4],
         val: `<span>
-          a<sub>41</sub>
+          a<sub>4,1</sub>
         </span>`,
       },
       {
         ...step15.attention.items[5],
         val: `<span>
-              a<sub>42</sub>
+              a<sub>4,2</sub>
             </span>`,
       },
       {
         ...step15.attention.items[6],
         val: `<span>
-              a<sub>43</sub>
+              a<sub>4,3</sub>
             </span>`,
       },
       {
         ...step15.attention.items[7],
         val: `<span>
-              a<sub>44</sub>
+              a<sub>4,4</sub>
             </span>`,
       },
     ],
