@@ -228,18 +228,20 @@ function generateTextBlock(inputs, svg, id) {
     .attr('stroke-width', 1)
     .attr('stroke', inputs.borderColor)
     .attr('id', d => diagramId + d.id)
-    .attr('width', elementWidth)
-    .attr('height', elementHeight)
+    .attr('width', d => (d.sizeX != null ? d.sizeX : elementWidth))
+    .attr('height', d => (d.sizeY != null ? d.sizeY : elementHeight))
     .attr('x', d => d.position[0])
     .attr('y', d => d.position[1])
     .attr('dx', 80);
 
   inputBlocks.each(d => {
+    const currElWidth = d.sizeX != null ? d.sizeX : elementWidth;
+    const currElHeight = d.sizeY != null ? d.sizeY : elementHeight;
     if (d.val != null) {
       inputBlocks
         .append('foreignObject')
-        .attr('width', elementWidth)
-        .attr('height', elementHeight)
+        .attr('width', currElWidth)
+        .attr('height', currElHeight)
         .attr('stroke', inputs.borderColor)
         .style('font-size', fontSize)
         .attr('x', d.position[0])
@@ -255,7 +257,7 @@ function generateTextBlock(inputs, svg, id) {
         .attr('y', d.position[1])
         .attr(
           'dy',
-          d.namePosition === 'top' ? -elementHeight * 0.5 : elementHeight * 1.5
+          d.namePosition === 'top' ? -currElHeight * 0.5 : currElHeight * 1.5
         )
         .attr('dx', (-d.name.length * fontSize) / 8)
         .text(d.name);
@@ -267,8 +269,8 @@ function generateTextBlock(inputs, svg, id) {
     if (d.tooltipValue != null) {
       addTooltip(inputBlocks, inputs, d, {
         id,
-        sizeX: elementWidth,
-        sizeY: elementHeight,
+        sizeX: currElWidth,
+        sizeY: currElHeight,
         type: 'rect',
       });
     }

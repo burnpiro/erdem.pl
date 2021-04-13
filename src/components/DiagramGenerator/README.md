@@ -9,8 +9,8 @@
     color: '#CAFFBF',
     borderColor: '#147A00',
     size: `32px`,
-    sizeX: `120px`, // only for blockType = 'text'
-    sizeY: `50px`, // only for blockType = 'text'
+    sizeX: `120px`, // doesn't work with 'circle'
+    sizeY: `50px`, // doesn't work with 'circle'
     blockName: 'output',
     blockType: 'rect' | 'circle' | 'text', 
     items: [ itemElement ]
