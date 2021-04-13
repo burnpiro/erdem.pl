@@ -887,7 +887,7 @@ const step7 = {
         val: `<span>
           y<sub>1</sub>
         </span>`,
-        name: 'person',
+        name: 'smiling',
         namePosition: 'top',
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 8 - boxSize,
@@ -1091,7 +1091,7 @@ const step10 = {
         val: `<span>
           y<sub>1</sub>
         </span>`,
-        name: 'person',
+        name: 'smiling',
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 9 + boxSize / 2,
           bottomRowPosition * animationHeight,
@@ -1112,7 +1112,7 @@ const step11 = {
         val: `<span>
           y<sub>2</sub>
         </span>`,
-        name: 'smiling',
+        name: 'man',
         namePosition: 'top',
         position: [
           step10.state.items[2].position[0],
@@ -1273,7 +1273,7 @@ const step14 = {
         val: `<span>
           y<sub>2</sub>
         </span>`,
-        name: 'smiling',
+        name: 'man',
         position: [
           step13.context.items[2].position[0] + boxSize * 1.5,
           step13.context.items[2].position[1],
