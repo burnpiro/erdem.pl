@@ -61,23 +61,49 @@ function generateLines(inputs, block, d, svg) {
   }
 }
 
-function addTooltip(inputBlocks, id, inputs, d) {
-  inputBlocks
-    .append('circle')
-    .attr('fill', 'transparent')
-    .attr('stroke', 'transparent')
-    .attr('r', inputs.size)
-    .attr('cx', d.position[0])
-    .attr('cy', d.position[1])
-    .on('mouseover', e => {
-      toolTips[id].mouseOver(inputBlocks, e);
-    })
-    .on('mousemove', e => {
-      toolTips[id].mouseMove(inputBlocks, e, d.tooltipValue);
-    })
-    .on('mouseleave', e => {
-      toolTips[id].mouseLeave(inputBlocks, e);
-    });
+function addTooltip(
+  inputBlocks,
+  inputs,
+  d,
+  { id, sizeX, sizeY, type = 'rect' }
+) {
+  switch (type) {
+    case 'rect':
+      return inputBlocks
+        .append('rect')
+        .attr('fill', 'transparent')
+        .attr('stroke', 'transparent')
+        .attr('width', sizeX)
+        .attr('height', sizeY)
+        .attr('x', d.position[0])
+        .attr('y', d.position[1])
+        .on('mouseover', e => {
+          toolTips[id].mouseOver(inputBlocks, e);
+        })
+        .on('mousemove', e => {
+          toolTips[id].mouseMove(inputBlocks, e, d.tooltipValue);
+        })
+        .on('mouseleave', e => {
+          toolTips[id].mouseLeave(inputBlocks, e);
+        });
+    default:
+      return inputBlocks
+        .append('circle')
+        .attr('fill', 'transparent')
+        .attr('stroke', 'transparent')
+        .attr('r', sizeX)
+        .attr('cx', d.position[0])
+        .attr('cy', d.position[1])
+        .on('mouseover', e => {
+          toolTips[id].mouseOver(inputBlocks, e);
+        })
+        .on('mousemove', e => {
+          toolTips[id].mouseMove(inputBlocks, e, d.tooltipValue);
+        })
+        .on('mouseleave', e => {
+          toolTips[id].mouseLeave(inputBlocks, e);
+        });
+  }
 }
 
 function generateCircleBlock(inputs, svg, id) {
@@ -129,13 +155,19 @@ function generateCircleBlock(inputs, svg, id) {
     }
 
     if (d.tooltipValue != null) {
-      addTooltip(inputBlocks, id, inputs, d);
+      addTooltip(inputBlocks, inputs, d, {
+        id,
+        sizeX: elementSize,
+        type: 'circle',
+      });
     }
   });
 }
 
 function generateRectBlock(inputs, svg, id) {
   const elementSize = Number.parseInt(inputs.size, 10);
+  const sizeX = Number.parseInt(inputs.sizeX, 10) || elementSize;
+  const sizeY = Number.parseInt(inputs.sizeY, 10) || elementSize;
   const inputBlocks = generateMainBlock(inputs, svg);
 
   inputBlocks
@@ -144,8 +176,8 @@ function generateRectBlock(inputs, svg, id) {
     .attr('stroke-width', 1)
     .attr('stroke', inputs.borderColor)
     .attr('id', d => diagramId + d.id)
-    .attr('width', inputs.size)
-    .attr('height', inputs.size)
+    .attr('width', sizeX)
+    .attr('height', sizeY)
     .attr('x', d => d.position[0])
     .attr('y', d => d.position[1])
     .attr('dx', 80);
@@ -154,8 +186,8 @@ function generateRectBlock(inputs, svg, id) {
     if (d.val != null) {
       inputBlocks
         .append('foreignObject')
-        .attr('width', elementSize)
-        .attr('height', elementSize)
+        .attr('width', sizeX)
+        .attr('height', sizeY)
         .attr('stroke', inputs.borderColor)
         .style('font-size', fontSize)
         .attr('x', d.position[0])
@@ -169,10 +201,7 @@ function generateRectBlock(inputs, svg, id) {
         .style('font-size', fontSize)
         .attr('x', d.position[0] + 12)
         .attr('y', d.position[1])
-        .attr(
-          'dy',
-          d.namePosition === 'top' ? -elementSize * 0.5 : elementSize * 1.5
-        )
+        .attr('dy', d.namePosition === 'top' ? -sizeY * 0.5 : sizeY * 1.5)
         .attr('dx', (-d.name.length * fontSize) / 8)
         .text(d.name);
     }
@@ -181,7 +210,7 @@ function generateRectBlock(inputs, svg, id) {
     }
 
     if (d.tooltipValue != null) {
-      addTooltip(inputBlocks, id, inputs, d);
+      addTooltip(inputBlocks, inputs, d, { id, sizeX, sizeY, type: 'rect' });
     }
   });
 }
@@ -236,7 +265,12 @@ function generateTextBlock(inputs, svg, id) {
     }
 
     if (d.tooltipValue != null) {
-      addTooltip(inputBlocks, id, inputs, d);
+      addTooltip(inputBlocks, inputs, d, {
+        id,
+        sizeX: elementWidth,
+        sizeY: elementHeight,
+        type: 'rect',
+      });
     }
   });
 }
