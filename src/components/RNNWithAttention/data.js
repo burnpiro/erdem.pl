@@ -8,6 +8,75 @@ const animationWidth = 1200;
 const animationHeight = 500;
 const boxSize = 50;
 const circleR = 16;
+
+const alignmentScoreText = `<span>
+e<sub>t,i</sub> = f<sub>att</sub>(s<sub>t-1</sub>, h<sub>i</sub>)
+</span>
+`;
+const hiddentStateText = `<span>
+h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
+</span>`;
+
+const contextText = `<span>
+c<sub>t</sub> = <span style="font-size: 26px">∑<sub>i</sub></span> a<sub>t,i</sub>h<sub>i</sub>
+</span>`;
+
+const stateText = `<span>
+s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, s<sub>t-1</sub>, c<sub>t</sub>)
+</span>`;
+
+const alignScoresText = `<span>
+<strong>Alignment scores</strong><br/>
+e<sub>t,i</sub> = f<sub>att</sub>(s<sub>t-1</sub>, h<sub>i</sub>) [scalar]<br/>
+f<sub>att</sub> is a MLP
+</span>
+`;
+const alignScoresTextShort = `<span>
+<strong>Alignment scores</strong>
+</span>
+`;
+const attentionWeightsText = `<span>
+<strong>Attention weights</strong><br/>
+<span style="font-size: 14px" >Normalized alignment socres with softmax funtion</span><br/>
+0 < a<sub>t,i,j</sub> < 1 &nbsp; &nbsp; ∑<sub>i,j</sub>a<sub>t,i,j</sub> = 1<br/>
+</span>
+`;
+const attentionWeightsTextShort = `<span>
+<strong>Attention weights</strong>
+</span>
+`;
+const mulText = `<span  style="font-size: 14px; line-height: 16px; padding-left: 5px;">Multiply attention weight and corresponding hidden state
+</span>
+`;
+const sumText = `<span>
+Compute <strong>context vector</strong><br/>
+c<sub>t</sub> = <span style="font-size: 26px">∑</span><sub>i</sub> a<sub>t,i</sub>h<sub>i</sub>
+</span>
+`;
+const attentionDesc = `<span>
+<strong>Intuition!</strong><br/>
+<strong>Context c<sub>t</sub></strong> <u>attends</u> to the part of the input relevant to state:<br/>
+"we are learning" ~ "uczymy" (it's complicated in polish)<br/>
+proposed weights: 
+a<sub>1,1</sub> = 0.4; a<sub>1,2</sub> = 0.19; a<sub>1,3</sub> = 0.4; a<sub>1,4</sub> = 0.01;  
+</span>
+`;
+const attentionDesc2 = `<span>
+<strong>Intuition!</strong><br/>
+<strong>Context c<sub>t</sub></strong> <u>attends</u> to the part of the input relevant to state:<br/>
+"we are learning" ~ "się" (like i've said, it's complicated)<br/>
+proposed weights: 
+a<sub>1,1</sub> = 0.35; a<sub>1,2</sub> = 0.35; a<sub>1,3</sub> = 0.29; a<sub>1,4</sub> = 0.01;  
+</span>
+`;
+const attentionDesc3 = `<span>
+<strong>Intuition!</strong><br/>
+<strong>Context c<sub>t</sub></strong> <u>attends</u> to the part of the input relevant to state:<br/>
+"attention" ~ "uwagi"<br/>
+proposed weights: 
+a<sub>1,1</sub> = 0.05; a<sub>1,2</sub> = 0.01; a<sub>1,3</sub> = 0.05; a<sub>1,4</sub> = 0.89;  
+</span>
+`;
 const step1 = {
   inputs: {
     color: '#FFD199',
@@ -82,9 +151,7 @@ const step1 = {
         val: `<span>
           h<sub>1</sub>
         </span>`,
-        tooltipValue: `<span>
-          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
-        </span>`,
+        tooltipValue: hiddentStateText,
         position: [
           firstRowPosition * animationWidth,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -107,9 +174,7 @@ const step1 = {
         val: `<span>
           h<sub>2</sub>
         </span>`,
-        tooltipValue: `<span>
-          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
-        </span>`,
+        tooltipValue: hiddentStateText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -142,9 +207,7 @@ const step1 = {
         val: `<span>
           h<sub>3</sub>
         </span>`,
-        tooltipValue: `<span>
-          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
-        </span>`,
+        tooltipValue: hiddentStateText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 2,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -179,9 +242,7 @@ const step1 = {
         val: `<span>
           h<sub>4</sub>
         </span>`,
-        tooltipValue: `<span>
-          h<sub>t</sub> = f<sub>W</sub>(x<sub>t</sub>, h<sub>t-1</sub>)
-        </span>`,
+        tooltipValue: hiddentStateText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -305,11 +366,7 @@ const step2 = {
         val: `<span>
           e<sub>1,1</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-          e<sub>t,i</sub> = f<sub>att</sub>(s<sub>t-1</sub>, h<sub>i</sub>)
-          </span>
-        `,
+        tooltipValue: alignmentScoreText,
         position: [
           firstRowPosition * animationWidth,
           (bottomRowPosition - 0.4) * animationHeight,
@@ -353,11 +410,7 @@ const step2 = {
         val: `<span>
           e<sub>1,2</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-          e<sub>t,i</sub> = f<sub>att</sub>(s<sub>t-1</sub>, h<sub>i</sub>)
-          </span>
-        `,
+        tooltipValue: alignmentScoreText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth,
           (bottomRowPosition - 0.4) * animationHeight,
@@ -403,11 +456,7 @@ const step2 = {
         val: `<span>
           e<sub>1,3</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-          e<sub>t,i</sub> = f<sub>att</sub>(s<sub>t-1</sub>, h<sub>i</sub>)
-          </span>
-        `,
+        tooltipValue: alignmentScoreText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 2,
           (bottomRowPosition - 0.4) * animationHeight,
@@ -454,11 +503,7 @@ const step2 = {
         val: `<span>
           e<sub>1,4</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-          e<sub>t,i</sub> = f<sub>att</sub>(s<sub>t-1</sub>, h<sub>i</sub>)
-          </span>
-        `,
+        tooltipValue: alignmentScoreText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
           (bottomRowPosition - 0.4) * animationHeight,
@@ -498,6 +543,22 @@ const step2 = {
               (bottomRowPosition - 0.4) * animationHeight + boxSize,
             ],
           },
+        ],
+      },
+    ],
+  },
+  text: {
+    ...step1.text,
+    items: [
+      ...step1.text.items,
+      {
+        id: 'alignment-scores',
+        val: alignScoresText,
+        sizeX: `250px`,
+        sizeY: `100px`,
+        position: [
+          (firstRowPosition + boxPadding) * animationWidth * 4,
+          (bottomRowPosition - 0.6) * animationHeight + boxSize * 1.2,
         ],
       },
     ],
@@ -667,6 +728,22 @@ const step4 = {
       },
     ],
   },
+  text: {
+    ...step3.text,
+    items: [
+      ...step3.text.items,
+      {
+        id: 'attention-weights',
+        val: attentionWeightsText,
+        sizeX: `350px`,
+        sizeY: `100px`,
+        position: [
+          (firstRowPosition + boxPadding) * animationWidth * 4,
+          (bottomRowPosition - 0.6) * animationHeight - boxSize * 1.1,
+        ],
+      },
+    ],
+  },
 };
 
 const step5 = {
@@ -710,6 +787,22 @@ const step5 = {
             ],
             orientation: 'multi-curved',
           },
+        ],
+      },
+    ],
+  },
+  text: {
+    ...step4.text,
+    items: [
+      ...step4.text.items,
+      {
+        id: 'mul-text',
+        val: mulText,
+        sizeX: `220px`,
+        sizeY: `50px`,
+        position: [
+          step4.attention.items[5].position[0] - 30,
+          step4.attention.items[5].position[1] - boxSize * 1.5,
         ],
       },
     ],
@@ -857,6 +950,10 @@ const step6 = {
       },
     ],
   },
+  text: {
+    ...step4.text,
+    items: [step4.text.items[0], step4.text.items[1]],
+  },
 };
 
 const step7 = {
@@ -870,9 +967,7 @@ const step7 = {
         val: `<span>
           <strong>+</strong>
         </span>`,
-        tooltipValue: `<span>
-          c<sub>t</sub> = <span style="font-size: 26px">∑<sub>i</sub></span> a<sub>t,i</sub>h<sub>i</sub>
-        </span>`,
+        tooltipValue: contextText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 6,
           (bottomRowPosition - 0.55) * animationHeight,
@@ -966,6 +1061,41 @@ const step7 = {
       },
     ],
   },
+  text: {
+    ...step4.text,
+    items: [
+      {
+        ...step4.text.items[0],
+        sizeX: `170px`,
+        sizeY: `40px`,
+        val: alignScoresTextShort,
+        position: [
+          step4.text.items[0].position[0] - 10,
+          step4.text.items[0].position[1] + 40,
+        ],
+      },
+      {
+        ...step4.text.items[1],
+        sizeX: `170px`,
+        sizeY: `40px`,
+        val: attentionWeightsTextShort,
+        position: [
+          step4.text.items[1].position[0] - 10,
+          step4.text.items[1].position[1] + 40,
+        ],
+      },
+      {
+        id: 'sum-text',
+        sizeX: `300px`,
+        sizeY: `100px`,
+        val: sumText,
+        position: [
+          step4.text.items[1].position[0] + boxSize * 5,
+          step4.text.items[1].position[1],
+        ],
+      },
+    ],
+  },
 };
 
 const step8 = {
@@ -979,11 +1109,7 @@ const step8 = {
         val: `<span>
           s<sub>1</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, s<sub>t-1</sub>, c<sub>t</sub>)
-          </span>
-        `,
+        tooltipValue: stateText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 7,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -1036,9 +1162,7 @@ const step8 = {
         val: `<span>
           c<sub>1</sub>
         </span>`,
-        tooltipValue: `<span>
-          c<sub>t</sub> = <span style="font-size: 26px">∑<sub>i</sub></span> a<sub>t,i</sub>h<sub>i</sub>
-        </span>`,
+        tooltipValue: contextText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 7 - boxSize,
           bottomRowPosition * animationHeight,
@@ -1112,6 +1236,23 @@ const step9 = {
       },
     ],
   },
+  text: {
+    ...step8.text,
+    items: [
+      step8.text.items[0],
+      step8.text.items[1],
+      {
+        ...step8.text.items[2],
+        val: attentionDesc,
+        sizeX: '550',
+        sizeY: '150',
+        position: [
+          step8.text.items[2].position[0],
+          step8.text.items[2].position[1] - boxSize + 10,
+        ],
+      },
+    ],
+  },
 };
 
 const step10 = {
@@ -1124,9 +1265,7 @@ const step10 = {
         val: `<span>
           c<sub>1</sub>
         </span>`,
-        tooltipValue: `<span>
-          c<sub>t</sub> = <span style="font-size: 26px">∑<sub>i</sub></span> a<sub>t,i</sub>h<sub>i</sub>
-        </span>`,
+        tooltipValue: contextText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 7 - boxSize,
           bottomRowPosition * animationHeight,
@@ -1289,6 +1428,23 @@ const step10 = {
       },
     ],
   },
+  text: {
+    ...step9.text,
+    items: [
+      step9.text.items[0],
+      step9.text.items[1],
+      {
+        ...step9.text.items[2],
+        val: `<span>Calculate new attention weights for given state <strong>s<sub>1</sub></strong> (t = 2)</span>`,
+        sizeX: '550',
+        sizeY: '50',
+        position: [
+          step9.text.items[2].position[0],
+          step9.text.items[2].position[1] + boxSize,
+        ],
+      },
+    ],
+  },
 };
 
 const step11 = {
@@ -1302,9 +1458,7 @@ const step11 = {
         val: `<span>
           c<sub>2</sub>
         </span>`,
-        tooltipValue: `<span>
-          c<sub>t</sub> = <span style="font-size: 26px">∑<sub>i</sub></span> a<sub>t,i</sub>h<sub>i</sub>
-        </span>`,
+        tooltipValue: contextText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 8,
           bottomRowPosition * animationHeight,
@@ -1337,6 +1491,23 @@ const step11 = {
       },
     ],
   },
+  text: {
+    ...step10.text,
+    items: [
+      step10.text.items[0],
+      step10.text.items[1],
+      {
+        ...step10.text.items[2],
+        val: attentionDesc2,
+        sizeX: '550',
+        sizeY: '150',
+        position: [
+          step10.text.items[2].position[0],
+          step10.text.items[2].position[1] - boxSize,
+        ],
+      },
+    ],
+  },
 };
 
 const step12 = {
@@ -1350,11 +1521,7 @@ const step12 = {
         val: `<span>
           s<sub>2</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, s<sub>t-1</sub>, c<sub>t</sub>)
-          </span>
-        `,
+        tooltipValue: stateText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 8 + boxSize / 2,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -1611,6 +1778,23 @@ const step13 = {
       },
     ],
   },
+  text: {
+    ...step12.text,
+    items: [
+      step12.text.items[0],
+      step12.text.items[1],
+      {
+        ...step12.text.items[2],
+        val: `<span>Calculate new attention weights for given state <strong>s<sub>2</sub></strong> (t = 3)</span>`,
+        sizeX: '550',
+        sizeY: '50',
+        position: [
+          step12.text.items[2].position[0],
+          step12.text.items[2].position[1] + boxSize,
+        ],
+      },
+    ],
+  },
 };
 
 const step14 = {
@@ -1624,9 +1808,7 @@ const step14 = {
         val: `<span>
           c<sub>3</sub>
         </span>`,
-        tooltipValue: `<span>
-          c<sub>t</sub> = <span style="font-size: 26px">∑<sub>i</sub></span> a<sub>t,i</sub>h<sub>i</sub>
-        </span>`,
+        tooltipValue: contextText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 10 - boxSize,
           bottomRowPosition * animationHeight,
@@ -1659,6 +1841,23 @@ const step14 = {
       },
     ],
   },
+  text: {
+    ...step13.text,
+    items: [
+      step13.text.items[0],
+      step13.text.items[1],
+      {
+        ...step13.text.items[2],
+        val: attentionDesc3,
+        sizeX: '550',
+        sizeY: '150',
+        position: [
+          step13.text.items[2].position[0],
+          step13.text.items[2].position[1] - boxSize,
+        ],
+      },
+    ],
+  },
 };
 
 const step15 = {
@@ -1672,11 +1871,7 @@ const step15 = {
         val: `<span>
           s<sub>3</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, s<sub>t-1</sub>, c<sub>t</sub>)
-          </span>
-        `,
+        tooltipValue: stateText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 9 + boxSize * 1.5,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -1936,6 +2131,23 @@ const step16 = {
       },
     ],
   },
+  text: {
+    ...step15.text,
+    items: [
+      step15.text.items[0],
+      step15.text.items[1],
+      {
+        ...step15.text.items[2],
+        val: `<span>Calculate new attention weights for given state <strong>s<sub>3</sub></strong> (t = 4)</span>`,
+        sizeX: '550',
+        sizeY: '50',
+        position: [
+          step15.text.items[2].position[0],
+          step15.text.items[2].position[1] + boxSize,
+        ],
+      },
+    ],
+  },
 };
 
 const step17 = {
@@ -1949,9 +2161,7 @@ const step17 = {
         val: `<span>
           c<sub>4</sub>
         </span>`,
-        tooltipValue: `<span>
-          c<sub>t</sub> = <span style="font-size: 26px">∑<sub>i</sub></span> a<sub>t,i</sub>h<sub>i</sub>
-        </span>`,
+        tooltipValue: contextText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 11,
           bottomRowPosition * animationHeight,
@@ -1997,11 +2207,7 @@ const step18 = {
         val: `<span>
           s<sub>4</sub>
         </span>`,
-        tooltipValue: `
-          <span>
-           s<sub>t</sub> = g<sub>U</sub>(y<sub>t-1</sub>, s<sub>t-1</sub>, c<sub>t</sub>)
-          </span>
-        `,
+        tooltipValue: stateText,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 11 + boxSize * 0.5,
           (bottomRowPosition - 0.2) * animationHeight,
@@ -2085,6 +2291,23 @@ const step18 = {
               (bottomRowPosition - 0.4) * animationHeight + boxSize,
             ],
           },
+        ],
+      },
+    ],
+  },
+  text: {
+    ...step17.text,
+    items: [
+      step17.text.items[0],
+      step15.text.items[1],
+      {
+        ...step17.text.items[2],
+        val: `<span style="padding: 0 10px">We're not using the fact that <b><i>h</i></b> vector is an ordered sequence. It is used as unordered set instead. To solve this we have to add a <strong>positional embedding</strong> to each element</span>`,
+        sizeX: '550',
+        sizeY: '120',
+        position: [
+          step17.text.items[2].position[0],
+          step17.text.items[2].position[1] - boxSize,
         ],
       },
     ],
