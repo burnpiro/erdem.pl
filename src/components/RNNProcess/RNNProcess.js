@@ -4,8 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import DiagramGenerator from './../DiagramGenerator/DiagramGenerator';
-import ProcessControls from './ProcessControls';
-
+import ProcessControls from '../DiagramGenerator/ProcessControls';
 import { steps, animationWidth, animationHeight } from './data';
 
 import styles from './RNNProcess.module.scss';
