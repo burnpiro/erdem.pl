@@ -10,14 +10,7 @@ const toolTips = {};
 let diagramId = '';
 
 function generateMainBlock(inputs, svg) {
-  return svg
-    .select(`.${inputs.blockName}-block`)
-    .selectAll('g')
-    .data(inputs.items)
-    .enter()
-    .append('g')
-    .attr('x', d => d.position[0])
-    .attr('y', d => d.position[1]);
+  return svg.select(`.${inputs.blockName}-block`);
 }
 
 function generateLines(inputs, block, d, svg) {
@@ -109,22 +102,22 @@ function addTooltip(
 function generateCircleBlock(inputs, svg, id) {
   const inputBlocks = generateMainBlock(inputs, svg);
 
-  inputBlocks
-    .append('circle')
-    .attr('fill', inputs.color)
-    .attr('stroke-width', 1)
-    .attr('stroke', inputs.borderColor)
-    .attr('id', d => diagramId + d.id)
-    .attr('r', inputs.size)
-    .attr('cx', d => d.position[0])
-    .attr('cy', d => d.position[1])
-    .attr('dx', 80);
-
   const elementSize = Number.parseInt(inputs.size, 10);
 
-  inputBlocks.each(d => {
+  inputs.items.forEach(d => {
+    const block = inputBlocks.append('g');
+    block
+      .append('circle')
+      .attr('fill', inputs.color)
+      .attr('stroke-width', 1)
+      .attr('stroke', inputs.borderColor)
+      .attr('id', diagramId + d.id)
+      .attr('r', inputs.size)
+      .attr('cx', d.position[0])
+      .attr('cy', d.position[1])
+      .attr('dx', 80);
     if (d.val != null) {
-      inputBlocks
+      block
         .append('foreignObject')
         .attr('width', elementSize * 2)
         .attr('height', elementSize * 2)
@@ -137,7 +130,7 @@ function generateCircleBlock(inputs, svg, id) {
         .html(`<div class="${styles['html-object']}">${d.val}</div>`);
     }
     if (d.name != null) {
-      inputBlocks
+      block
         .append('text')
         .attr('fill', inputs.borderColor)
         .style('font-size', fontSize)
@@ -151,11 +144,11 @@ function generateCircleBlock(inputs, svg, id) {
         .text(d.name);
     }
     if (Array.isArray(d.lines)) {
-      generateLines(inputs, inputBlocks, d, svg);
+      generateLines(inputs, block, d, svg);
     }
 
     if (d.tooltipValue != null) {
-      addTooltip(inputBlocks, inputs, d, {
+      addTooltip(block, inputs, d, {
         id,
         sizeX: elementSize,
         type: 'circle',
@@ -170,21 +163,23 @@ function generateRectBlock(inputs, svg, id) {
   const sizeY = Number.parseInt(inputs.sizeY, 10) || elementSize;
   const inputBlocks = generateMainBlock(inputs, svg);
 
-  inputBlocks
-    .append('rect')
-    .attr('fill', inputs.color)
-    .attr('stroke-width', 1)
-    .attr('stroke', inputs.borderColor)
-    .attr('id', d => diagramId + d.id)
-    .attr('width', sizeX)
-    .attr('height', sizeY)
-    .attr('x', d => d.position[0])
-    .attr('y', d => d.position[1])
-    .attr('dx', 80);
+  inputs.items.forEach(d => {
+    const block = inputBlocks.append('g');
+    if (id === 'diagram-container') console.log(d);
+    block
+      .append('rect')
+      .attr('fill', inputs.color)
+      .attr('stroke-width', 1)
+      .attr('stroke', inputs.borderColor)
+      .attr('id', diagramId + d.id)
+      .attr('width', sizeX)
+      .attr('height', sizeY)
+      .attr('x', d.position[0])
+      .attr('y', d.position[1])
+      .attr('dx', 80);
 
-  inputBlocks.each(d => {
     if (d.val != null) {
-      inputBlocks
+      block
         .append('foreignObject')
         .attr('width', sizeX)
         .attr('height', sizeY)
@@ -195,7 +190,7 @@ function generateRectBlock(inputs, svg, id) {
         .html(`<div class="${styles['html-object']}">${d.val}</div>`);
     }
     if (d.name != null) {
-      inputBlocks
+      block
         .append('text')
         .attr('fill', inputs.borderColor)
         .style('font-size', fontSize)
@@ -206,11 +201,11 @@ function generateRectBlock(inputs, svg, id) {
         .text(d.name);
     }
     if (Array.isArray(d.lines)) {
-      generateLines(inputs, inputBlocks, d, svg);
+      generateLines(inputs, block, d, svg);
     }
 
     if (d.tooltipValue != null) {
-      addTooltip(inputBlocks, inputs, d, { id, sizeX, sizeY, type: 'rect' });
+      addTooltip(block, inputs, d, { id, sizeX, sizeY, type: 'rect' });
     }
   });
 }
@@ -222,23 +217,24 @@ function generateTextBlock(inputs, svg, id) {
     Number.parseInt(inputs.sizeY, 10) || Number.parseInt(inputs.size, 10);
   const inputBlocks = generateMainBlock(inputs, svg);
 
-  inputBlocks
-    .append('rect')
-    .attr('fill', 'transparent')
-    .attr('stroke-width', 1)
-    .attr('stroke', inputs.borderColor)
-    .attr('id', d => diagramId + d.id)
-    .attr('width', d => (d.sizeX != null ? d.sizeX : elementWidth))
-    .attr('height', d => (d.sizeY != null ? d.sizeY : elementHeight))
-    .attr('x', d => d.position[0])
-    .attr('y', d => d.position[1])
-    .attr('dx', 80);
-
-  inputBlocks.each(d => {
+  inputs.items.forEach(d => {
+    const block = inputBlocks.append('g');
     const currElWidth = d.sizeX != null ? d.sizeX : elementWidth;
     const currElHeight = d.sizeY != null ? d.sizeY : elementHeight;
+
+    block
+      .append('rect')
+      .attr('fill', 'transparent')
+      .attr('stroke-width', 1)
+      .attr('stroke', inputs.borderColor)
+      .attr('id', diagramId + d.id)
+      .attr('width', d.sizeX != null ? d.sizeX : elementWidth)
+      .attr('height', d.sizeY != null ? d.sizeY : elementHeight)
+      .attr('x', d.position[0])
+      .attr('y', d.position[1])
+      .attr('dx', 80);
     if (d.val != null) {
-      inputBlocks
+      block
         .append('foreignObject')
         .attr('width', currElWidth)
         .attr('height', currElHeight)
@@ -249,7 +245,7 @@ function generateTextBlock(inputs, svg, id) {
         .html(`<div class="${styles['html-object']}">${d.val}</div>`);
     }
     if (d.name != null) {
-      inputBlocks
+      block
         .append('text')
         .attr('fill', inputs.borderColor)
         .style('font-size', fontSize)
@@ -263,11 +259,11 @@ function generateTextBlock(inputs, svg, id) {
         .text(d.name);
     }
     if (Array.isArray(d.lines)) {
-      generateLines(inputs, inputBlocks, d, svg);
+      generateLines(inputs, block, d, svg);
     }
 
     if (d.tooltipValue != null) {
-      addTooltip(inputBlocks, inputs, d, {
+      addTooltip(block, inputs, d, {
         id,
         sizeX: currElWidth,
         sizeY: currElHeight,
