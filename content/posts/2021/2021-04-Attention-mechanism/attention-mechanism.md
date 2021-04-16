@@ -78,7 +78,7 @@ Now a lot of things happen (3 steps in the diagram above). First, we multiplied 
     <figcaption>Figure 6: Decoder's output for <b>t=1</b>, <a target="_blank" href="https://erdem.pl/2021/04/introduction-to-attention-mechanism">Source: erdem.pl</a> </figcaption>
 </figure>
 
-At the end of the first timestep we can finally compute first output from the decoder. That output is computed using context vector $c_1$, previous decoder's state $s_0$ and start token $y_0$. Interesting thing is that in that whole process we don't have to train $f_{att}$ as a separate model. The **whole process is differentiable**, so we can just backpropagete through it.
+At the end of the first timestep we can finally compute first output from the decoder. That output is computed using context vector $c_1$, previous decoder's state $s_0$ and start token $y_0$. Interesting thing is that in that whole process we don't have to train $f_{att}$ as a separate model. The **whole process is differentiable**, so we can just backpropagete through computational graph.
 
 ### 5. And repeat...
 
@@ -89,12 +89,90 @@ At the end of the first timestep we can finally compute first output from the de
 
 At the timestep $t=2$ only thing we have to do is to **change the input to calculate the alignment scores from $s_0$ to $s_1$**. Using the same process we compute new scores ($e_{2,1}$, $e_{2,1}$...) and attention weights ($a_{2,1}$, $a_{2,1}$...). Then multiply new attention weights and encoder's hidden states to compute new context vector $c_2$. At this point the whole process just runs in the loop untill decoder produces _[STOP]_ token (sometimes called _[EOS]_ token, ang. End Of Sentence).
 
+## Attention weights visualization
+
+<figure>
+    <img src="attention-weights-heatmap.png">
+    <figcaption>Figure 8: Attention weights for English to French translation, Source:  <a target="_blank" href="https://arxiv.org/abs/1409.0473">Neural Machine Translation by Jointly Learning to Align and Translate</a> </figcaption>
+</figure>
+
+In the original paper, there is a simple visualization of the attention weights $a_{i,j}$ generated when translating English sentence _"The agreement on the European Economic Area was signed in August 1992."_ into French _"L'accord sur la zone économique européenne a été signé en août 1992."_. This visualization shows us couple interesting things.
+
+The first thing is a diagonal pattern which tell us that model put more attention to corresponding French word from the same position. The second thing is more interesting and it is a phraze _"European Economic Area"_ which in French has reverse order _"la zone économique européenne"_. We can see that when generating `la` token model puts more attention on `the` and `Area`, then when generating `znone` token it attends to `Area` and `Economic` (ignoring `European`). Another interesting observation is _"a été signé"_ where when generating `a` and `été` tokens, model attends to both `was` and `signed` (it makes sense in French because we need to know exact variation of the word `étre`).
+
+This heatmap is important because we didn't tell the model which words it should attend to, it learned this by itself. Additionally, we've got a kind of interpretability of model's decission.
+
+## Attention doesn't know that input is a sequence
+
+You probably started to worry what happen with my information from the last step:
+
+_"We're not using the fact that h vector is an ordered sequence. It is used as unordered set instead. To solve this we have to add a positional embedding to each element"_
+
+This is still a thing but instead of solving that problem, make a use of it to abstract attention mechanism and use it for something different than sequence od text. What about describing images with attention? There is a paper from the same year called [_"Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention"_][show-attend-tell] that uses attention on CNN's embedding to generate image captioning with the help of RNN decoder.
+
 <figure>
     <div class="center-all" id="rnn-imtos-with-attention-diagram">
         <image-with-attention></image-with-attention>
     </div>
-    <figcaption>Figure 9: Image Captioning with Attention (still RNN), Designed base on <a href="https://arxiv.org/abs/1409.0473" target="_blank"><i>“Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention”</i>, ICML 2015</a> Paper</figcaption>
+    <figcaption>Figure 9: Image Captioning with Attention (still RNN), Designed base on <a href="https://arxiv.org/abs/1502.03044" target="_blank"><i>“Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention”</i>, ICML 2015</a> Paper</figcaption>
 </figure>
+
+In this paper, authors are proposing solution based on convolutional feature extraction instead of the standard RNN encoder network. We're using those features from CNN to compute state and then to compute alignment scores for every timestep of RNN decoder. As in previous example I'm going to walk you through the whole process, but you probably are albe to understand it base on the interactive diagram obove :)
+
+<figure>
+    <img src="cnn-alignment.png">
+    <figcaption>Figure 10: Alignment score calculation from extracted features, <a target="_blank" href="https://erdem.pl/2021/04/introduction-to-attention-mechanism">Source: erdem.pl</a> </figcaption>
+</figure>
+
+We're assuming that CNN is already trained and produces our 3x3 grid. We're going to use that initial grid to predict the initial hidden state $s_0$ (sometimes it could be randomly generated or even set to 0). Now we have to pass the same grid and $s_0$ to the alignment function to calculate corresponding alignment score for each value of the grid $e_{t,i,j} = f_{att}(s_{t-1}, h_{i,j})$. That gives us alignment scores for **t=1** timestep. As in the previous example, each alignment score is a scalar which tells us "how important is given feature in the current timestep".
+
+<figure>
+    <img src="cnn-attention-weights.png">
+    <figcaption>Figure 11: Attention weights, <a target="_blank" href="https://erdem.pl/2021/04/introduction-to-attention-mechanism">Source: erdem.pl</a> </figcaption>
+</figure>
+
+With alignment scores calculated we need to apply softmax to normalize scores to some probability distribution that sums to one.
+
+<figure>
+    <img src="cnn-attention-mask.png">
+    <figcaption>Figure 12: Compute context vector and generate first output, <a target="_blank" href="https://erdem.pl/2021/04/introduction-to-attention-mechanism">Source: erdem.pl</a> </figcaption>
+</figure>
+
+Now all we have to do is to compute [Hardamard product](https://en.wikipedia.org/wiki/Hadamard_product_(matrices)) (element-wise multiplication, $h_{i,j} \times a_{t,i,j}$ ...) and sum everything to get a context vector $c_1$. The rest works exactly like in the previous example so we use context vector $c_1$, start token $y_0$ and initial decoder state $s_0$ and pass it through $g_U$ function to calculate $s_1$ state and achieve some output token $y_1$.
+
+> **Note**<br/>
+> Sum is not required at this point, I'm just doing it to have the same shape of the context vector as in the previous example. We could easly use 3x3 matrix as an input to the $g_U$ function.
+
+<figure>
+    <img src="cnn-second-timestep.png">
+    <figcaption>Figure 14: Second timestep (<b>t=2</b>), <a target="_blank" href="https://erdem.pl/2021/04/introduction-to-attention-mechanism">Source: erdem.pl</a> </figcaption>
+</figure>
+
+The same as before, we're using newly generated $s_1$ state to compute new allignment scores $e_{2,i,j}$, which then are normalized with softmax and computed into context vector $c_2$. The process stops when decoder produces _[STOP]_ token as an output.
+
+## Visualization of the attention weights
+
+The same as in sequence to sequence translation we are able to visualize attention weights in this case. I'm going to use on of the examples provided by the authors.
+
+<figure>
+    <img src="show-attend-soft-example.png">
+    <figcaption>Figure 15: Image attention visualization, white regions have higher value of the attention weight, Source:  <a target="_blank" href="https://arxiv.org/abs/1502.03044">Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention</a> </figcaption>
+</figure>
+
+As you can see this is not an ideal solution for explaining a model but still could give you a kind of intuition what is happening. Expecially when we look on the tokens like `frisbee` or `park` when model attends to those exact objects. In case of the token `woman`, both people on the image save similar attention weights but that's still ok because model could decide which one is the subject and how to name that person.
+
+There is one more type of attention called **hard attention** where instead of using softmax function, we're selecting a feature with the highest alignment score and using that feature's value as a context. It requires some changes in the training process which I'm not going to discuss right now. Here is an example of the hard attention.
+
+<figure>
+    <img src="show-attend-hard-example.png">
+    <figcaption>Figure 16: Hard attention visualization, white regions are the regions which model attends to, Source:  <a target="_blank" href="https://arxiv.org/abs/1502.03044">Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention</a> </figcaption>
+</figure>
+
+As you can see, the caption has changed. Now it's saying _"A man and a woman playing frisbee in a field."_ instead _"A woman is throwing a frisbee in a park."_. Attention regions are not fully related to the generated token (as in soft attentnion), when generating token `frisbee` model attends to the child.
+
+## Lets abstract the Attention
+
+
 
 ### References:
 

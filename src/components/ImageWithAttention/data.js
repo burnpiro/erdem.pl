@@ -961,7 +961,7 @@ const step8 = {
       return {
         ...item,
         val: `<span>
-          a<sub>2,${row},${col}</sub>
+          ${isScore ? 'e' : 'a'}<sub>2,${row},${col}</sub>
         </span>`,
       };
     }),
@@ -1200,7 +1200,7 @@ const step12 = {
       return {
         ...item,
         val: `<span>
-          a<sub>3,${row},${col}</sub>
+           ${isScore ? 'e' : 'a'}<sub>3,${row},${col}</sub>
         </span>`,
       };
     }),
