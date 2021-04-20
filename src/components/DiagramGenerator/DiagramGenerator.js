@@ -99,6 +99,75 @@ function addTooltip(
   }
 }
 
+function generateChartBlock(inputs, svg, id) {
+  const inputBlocks = generateMainBlock(inputs, svg);
+  inputBlocks.attr('transform', 'translate(40,0)');
+  const height = inputs.sizeY || inputs.size;
+  const width = inputs.sizeX || inputs.size;
+
+  // Add X axis --> it is a date format
+  const x = d3
+    .scaleLinear()
+    .domain(
+      d3.extent(inputs.data, function(d) {
+        return d.x;
+      })
+    )
+    .range([0, width]);
+  inputBlocks
+    .selectAll('.xAxis')
+    .data([1])
+    .enter()
+    .append('g')
+    .attr('class', 'xAxis')
+    .attr('transform', `translate(0,${height / 2})`)
+    .call(d3.axisBottom(x));
+
+  // Add Y axis
+  const y = d3
+    .scaleLinear()
+    .domain([
+      d3.min(inputs.data, function(d) {
+        return +d.y;
+      }),
+      d3.max(inputs.data, function(d) {
+        return +d.y;
+      }),
+    ])
+    .range([height, 0]);
+  inputBlocks
+    .selectAll('.yAxis')
+    .data([1])
+    .enter()
+    .append('g')
+    .attr('class', 'yAxis')
+    .call(d3.axisLeft(y));
+
+  // Add the line
+  const u = inputBlocks.selectAll('.lines').data([inputs.data]);
+  u.enter()
+    .append('path')
+    .attr('class', 'lines')
+    .merge(u)
+    .transition()
+    .duration(2000)
+    .attr('fill', 'none')
+    .attr('stroke', 'black')
+    .attr('stroke-width', 1.5)
+    .attr(
+      'd',
+      d3
+        .line()
+        .curve(d3.curveNatural) // Just add that to have a curve instead of segments
+        .x(function(d) {
+          return x(d.x);
+        })
+        .y(function(d) {
+          return y(d.y);
+        })
+    );
+}
+
 function generateCircleBlock(inputs, svg, id) {
   const inputBlocks = generateMainBlock(inputs, svg);
 
@@ -274,13 +343,18 @@ function generateTextBlock(inputs, svg, id) {
 }
 
 function printBlocks(inputs, svg, id) {
-  svg.selectAll(`.${inputs.blockName}-block g`).remove();
+  if (inputs.transition == null) {
+    svg.selectAll(`.${inputs.blockName}-block`).remove();
+  }
   // eslint-disable-next-line no-underscore-dangle
   if (svg.selectAll(`.${inputs.blockName}-block`)._groups[0].length === 0) {
     svg.append('g').attr('class', `${inputs.blockName}-block`);
   }
 
   switch (inputs.blockType) {
+    case 'chart':
+      generateChartBlock(inputs, svg, id);
+      break;
     case 'circle':
       generateCircleBlock(inputs, svg, id);
       break;
