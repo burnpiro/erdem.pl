@@ -99,20 +99,19 @@ function addTooltip(
   }
 }
 
-function generateChartBlock(inputs, svg, id) {
+function generateLineChartBlock(inputs, svg, id) {
   const inputBlocks = generateMainBlock(inputs, svg);
-  inputBlocks.attr('transform', 'translate(40,0)');
+  inputBlocks
+    .attr('x', inputs.position ? inputs.position[0] : 0)
+    .attr('y', inputs.position ? inputs.position[1] : 0);
+  inputBlocks.attr('transform', `translate(40,${inputs.position ? inputs.position[1] : 0})`);
   const height = inputs.sizeY || inputs.size;
   const width = inputs.sizeX || inputs.size;
 
   // Add X axis --> it is a date format
   const x = d3
     .scaleLinear()
-    .domain(
-      d3.extent(inputs.data, function(d) {
-        return d.x;
-      })
-    )
+    .domain([0, 100])
     .range([0, width]);
   inputBlocks
     .selectAll('.xAxis')
@@ -126,14 +125,7 @@ function generateChartBlock(inputs, svg, id) {
   // Add Y axis
   const y = d3
     .scaleLinear()
-    .domain([
-      d3.min(inputs.data, function(d) {
-        return +d.y;
-      }),
-      d3.max(inputs.data, function(d) {
-        return +d.y;
-      }),
-    ])
+    .domain(inputs.yLimit)
     .range([height, 0]);
   inputBlocks
     .selectAll('.yAxis')
@@ -143,29 +135,41 @@ function generateChartBlock(inputs, svg, id) {
     .attr('class', 'yAxis')
     .call(d3.axisLeft(y));
 
-  // Add the line
-  const u = inputBlocks.selectAll('.lines').data([inputs.data]);
-  u.enter()
-    .append('path')
-    .attr('class', 'lines')
-    .merge(u)
-    .transition()
-    .duration(2000)
-    .attr('fill', 'none')
-    .attr('stroke', 'black')
-    .attr('stroke-width', 1.5)
-    .attr(
-      'd',
-      d3
-        .line()
-        .curve(d3.curveNatural) // Just add that to have a curve instead of segments
-        .x(function(d) {
-          return x(d.x);
-        })
-        .y(function(d) {
-          return y(d.y);
-        })
+  for (const lineData of inputs.data) {
+    const lineColor = lineData.color ? lineData.color : inputs.color;
+    const data = Array(lineData.elements)
+      .fill(0)
+      .map((_, idx) => ({ y: lineData.fun(idx), x: idx }));
+    console.log(lineData, data);
+    x.domain(
+      d3.extent(data, function(d) {
+        return d.x;
+      })
     );
+    // Add the line
+    const u = inputBlocks.selectAll(`.${lineData.name}`).data([data]);
+    u.enter()
+      .append('path')
+      .attr('class', lineData.name)
+      .merge(u)
+      .transition()
+      .duration(2000)
+      .attr('fill', 'none')
+      .attr('stroke', lineColor)
+      .attr('stroke-width', 3)
+      .attr(
+        'd',
+        d3
+          .line()
+          .curve(d3.curveNatural) // Just add that to have a curve instead of segments
+          .x(function(d) {
+            return x(d.x);
+          })
+          .y(function(d) {
+            return y(d.y);
+          })
+      );
+  }
 }
 
 function generateCircleBlock(inputs, svg, id) {
@@ -352,8 +356,8 @@ function printBlocks(inputs, svg, id) {
   }
 
   switch (inputs.blockType) {
-    case 'chart':
-      generateChartBlock(inputs, svg, id);
+    case 'line-chart':
+      generateLineChartBlock(inputs, svg, id);
       break;
     case 'circle':
       generateCircleBlock(inputs, svg, id);
