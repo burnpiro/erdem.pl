@@ -142,6 +142,8 @@ module.exports = {
                 'xai-infidelity',
                 'rnn-process',
                 'rnn-with-attention',
+                'image-with-attention',
+                'sin-position-embedding',
               ],
             },
           },

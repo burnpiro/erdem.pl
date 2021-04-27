@@ -7,6 +7,7 @@ import XAIInfidelity from '../../XAIInfidelity';
 import RNNProcess from '../../RNNProcess/RNNProcess';
 import RNNWithAttention from '../../RNNWithAttention/RNNWithAttention';
 import ImageWithAttention from '../../ImageWithAttention/ImageWithAttention';
+import InputPositionEmbeddingSin from '../../InputPositionEmbeddingSin/InputPositionEmbeddingSin';
 
 type Props = {
   body: string,
@@ -26,6 +27,7 @@ const renderAst = new rehypeReact({
     'rnn-process': RNNProcess,
     'rnn-with-attention': RNNWithAttention,
     'image-with-attention': ImageWithAttention,
+    'sin-position-embedding': InputPositionEmbeddingSin,
   },
 }).Compiler;
 

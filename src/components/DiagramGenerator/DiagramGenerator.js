@@ -99,19 +99,28 @@ function addTooltip(
   }
 }
 
+function addOnClickAction(inputBlocks, d, options) {
+  return inputBlocks.attr('cursor', `pointer`).on('click', e => {
+    options.onUpdateValues(d.selectValue, d.id);
+  });
+}
+
 function generateLineChartBlock(inputs, svg, id) {
   const inputBlocks = generateMainBlock(inputs, svg);
   inputBlocks
     .attr('x', inputs.position ? inputs.position[0] : 0)
     .attr('y', inputs.position ? inputs.position[1] : 0);
-  inputBlocks.attr('transform', `translate(40,${inputs.position ? inputs.position[1] : 0})`);
+  inputBlocks.attr(
+    'transform',
+    `translate(40,${inputs.position ? inputs.position[1] : 0})`
+  );
   const height = inputs.sizeY || inputs.size;
   const width = inputs.sizeX || inputs.size;
 
   // Add X axis --> it is a date format
   const x = d3
     .scaleLinear()
-    .domain([0, 100])
+    .domain(inputs.xLimit)
     .range([0, width]);
   inputBlocks
     .selectAll('.xAxis')
@@ -140,7 +149,6 @@ function generateLineChartBlock(inputs, svg, id) {
     const data = Array(lineData.elements)
       .fill(0)
       .map((_, idx) => ({ y: lineData.fun(idx), x: idx }));
-    console.log(lineData, data);
     x.domain(
       d3.extent(data, function(d) {
         return d.x;
@@ -230,7 +238,7 @@ function generateCircleBlock(inputs, svg, id) {
   });
 }
 
-function generateRectBlock(inputs, svg, id) {
+function generateRectBlock(inputs, svg, id, options) {
   const elementSize = Number.parseInt(inputs.size, 10);
   const sizeX = Number.parseInt(inputs.sizeX, 10) || elementSize;
   const sizeY = Number.parseInt(inputs.sizeY, 10) || elementSize;
@@ -238,7 +246,6 @@ function generateRectBlock(inputs, svg, id) {
 
   inputs.items.forEach(d => {
     const block = inputBlocks.append('g');
-    if (id === 'diagram-container') console.log(d);
     block
       .append('rect')
       .attr('fill', inputs.color)
@@ -250,6 +257,10 @@ function generateRectBlock(inputs, svg, id) {
       .attr('x', d.position[0])
       .attr('y', d.position[1])
       .attr('dx', 80);
+
+    if (d.selectValue != null) {
+      addOnClickAction(block, d, options);
+    }
 
     if (d.val != null) {
       block
@@ -346,7 +357,7 @@ function generateTextBlock(inputs, svg, id) {
   });
 }
 
-function printBlocks(inputs, svg, id) {
+function printBlocks(inputs, svg, id, options) {
   if (inputs.transition == null) {
     svg.selectAll(`.${inputs.blockName}-block`).remove();
   }
@@ -357,17 +368,17 @@ function printBlocks(inputs, svg, id) {
 
   switch (inputs.blockType) {
     case 'line-chart':
-      generateLineChartBlock(inputs, svg, id);
+      generateLineChartBlock(inputs, svg, id, options);
       break;
     case 'circle':
-      generateCircleBlock(inputs, svg, id);
+      generateCircleBlock(inputs, svg, id, options);
       break;
     case 'text':
-      generateTextBlock(inputs, svg, id);
+      generateTextBlock(inputs, svg, id, options);
       break;
     case 'rect':
     default:
-      generateRectBlock(inputs, svg, id);
+      generateRectBlock(inputs, svg, id, options);
       break;
   }
 }
@@ -378,6 +389,10 @@ function DiagramGenerator({
   animationWidth = 1200,
   animationHeight = 500,
   id = 'diagram-container',
+  values = {},
+  onUpdateValues = (val, elId) => {
+    console.log(val, elId);
+  },
 }) {
   const ref = useD3(
     svg => {
@@ -392,7 +407,7 @@ function DiagramGenerator({
       }
 
       Object.values(data).forEach(itemBlock => {
-        printBlocks(itemBlock, svg, id);
+        printBlocks(itemBlock, svg, id, { values, onUpdateValues });
       });
     },
     [data, step]

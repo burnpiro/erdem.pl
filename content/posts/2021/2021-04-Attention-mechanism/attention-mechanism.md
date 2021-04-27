@@ -170,8 +170,14 @@ There is one more type of attention called **hard attention** where instead of u
 
 As you can see, the caption has changed. Now it's saying _"A man and a woman playing frisbee in a field."_ instead _"A woman is throwing a frisbee in a park."_. Attention regions are not fully related to the generated token (as in soft attention), when generating token `frisbee` model attends to the child.
 
-## Lets abstract the Attention
+## Let's abstract the Attention
 
+<figure>
+    <div  class="center-all" id="sin-position-embedding-diagram">
+        <sin-position-embedding></sin-position-embedding>
+    </div>
+    <figcaption>Figure 1: Sequence-to-sequence with RNN, Designed base on <a href="https://arxiv.org/abs/1409.3215" target="_blank"><i>“Sequence to sequence learning with neural networks”</i>, NeurIPS 2014</a> Paper</figcaption>
+</figure>
 
 
 ### References:
