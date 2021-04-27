@@ -14,7 +14,6 @@ const ObjectDetection = () => {
       title={`Infidelity and Sensitivity step by step - ${title}`}
       description={subtitle}
     >
-      <Sidebar slim={true} />
       <Page title="How infidelity and Sensitivity works?" wide={true}>
         <XAIInfidelity />
       </Page>
