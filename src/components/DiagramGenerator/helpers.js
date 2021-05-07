@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import styles from './DiagramGenerator.module.scss';
 
 function generateArrowElement(svg) {
   return svg
@@ -64,4 +65,104 @@ function generateTooltopElement(svg, containerId) {
   return returnObj;
 }
 
-export { generateArrowElement, generateTooltopElement };
+const ACTIONS = {
+  SET: 'SET',
+  DELETE: 'DELETE',
+};
+
+function generateMainBlock(inputs, svg) {
+  return svg.select(`.${inputs.blockName}-block`);
+}
+
+function addOnClickAction(inputBlocks, d, { values, onUpdateValues }) {
+  return inputBlocks.attr('cursor', `pointer`).on('click', e => {
+    onUpdateValues(d.selectValue, d.id, ACTIONS.SET);
+  });
+}
+
+function generateLines(inputs, block, d, svg) {
+  const multiLinkData = d.lines.map(line => {
+    switch (line.orientation) {
+      case 'horizontal':
+        return d3.linkHorizontal()({
+          source: [line.from[0], line.from[1]],
+          target: [line.to[0], line.to[1]],
+        });
+      case 'multi-curved':
+        return d3.line().curve(d3.curveCardinal)([
+          [line.from[0], line.from[1]],
+          ...line.points,
+          [line.to[0], line.to[1]],
+        ]);
+      case 'multi-squared':
+        return d3.line()([
+          [line.from[0], line.from[1]],
+          ...line.points,
+          [line.to[0], line.to[1]],
+        ]);
+      default:
+        return d3.linkVertical()({
+          source: [line.from[0], line.from[1]],
+          target: [line.to[0], line.to[1]],
+        });
+    }
+  });
+
+  const linesBlock = svg.select(`.${inputs.blockName}-block`).append('g');
+
+  for (let i = 0; i < multiLinkData.length; i += 1) {
+    linesBlock
+      .append('path')
+      .attr('d', multiLinkData[i])
+      .attr('stroke', 'black')
+      .attr('stroke-width', 3)
+      .attr('fill', 'none')
+      .attr('marker-end', 'url(#arrow)');
+  }
+}
+
+const DEFAULT_FONTSIZE = 19;
+
+const addHTMLContent = (
+  block,
+  d,
+  width,
+  height,
+  color,
+  fontSize = DEFAULT_FONTSIZE,
+  type = 'rect'
+) => {
+  if (type === 'circle') {
+    return block
+      .append('foreignObject')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('stroke', color)
+      .style('font-size', fontSize)
+      .attr('x', d.position[0] - width / 2)
+      .attr('y', d.position[1] - height / 2)
+      .attr('dy', width / 2)
+      .attr('dx', height / 2)
+      .html(`<div class="${styles['html-object']}">${d.val}</div>`);
+  }
+  return block
+    .append('foreignObject')
+    .attr('width', width)
+    .attr('height', height)
+    .attr('stroke', color)
+    .style('font-size', fontSize)
+    .attr('x', d.position[0])
+    .attr('y', d.position[1])
+    .html(`<div class="${styles['html-object']}">${d.val}</div>`);
+};
+
+export {
+  generateArrowElement,
+  generateTooltopElement,
+  ACTIONS,
+  generateMainBlock,
+  addOnClickAction,
+  generateLines,
+  DEFAULT_FONTSIZE,
+  addHTMLContent,
+};
