@@ -7,6 +7,7 @@ const chartWidth = 600;
 const animationHeight = (chartSize + 20) * 4;
 const circleR = 16;
 const posBoxSize = 30;
+const posBoxSizeX = posBoxSize * 2;
 
 const posSinText = katex.renderToString(
   `PE_{(pos,2i)} = sin(\\frac{pos}{10000^{2i/d_{\\text{model}}}})`
@@ -38,12 +39,10 @@ const defaultListOfElements = {
   borderColor: '#147A00',
   blockType: 'rect',
   size: posBoxSize,
+  sizeX: posBoxSizeX,
   items: [
     {
       id: 'top_name',
-      val: `<span style="font-size: 14px">
-          i=0
-        </span>`,
       name: 'p0',
       sizeX: 0,
       sizeY: 0,
@@ -53,32 +52,36 @@ const defaultListOfElements = {
     {
       id: 'i0',
       val: `<span style="font-size: 14px">
-          i=0
+          $1
         </span>`,
+      valVars: ['pos0,i0'],
       selectValue: 0,
       position: [chartWidth + 80, 50],
     },
     {
       id: 'i1',
       val: `<span style="font-size: 14px">
-          i=1
+          $1
         </span>`,
+      valVars: ['pos1,i0'],
       selectValue: 0,
       position: [chartWidth + 80, 50 + posBoxSize + 10],
     },
     {
       id: 'i2',
       val: `<span style="font-size: 14px">
-          i=2
+          $1
         </span>`,
+      valVars: ['pos2,i0'],
       selectValue: 0,
       position: [chartWidth + 80, 50 + (posBoxSize + 10) * 2],
     },
     {
       id: 'i3',
       val: `<span style="font-size: 14px">
-          i=3
+          $1
         </span>`,
+      valVars: ['pos3,i0'],
       selectValue: 0,
       position: [chartWidth + 80, 50 + (posBoxSize + 10) * 3],
     },
@@ -201,6 +204,7 @@ const step1 = {
     items: defaultListOfElements.items.map((el, idx) => ({
       ...el,
       name: idx === 0 ? 'p0' : null,
+      valVars: idx === 0 ? null : [`pos0,i${idx - 1}-val`],
     })),
   },
   pos1: {
@@ -211,8 +215,9 @@ const step1 = {
     valName: 'pos1',
     items: defaultListOfElements.items.map((el, idx) => ({
       ...el,
-      position: [el.position[0] + posBoxSize * 2, el.position[1]],
+      position: [el.position[0] + posBoxSizeX * 1.5, el.position[1]],
       name: idx === 0 ? 'p1' : null,
+      valVars: idx === 0 ? null : [`pos1,i${idx - 1}-val`],
     })),
   },
   pos2: {
@@ -223,8 +228,9 @@ const step1 = {
     valName: 'pos2',
     items: defaultListOfElements.items.map((el, idx) => ({
       ...el,
-      position: [el.position[0] + posBoxSize * 4, el.position[1]],
+      position: [el.position[0] + posBoxSizeX * 3, el.position[1]],
       name: idx === 0 ? 'p2' : null,
+      valVars: idx === 0 ? null : [`pos2,i${idx - 1}-val`],
     })),
   },
   pos3: {
@@ -235,8 +241,9 @@ const step1 = {
     valName: 'pos3',
     items: defaultListOfElements.items.map((el, idx) => ({
       ...el,
-      position: [el.position[0] + posBoxSize * 6, el.position[1]],
+      position: [el.position[0] + posBoxSizeX * 4.5, el.position[1]],
       name: idx === 0 ? 'p3' : null,
+      valVars: idx === 0 ? null : [`pos3,i${idx - 1}-val`],
     })),
   },
   text: {

@@ -133,12 +133,20 @@ const DEFAULT_FONTSIZE = 19;
 const addHTMLContent = (
   block,
   d,
-  width,
-  height,
-  color,
-  fontSize = DEFAULT_FONTSIZE,
-  type = 'rect'
+  {
+    width,
+    height,
+    color,
+    fontSize = DEFAULT_FONTSIZE,
+    type = 'rect',
+    vals = [],
+    values = {},
+  }
 ) => {
+  const objVal = vals.reduce((acc, el, idx) => {
+    const re = new RegExp(`\\$${idx + 1}`, 'igm');
+    return acc.replaceAll(re, values[el]);
+  }, d.val);
   if (type === 'circle') {
     return block
       .append('foreignObject')
@@ -150,7 +158,7 @@ const addHTMLContent = (
       .attr('y', d.position[1] - height / 2)
       .attr('dy', width / 2)
       .attr('dx', height / 2)
-      .html(`<div class="${styles['html-object']}">${d.val}</div>`);
+      .html(`<div class="${styles['html-object']}">${objVal}</div>`);
   }
   return block
     .append('foreignObject')
@@ -160,7 +168,7 @@ const addHTMLContent = (
     .style('font-size', fontSize)
     .attr('x', d.position[0])
     .attr('y', d.position[1])
-    .html(`<div class="${styles['html-object']}">${d.val}</div>`);
+    .html(`<div class="${styles['html-object']}">${objVal}</div>`);
 };
 
 export {

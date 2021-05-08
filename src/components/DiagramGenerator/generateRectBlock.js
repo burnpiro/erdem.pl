@@ -34,7 +34,14 @@ export default function generateRectBlock(inputs, svg, id, options) {
     }
 
     if (d.val != null) {
-      addHTMLContent(block, d, sizeX, sizeY, inputs.borderColor, fontSize);
+      addHTMLContent(block, d, {
+        width: sizeX,
+        height: sizeY,
+        color: inputs.borderColor,
+        fontSize,
+        vals: d.valVars,
+        values: options.values,
+      });
     }
     if (d.name != null) {
       block

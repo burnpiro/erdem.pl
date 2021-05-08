@@ -101,6 +101,47 @@ const InputPositionEmbeddingSin = () => {
 
   const currStep = steps[`step${step}`];
 
+  const getValueForItemAndPos = (pos, i) => {
+    let fun = null;
+    switch (i) {
+      case 0:
+        fun = currStep.sin0.data[0].fun;
+        break;
+      case 1:
+        fun = currStep.cos0.data[0].fun;
+        break;
+      case 2:
+        fun = currStep.sin2.data[0].fun;
+        break;
+      case 3:
+        fun = currStep.cos2.data[0].fun;
+        break;
+      default:
+        break;
+    }
+
+    return (
+      typeof fun === 'function' &&
+      Number(fun(state[`pos${pos},i${i}`])).toFixed(3)
+    );
+  };
+
+  const stateWithFunValues = {
+    ...state,
+    ...positions.reduce((posAcc, pos) => {
+      return {
+        ...posAcc,
+        ...elements.reduce(
+          (acc, el) => ({
+            ...acc,
+            [`pos${pos},i${el}-val`]: getValueForItemAndPos(pos, el),
+          }),
+          {}
+        ),
+      };
+    }, {}),
+  };
+
   return (
     <div className={styles['sin-position-embedding-continaer']}>
       <DiagramGenerator
@@ -109,7 +150,7 @@ const InputPositionEmbeddingSin = () => {
         animationHeight={animationHeight}
         animationWidth={animationWidth}
         id="sin-position-embedding"
-        values={state}
+        values={stateWithFunValues}
         onUpdateValues={onStateChange}
       />
       <PositionSliders

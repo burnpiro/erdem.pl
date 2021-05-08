@@ -4,7 +4,8 @@ import {
   generateMainBlock,
   generateLines,
   DEFAULT_FONTSIZE,
-  addHTMLContent, addOnClickAction,
+  addHTMLContent,
+  addOnClickAction,
 } from './helpers';
 
 export default function generateCircleBlock(inputs, svg, id, options) {
@@ -29,15 +30,15 @@ export default function generateCircleBlock(inputs, svg, id, options) {
       addOnClickAction(block, d, inputs, options);
     }
     if (d.val != null) {
-      addHTMLContent(
-        block,
-        d,
-        elementSize * 2,
-        elementSize * 2,
-        inputs.borderColor,
+      addHTMLContent(block, d, {
+        width: elementSize * 2,
+        height: elementSize * 2,
+        color: inputs.borderColor,
         fontSize,
-        'circle'
-      );
+        type: 'circle',
+        vals: d.valVars,
+        values: options.values,
+      });
     }
     if (d.name != null) {
       block

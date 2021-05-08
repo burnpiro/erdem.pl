@@ -36,14 +36,14 @@ export default function generateTextBlock(inputs, svg, id, options) {
       addOnClickAction(block, d, inputs, options);
     }
     if (d.val != null) {
-      addHTMLContent(
-        block,
-        d,
-        currElWidth,
-        currElHeight,
-        inputs.borderColor,
-        fontSize
-      );
+      addHTMLContent(block, d, {
+        width: currElWidth,
+        height: currElHeight,
+        color: inputs.borderColor,
+        fontSize,
+        vals: d.valVars,
+        values: options.values,
+      });
     }
     if (d.name != null) {
       block
