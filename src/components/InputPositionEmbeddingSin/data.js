@@ -1,4 +1,5 @@
 import React from 'react';
+const katex = require(`katex`);
 
 const animationWidth = 1200;
 const chartSize = 150;
@@ -6,6 +7,31 @@ const chartWidth = 600;
 const animationHeight = (chartSize + 20) * 4;
 const circleR = 16;
 const posBoxSize = 30;
+
+const posSinText = katex.renderToString(
+  `PE_{(pos,2i)} = sin(\\frac{pos}{10000^{2i/d_{\\text{model}}}})`
+);
+const posCosText = katex.renderToString(
+  `PE_{(pos,2i+1)} = cos(\\frac{pos}{10000^{2i/d_{\\text{model}}}})`
+);
+
+const positionalEncodingEq = `<span>
+<strong>Positional Encoding</strong><br/>
+${posSinText}<br/><br/>
+${posCosText}<br/>
+</span>
+`;
+
+const currentSettingDesc1 = `<span>
+<strong>Settings</strong><br/>
+d = 50
+</span>
+`;
+const currentSettingDesc2 = `<span>
+<strong>Settings</strong><br/>
+d = 20
+</span>
+`;
 
 const defaultListOfElements = {
   color: '#CAFFBF',
@@ -213,6 +239,30 @@ const step1 = {
       name: idx === 0 ? 'p3' : null,
     })),
   },
+  text: {
+    color: '#CAFFBF',
+    borderColor: '#333',
+    sizeX: `300px`,
+    sizeY: `50px`,
+    blockName: 'text',
+    blockType: 'text',
+    items: [
+      {
+        id: 'encoding-eq',
+        val: positionalEncodingEq,
+        sizeX: `450px`,
+        sizeY: `150px`,
+        position: [chartWidth + 80, 50 + (posBoxSize + 10) * 4],
+      },
+      {
+        id: 'current-settings',
+        val: currentSettingDesc1,
+        sizeX: `450px`,
+        sizeY: `150px`,
+        position: [chartWidth + 80, 50 + (posBoxSize + 10) * 4 + 200],
+      },
+    ],
+  },
 };
 
 const step2 = {
@@ -258,6 +308,16 @@ const step2 = {
         fun: x => Math.cos(x / 10000 ** (2 / 20)),
         elements: 21,
         items: step1.cos2.data[0].items,
+      },
+    ],
+  },
+  text: {
+    ...step1.text,
+    items: [
+      step1.text.items[0],
+      {
+        ...step1.text.items[1],
+        val: currentSettingDesc2,
       },
     ],
   },
