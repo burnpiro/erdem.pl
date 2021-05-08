@@ -15,6 +15,9 @@ const posSinText = katex.renderToString(
 const posCosText = katex.renderToString(
   `PE_{(pos,2i+1)} = cos(\\frac{pos}{10000^{2i/d_{\\text{model}}}})`
 );
+const sinLargeInd = katex.renderToString(
+  `\\frac{pos}{10000^{48/50}} \\sim \\frac{pos}{10000}`
+);
 
 const positionalEncodingEq = `<span>
 <strong>Positional Encoding</strong><br/>
@@ -24,13 +27,23 @@ ${posCosText}<br/>
 `;
 
 const currentSettingDesc1 = `<span>
-<strong>Settings</strong><br/>
-d = 50
+<strong>Settings</strong>: d = 50<br/>
+The value of each positional encoding depends on the <i>position</i> (<i>pos</i>) and <i>dimension</i> (<i>d</i>). We calculate result for every <i>index</i> (<i>i</i>) to get the whole vector.
 </span>
 `;
 const currentSettingDesc2 = `<span>
-<strong>Settings</strong><br/>
-d = 20
+<strong>Settings</strong>: d = 20<br/>
+Even if the dimension (<i>d</i>) has changed, values for <strong>i=0</strong> and <strong>i=1</strong> haven't. That's because <strong>PE</strong> formula has a divisor equal to <strong>1</strong> in both cases, despite the value of <i>d</i>.
+</span>
+`;
+const currentSettingDesc3 = `<span>
+<strong>Settings</strong>: d = 50<br/>
+Now we've changed indexes (<b>i</b>) to show differences between further indexes. Function's period increases with increasing <strong>i</strong> value.
+</span>
+`;
+const currentSettingDesc4 = `<span>
+<strong>Settings</strong>: d = 50<br/>
+Sin and Cos periods at even further indexes are very large because ${sinLargeInd}. That gives us a period of <strong>20000𝛱</strong> which is way beyond our value of <i>pos</i>. Most values are going to be close to 0 or 1.
 </span>
 `;
 
@@ -195,6 +208,49 @@ const step1 = {
       },
     ],
   },
+  posDesc: {
+    ...defaultListOfElements,
+    color: 'transparent',
+    borderColor: 'transparent',
+    blockName: 'position-desc',
+    valName: 'pos-desc',
+    items: [
+      {
+        id: 'i0-desc',
+        val: `<span style="font-size: 16px; font-weight: bold;">
+          i=0
+        </span>`,
+        position: [chartWidth + 80 + posBoxSizeX * 5.5, 50],
+      },
+      {
+        id: 'i1-desc',
+        val: `<span style="font-size: 16px; font-weight: bold;">
+          i=1
+        </span>`,
+        position: [chartWidth + 80 + posBoxSizeX * 5.5, 50 + posBoxSize + 10],
+      },
+      {
+        id: 'i2-desc',
+        val: `<span style="font-size: 16px; font-weight: bold;">
+          i=2
+        </span>`,
+        position: [
+          chartWidth + 80 + posBoxSizeX * 5.5,
+          50 + (posBoxSize + 10) * 2,
+        ],
+      },
+      {
+        id: 'i3-desc',
+        val: `<span style="font-size: 16px; font-weight: bold;">
+          i=3
+        </span>`,
+        position: [
+          chartWidth + 80 + posBoxSizeX * 5.5,
+          50 + (posBoxSize + 10) * 3,
+        ],
+      },
+    ],
+  },
   pos0: {
     ...defaultListOfElements,
     color: '#9CFCE2',
@@ -330,9 +386,158 @@ const step2 = {
   },
 };
 
+const step3 = {
+  ...step2,
+  sin0: {
+    ...step2.sin0,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.sin(x / 10000 ** (4 / 50)),
+        elements: 21,
+        items: step2.sin0.data[0].items,
+      },
+    ],
+  },
+  cos0: {
+    ...step2.cos0,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.cos(x / 10000 ** (4 / 50)),
+        elements: 21,
+        items: step2.cos0.data[0].items,
+      },
+    ],
+  },
+  sin2: {
+    ...step2.sin2,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.sin(x / 10000 ** (6 / 50)),
+        elements: 21,
+        items: step2.sin2.data[0].items,
+      },
+    ],
+  },
+  cos2: {
+    ...step2.cos2,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.cos(x / 10000 ** (6 / 50)),
+        elements: 21,
+        items: step2.cos2.data[0].items,
+      },
+    ],
+  },
+  text: {
+    ...step2.text,
+    items: [
+      step2.text.items[0],
+      {
+        ...step2.text.items[1],
+        val: currentSettingDesc3,
+      },
+      {
+        sizeX: `100px`,
+        sizeY: `150px`,
+        position: [
+          step2.posDesc.items[0].position[0] + posBoxSizeX,
+          step2.posDesc.items[0].position[1],
+        ],
+        val: `<span style="font-size: 16px; text-align: center">
+          <strong>Important!</strong><br/>
+          indexes has changed
+        </span>`,
+      },
+    ],
+  },
+  posDesc: {
+    ...step2.posDesc,
+    items: step2.posDesc.items.map((el, idx) => ({
+      ...el,
+      val: `<span style="font-size: 16px; font-weight: bold;">
+          i=${idx + 2}
+        </span>`,
+    })),
+  },
+};
+
+const step4 = {
+  ...step3,
+  sin0: {
+    ...step3.sin0,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.sin(x / 10000 ** (46 / 50)),
+        elements: 21,
+        items: step3.sin0.data[0].items,
+      },
+    ],
+  },
+  cos0: {
+    ...step3.cos0,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.cos(x / 10000 ** (46 / 50)),
+        elements: 21,
+        items: step3.cos0.data[0].items,
+      },
+    ],
+  },
+  sin2: {
+    ...step3.sin2,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.sin(x / 10000 ** (48 / 50)),
+        elements: 21,
+        items: step3.sin2.data[0].items,
+      },
+    ],
+  },
+  cos2: {
+    ...step3.cos2,
+    data: [
+      {
+        name: 'axis',
+        fun: x => Math.cos(x / 10000 ** (48 / 50)),
+        elements: 21,
+        items: step3.cos2.data[0].items,
+      },
+    ],
+  },
+  text: {
+    ...step3.text,
+    items: [
+      step3.text.items[0],
+      {
+        ...step3.text.items[1],
+        val: currentSettingDesc4,
+      },
+      step3.text.items[2],
+    ],
+  },
+  posDesc: {
+    ...step2.posDesc,
+    items: step2.posDesc.items.map((el, idx) => ({
+      ...el,
+      val: `<span style="font-size: 16px; font-weight: bold;">
+          i=${idx + 46}
+        </span>`,
+    })),
+  },
+};
+
 const steps = {
   step1,
   step2,
+  step3,
+  step4,
 };
 
 export { steps, animationWidth, animationHeight, defaultItems };
