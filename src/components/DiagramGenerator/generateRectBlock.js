@@ -30,7 +30,7 @@ export default function generateRectBlock(inputs, svg, id, options) {
       .attr('dx', 80);
 
     if (d.selectValue != null) {
-      addOnClickAction(block, d, options);
+      addOnClickAction(block, d, inputs, options);
     }
 
     if (d.val != null) {

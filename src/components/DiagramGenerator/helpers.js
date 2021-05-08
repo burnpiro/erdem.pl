@@ -74,9 +74,16 @@ function generateMainBlock(inputs, svg) {
   return svg.select(`.${inputs.blockName}-block`);
 }
 
-function addOnClickAction(inputBlocks, d, { values, onUpdateValues }) {
+function addOnClickAction(inputBlocks, d, { valName }, { onUpdateValues }) {
   return inputBlocks.attr('cursor', `pointer`).on('click', e => {
-    onUpdateValues(d.selectValue, d.id, ACTIONS.SET);
+    const valId = [];
+    if (valName != null) {
+      valId.push(valName);
+    }
+    if (d.id != null) {
+      valId.push(d.id);
+    }
+    onUpdateValues(d.selectValue, valId.join(','), ACTIONS.SET);
   });
 }
 

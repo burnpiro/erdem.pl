@@ -4,7 +4,7 @@ import {
   generateMainBlock,
   generateLines,
   DEFAULT_FONTSIZE,
-  addHTMLContent,
+  addHTMLContent, addOnClickAction,
 } from './helpers';
 
 export default function generateCircleBlock(inputs, svg, id, options) {
@@ -25,6 +25,9 @@ export default function generateCircleBlock(inputs, svg, id, options) {
       .attr('cx', d.position[0])
       .attr('cy', d.position[1])
       .attr('dx', 80);
+    if (d.selectValue != null) {
+      addOnClickAction(block, d, inputs, options);
+    }
     if (d.val != null) {
       addHTMLContent(
         block,

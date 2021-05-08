@@ -5,7 +5,7 @@ export default function generateLineChartBlock(
   inputs,
   svg,
   id,
-  { values, onUpdateValues }
+  { values, toolTips, onUpdateValues }
 ) {
   const inputBlocks = generateMainBlock(inputs, svg);
   inputBlocks
@@ -17,6 +17,7 @@ export default function generateLineChartBlock(
   );
   const height = inputs.sizeY || inputs.size;
   const width = inputs.sizeX || inputs.size;
+  const delay = inputs?.transition?.delay || 500;
 
   // Add X axis --> it is a date format
   const x = d3
@@ -62,7 +63,7 @@ export default function generateLineChartBlock(
       .attr('class', lineData.name)
       .merge(u)
       .transition()
-      .duration(2000)
+      .duration(delay)
       .attr('fill', 'none')
       .attr('stroke', lineColor)
       .attr('stroke-width', 3)
@@ -78,5 +79,59 @@ export default function generateLineChartBlock(
             return y(d.y);
           })
       );
+
+    // Add dots on the chart
+    const dotData = Array.isArray(lineData.items) ? lineData.items : [];
+
+    const dots = inputBlocks.selectAll(`circle`).data(dotData);
+
+    dots
+      .enter()
+      .append(`circle`)
+      .attr('class', d => d.varName)
+      .on('mouseover', (e, d) => {
+        toolTips[id].mouseOver(d, e);
+      })
+      .on('mousemove', (e, d) => {
+        toolTips[id].mouseMove(
+          d,
+          e,
+          Number(lineData.fun(values[d.varName]), 10).toFixed(4)
+        );
+      })
+      .on('mouseleave', (e, d) => {
+        toolTips[id].mouseLeave(d, e);
+      })
+      .merge(dots)
+      .transition()
+      .duration(delay)
+      .attr('cx', function(d) {
+        return x(values[d.varName]);
+      })
+      .attr('cy', function(d) {
+        return y(lineData.fun(values[d.varName]));
+      })
+      .attr('r', d => d.size)
+      .attr('stroke', d => d.color || '#f00')
+      .attr('display', d => (values[d.varName] == null ? 'none' : 'block'))
+      .attr('stroke-width', 3)
+      .attr('fill', 'white');
+
+    dots
+      .on('mouseover', (e, d) => {
+        toolTips[id].mouseOver(d, e);
+      })
+      .on('mousemove', (e, d) => {
+        toolTips[id].mouseMove(
+          d,
+          e,
+          Number(lineData.fun(values[d.varName]), 10).toFixed(4)
+        );
+      })
+      .on('mouseleave', (e, d) => {
+        toolTips[id].mouseLeave(d, e);
+      });
+
+    dots.exit().remove();
   }
 }

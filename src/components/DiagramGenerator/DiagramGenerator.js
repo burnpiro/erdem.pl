@@ -75,7 +75,7 @@ function DiagramGenerator({
         printBlocks(itemBlock, svg, id, { values, onUpdateValues });
       });
     },
-    [data, step]
+    [data, step, values]
   );
 
   return (
