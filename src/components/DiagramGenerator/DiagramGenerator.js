@@ -5,7 +5,6 @@ import styles from './DiagramGenerator.module.scss';
 import {
   generateArrowElement,
   generateTooltopElement,
-  ACTIONS,
 } from './helpers';
 import generateCircleBlock from './generateCircleBlock';
 import generateLineChartBlock from './generateLineChartBlock';
