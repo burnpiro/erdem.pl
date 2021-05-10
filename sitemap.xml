@@ -28,7 +28,6 @@
 <url> <loc>https://erdem.pl/2019/07/how-js-becomes-multi-threaded</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/ai</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/ai/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/tag/attention</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/cnn</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/dom</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/data</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -52,6 +51,7 @@
 <url> <loc>https://erdem.pl/tag/neural-networks</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/performance</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/performance/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/tag/positional-encoding</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/rcnn</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/react</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/tag/recognition</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
