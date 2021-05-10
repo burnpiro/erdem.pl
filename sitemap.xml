@@ -3,8 +3,8 @@
 <url> <loc>https://erdem.pl/tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/pages/about</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/pages/work</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/2021/05/introduction-to-attention-mechanism</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/2021/03/measuring-xai-methods-with-infidelity-and-sensitivity</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/2021/02/animal-recognition-with-siamese-networks-and-mean-embeddings</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/2020/08/deng-ai-data-preprocessing</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
