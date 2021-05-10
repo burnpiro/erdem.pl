@@ -1,8 +1,8 @@
 ---
 title: Introduction to Attention Mechanism
-date: '2021-05-09'
+date: '2021-05-10'
 template: 'post'
-draft: false
+draft: true
 tags:
   - 'Machine Learning'
   - 'Transformers'
@@ -106,7 +106,9 @@ This heatmap is important because we didn't tell the model which words it should
 
 You probably started to worry about what happened with my information from the last step:
 
-_"We're not using the fact that h vector is an ordered sequence. It is used as unordered set instead. To solve this we have to add a positional embedding to each element"_
+_"We're not using the fact that h vector is an ordered sequence. It is used as unordered set instead. To solve this we have to add a positional encoding to each element"_
+
+I've written a piece on positional encoding as a separate article because there is too much information to squeze into this one. If you're interested please check [Understanding Positional Encoding in Transformers](https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers).
 
 This is still a thing but instead of solving that problem, make use of it to abstract attention mechanism and use it for something different than a sequence of text. What about describing images with attention? There is a paper from the same year called [_"Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention"_][show-attend-tell] that uses attention on CNN's embedding to generate image captioning with the help of an RNN decoder.
 
@@ -172,13 +174,7 @@ As you can see, the caption has changed. Now it's saying _"A man and a woman pla
 
 ## Let's abstract the Attention
 
-<figure>
-    <div  class="center-all" id="sin-position-embedding-diagram">
-        <sin-position-embedding></sin-position-embedding>
-    </div>
-    <figcaption>Figure 1: Sequence-to-sequence with RNN, Designed base on <a href="https://arxiv.org/abs/1409.3215" target="_blank"><i>“Sequence to sequence learning with neural networks”</i>, NeurIPS 2014</a> Paper</figcaption>
-</figure>
-
+Now, when you know what the Attention is, we can start working on abstracting the idea to create so called _"Attention Layer"_. 
 
 ### References:
 
