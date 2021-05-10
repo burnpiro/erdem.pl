@@ -6,7 +6,7 @@ draft: false
 tags:
 - 'Machine Learning'
 - 'Transformers'
-- 'Attention'
+- 'Positional Encoding'
 - 'How To' 
 description: 'Visualization of Positional Encoding method from Transformer models.'
 ---
@@ -95,6 +95,10 @@ Positional embeddings are there to give a transformer knowledge about the positi
 - $d_{model}$ - dimension of the input
 
 Value is calculated alternately with the help of the periodic functions ($sin$ and $cos$) and the wavelength of those functions increase with higher dimensions of the input vector. Values for indexes closer to the top of the vector (lower indexes) are changing quickly when those further away require a lot of positions to change a value (large periods).
+
+This is just one way of doing positional encoding. Current SOTA models have encoders trained along with the model instead of using predefined functions. The authors even mentioned that option in the paper but didn't notice a difference in the results:
+
+> We also experimented with using learned positional embeddings instead, and found that the two versions produced nearly identical results (see Table 3 row (E)). We chose the sinusoidal version because it may allow the model to extrapolate to sequence lengths longer than the ones encountered during training.
 
 ### References:
 
