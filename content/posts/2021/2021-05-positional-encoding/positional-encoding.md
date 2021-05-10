@@ -20,7 +20,7 @@ As I've explained in ["Introduction to Attention Mechanism"](https://erdem.pl/20
     <figcaption>Figure 1: Original Transformer architecture, Source <a href="https://arxiv.org/abs/1706.03762" target="_blank"><i>“Attention Is All You Need”</i>, 2017</a></figcaption>
 </figure>
 
-The paper only considered fixed (non-trainable) positional encoding and that's what I'm going to explain. Right now encodings are trainied along with the model but that requires another article. To calculate the value of positional encoding we have to go to the section **3.5** in the paper. Authors are using **sin** and **cos** functions to calculate value for every input vector.
+The paper only considered fixed (non-trainable) positional encoding and that's what I'm going to explain. Right now encodings are trained along with the model but that requires another article. To calculate the value of positional encoding we have to go to section **3.5** in the paper. Authors are using **sin** and **cos** functions to calculate a value for every input vector.
 
 $$
 PE_{(pos,2i)} = sin(\frac{pos}{10000^{2i/d_{\text{model}}}})
@@ -29,7 +29,7 @@ PE_{(pos,2i)} = sin(\frac{pos}{10000^{2i/d_{\text{model}}}})
 PE_{(pos,2i+1)} = cos(\frac{pos}{10000^{2i/d_{\text{model}}}})
 $$
 
-As you can see these values depends on $d_{model}$ (input dimention) and $i$ (index of the position vector). Original paper operates on 512 dimentional vectors but for simplicity I'm going to use $d_{model} = 50$ or $d_{model} = 20$. Authors also attached the comment about why they had choose this kind of function:
+As you can see these values depend on $d_{model}$ (input dimension) and $i$ (index of the position vector). Original paper operates on 512 dimensional vectors but for simplicity I'm going to use $d_{model} = 50$ or $d_{model} = 20$. The authors also attached the comment about why they had chosen this kind of function:
 
 > We chose this function because we hypothesized it would allow the model to easily learn to attend by relative positions, since for any fixed offset $k$, $PE_{pos+k}$ can be represented as a linear function of $PE_{pos}$.
 
@@ -49,25 +49,25 @@ We calculate the value for each index using the formula for given index. It's wo
 
 #### Dimension dependency
 
-If you switch to the second step, then you can compare how the $PE$ values changes depends on $d_{model}$.
+If you switch to the second step, then you can compare how the $PE$ value changes depend on $d_{model}$.
 
 <figure>
     <img src="dimension-comparision.png" alt="PE values with different embedding dimension" />
-    <figcaption>Figure 3: <b>PE</b> values comparision with different dimensions (<i>d</i>), Source: <a href="https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers#positional-encoding-visualization" target="_blank"><i>Positional encoding visualization</i></a></figcaption>
+    <figcaption>Figure 3: <b>PE</b> values comparison with different dimensions (<i>d</i>), Source: <a href="https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers#positional-encoding-visualization" target="_blank"><i>Positional encoding visualization</i></a></figcaption>
 </figure>
 
 The period of the first two indexes is not changing with the change of $d_{model}$, but the period of further indexes (2nd and greater) widens with the decrease of $d_{model}$. This might be obvious, but it's still good to see the difference.
 
 #### Function periods
 
-When we plot $PE$ values for first 20 $pos$ vectors we get result like that:
+When we plot $PE$ values for the first 20 $pos$ vectors we get a result like that:
 
 <figure>
     <img src="position-values-20.png" alt="Positional encodings for 20 positions" />
     <figcaption>Figure 4: Positional Encoding values for first 20 positions, Generated with the use of <a href="https://www.tensorflow.org/tutorials/text/transformer#positional_encoding" target="_blank">Tensorflow - Positional encoding</a> code</figcaption>
 </figure>
 
-This plot is generated from one of [Tensorflow's Tutorials](https://www.tensorflow.org/tutorials/text/transformer) and you can run it with the help of Google Colab directly from their website. As you can see, lower dimensions of the position vector have very short wavelength (distance between identical points). Wavelength of the function at $i = 6$ index has a wavelength around 19 ($2 * 10^{12/25}$).
+This plot is generated from one of [Tensorflow's Tutorials](https://www.tensorflow.org/tutorials/text/transformer) and you can run it with the help of Google Colab directly from their website. As you can see, lower dimensions of the position vector have a very short wavelength (distance between identical points). The wavelength of the function at $i = 6$ index has a wavelength around 19 ($2 * 10^{12/25}$).
 
 We know that periods are increasing with the increase of $i$. When $i$ reaches the side of $d_{model}$, you need a lot of $pos$ vectors to cover the whole function period.
 
@@ -76,7 +76,7 @@ We know that periods are increasing with the increase of $i$. When $i$ reaches t
     <figcaption>Figure 5: Function values for further indexes, Source: <a href="https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers#positional-encoding-visualization" target="_blank"><i>Positional encoding visualization</i></a></figcaption>
 </figure>
 
-The values of first 20 positions at the higher indexes are almost constant. You can see the same thing in the Fig. 4 where color of the columns 30-50 bearly change. To see that change we have to plot the values for tens of thousands of positions:
+The values of the first 20 positions at the higher indexes are almost constant. You can see the same thing in Fig. 4 where the color of the columns 30-50 bearly change. To see that change we have to plot the values for tens of thousands of positions:
 
 <figure>
     <img src="position-values-45k.png" alt="Positional encodings for whole period of last index" />
@@ -84,11 +84,11 @@ The values of first 20 positions at the higher indexes are almost constant. You 
 </figure>
 
 > **Warning**
-> This plot has builtin ilusion, it's not actually an inlusion but because it tries to print 40k+ values on 670px (height) it cannot show the correct value of anything with the wavelength smaller than 1px. That's why anything prior to column 24 is visually incorrect even if the right values were used to generate this plot.
+> This plot has a built-in illusion, it's not actually an illusion but because it tries to print 40k+ values on 670px (height) it cannot show the correct value of anything with a wavelength smaller than 1px. That's why anything prior to column 24 is visually incorrect even if the right values were used to generate this plot.
 
 ## Conclusions
 
-Positional embeddings are there to give a transformer knowledge about position of the input vectors. They are added (not concatenated) to corresponding input vectors. Encoding depends on three values:
+Positional embeddings are there to give a transformer knowledge about the position of the input vectors. They are added (not concatenated) to corresponding input vectors. Encoding depends on three values:
 
 - $pos$ - position of the vector
 - $i$ - index within the vector
