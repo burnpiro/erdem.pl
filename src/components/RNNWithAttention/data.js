@@ -2302,7 +2302,7 @@ const step18 = {
       step15.text.items[1],
       {
         ...step17.text.items[2],
-        val: `<span style="padding: 0 10px">We're not using the fact that <b><i>h</i></b> vector is an ordered sequence. It is used as unordered set instead. To solve this we have to add a <strong>positional embedding</strong> to each element</span>`,
+        val: `<span style="padding: 0 10px">We're not using the fact that <b><i>h</i></b> vector is an ordered sequence. It is used as unordered set instead. To solve this we have to add a <strong>positional encoding</strong> to each element</span>`,
         sizeX: '550',
         sizeY: '120',
         position: [

@@ -116,7 +116,7 @@ module.exports = {
           },
           {
             resolve: 'gatsby-remark-images',
-            options: { maxWidth: 960, linkImagesToOriginal: false },
+            options: { maxWidth: 1280, linkImagesToOriginal: false },
           },
           {
             resolve: `gatsby-remark-images-medium-zoom`, // point!
