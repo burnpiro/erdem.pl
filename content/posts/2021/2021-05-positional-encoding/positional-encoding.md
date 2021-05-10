@@ -8,7 +8,7 @@ tags:
 - 'Transformers'
 - 'Attention'
 - 'How To' 
-description: 'How Attention was created? Why does it work and why it is one of the most important things in ML right now?'
+description: 'Visualization of Positional Encoding method from Transformer models.'
 ---
 
 ## What is positional encoding?
