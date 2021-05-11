@@ -1,8 +1,8 @@
 // @flow
 import React, { useEffect, useState, useReducer } from 'react';
-import DiagramGenerator from '../DiagramGenerator/DiagramGenerator';
-import ProcessControls from '../DiagramGenerator/ProcessControls';
-import { ACTIONS } from '../DiagramGenerator/helpers';
+import DiagramGenerator from '../../DiagramGenerator/DiagramGenerator';
+import ProcessControls from '../../DiagramGenerator/ProcessControls';
+import { ACTIONS } from '../../DiagramGenerator/helpers';
 
 import { steps, animationWidth, animationHeight, defaultItems } from './data';
 

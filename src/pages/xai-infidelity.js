@@ -3,7 +3,7 @@ import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Layout from '../components/Layout';
 import Page from '../components/Page';
-import XAIInfidelity from '../components/XAIInfidelity';
+import XAIInfidelity from '../components/Diagrams/XAIInfidelity';
 import { useSiteMetadata } from '../hooks';
 
 const ObjectDetection = () => {

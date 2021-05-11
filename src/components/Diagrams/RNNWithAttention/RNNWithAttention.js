@@ -3,14 +3,14 @@ import React, { useEffect, useState, useReducer } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
-import DiagramGenerator from './../DiagramGenerator/DiagramGenerator';
-import ProcessControls from '../DiagramGenerator/ProcessControls';
+import DiagramGenerator from '../../DiagramGenerator/DiagramGenerator';
+import ProcessControls from '../../DiagramGenerator/ProcessControls';
 
 import { steps, animationWidth, animationHeight } from './data';
 
-import styles from './ImageWithAttention.module.scss';
+import styles from './RNNWithAttention.module.scss';
 
-const ImageWithAttention = () => {
+const RNNWithAttention = () => {
   const [step, setStep] = useState(1);
 
   const onStepForward = () => {
@@ -30,7 +30,7 @@ const ImageWithAttention = () => {
         step={step}
         animationHeight={animationHeight}
         animationWidth={animationWidth}
-        id="image-with-attention"
+        id="rnn-with-attention"
       />
       <ProcessControls
         onStepForward={onStepForward}
@@ -42,4 +42,4 @@ const ImageWithAttention = () => {
   );
 };
 
-export default ImageWithAttention;
+export default RNNWithAttention;

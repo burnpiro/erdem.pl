@@ -3,11 +3,12 @@ import React from 'react';
 import rehypeReact from 'rehype-react';
 import styles from './Content.module.scss';
 import Meta from '../Meta';
-import XAIInfidelity from '../../XAIInfidelity';
-import RNNProcess from '../../RNNProcess/RNNProcess';
-import RNNWithAttention from '../../RNNWithAttention/RNNWithAttention';
-import ImageWithAttention from '../../ImageWithAttention/ImageWithAttention';
-import InputPositionEmbeddingSin from '../../InputPositionEmbeddingSin/InputPositionEmbeddingSin';
+import XAIInfidelity from '../../Diagrams/XAIInfidelity';
+import RNNProcess from '../../Diagrams/RNNProcess/RNNProcess';
+import RNNWithAttention from '../../Diagrams/RNNWithAttention/RNNWithAttention';
+import ImageWithAttention from '../../Diagrams/ImageWithAttention/ImageWithAttention';
+import InputPositionEmbeddingSin from '../../Diagrams/InputPositionEmbeddingSin/InputPositionEmbeddingSin';
+import AttentionLayer from '../../Diagrams/AttentionLayer/AttentionLayer';
 
 type Props = {
   body: string,
@@ -28,6 +29,7 @@ const renderAst = new rehypeReact({
     'rnn-with-attention': RNNWithAttention,
     'image-with-attention': ImageWithAttention,
     'sin-position-embedding': InputPositionEmbeddingSin,
+    'attention-layer': AttentionLayer,
   },
 }).Compiler;
 
