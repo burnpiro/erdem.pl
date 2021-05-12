@@ -1,8 +1,8 @@
 ---
 title: Introduction to Attention Mechanism
-date: '2021-05-10'
+date: '2021-05-12'
 template: 'post'
-draft: true
+draft: false
 tags:
   - 'Machine Learning'
   - 'Transformers'
@@ -176,27 +176,27 @@ As you can see, the caption has changed. Now it's saying _"A man and a woman pla
 
 Now, when you know what the Attention is, we can start working on abstracting the idea to create so called _"Attention Layer"_. First, lets sum up what we have right now:
 
-- **Input vectors**: <strong style="color: royalblue;">X</strong> (shape $N_X \times D_X$)
-- **Query vector**: <strong style="color: limegreen;">q</strong> (shape $D_Q$), this is our previous hidden state, but I've changed the color to green
+- **Input vectors**: <strong style="color: limegreen;">X</strong> (shape $N_X \times D_X$)
+- **Query vector**: <strong style="color: mediumpurple;">q</strong> (shape $D_Q$), this is our previous hidden state, but I've changed the color to purpule to match the work from "The Illustrated Transformer"
 - **Similarity function**: $f_{att}$
-- **Similarities**: **e**, $e_i = f_{att}(\textcolor{limegreen}{q}, \textcolor{royalblue}{X_i})$
+- **Similarities**: **e**, $e_i = f_{att}(\textcolor{mediumpurple}{q}, \textcolor{limegreen}{X_i})$
 - **Attention weights**: $a = \text{softmax}(e)$ (shape $N_X$)
-- **Output**: $y = \sum_i(a_i,\textcolor{royalblue}{X_i})$
+- **Output**: $y = \sum_i(a_i,\textcolor{limegreen}{X_i})$
 
-Currently our similarity function is $f_{att}$ which was correct, base on early attention papers but for the generalization we can change it to be a **dot product** between <strong style="color: limegreen;">q</strong> and <strong style="color: royalblue;">X</strong> vectors. This is just a lot more efficient to calculate dot product, but it creates one product with the end results. As you remember, when calculating dot product of two vectors the results looks like $\vec{a} \cdot \vec{b} = |\vec{a}| * |\vec{b}| * cos(\theta)$. This might cause a problem when dimension of the vector is large. Why is it a problem? Look at the next step and the _softmax_ function. It is a great function but can cause a vanishing gradient problem when the value of an element is really large and our value magnitude increases with the increase of the input dimension. That's why you're not using just a dot product, but a **scaled dot product**, that way our new $e_i$ formula looks like $e_i = \textcolor{limegreen}{q} \cdot \textcolor{royalblue}{X_i} / \sqrt{D_Q}$. 
+Currently, our similarity function is $f_{att}$ which was correct, base on early attention papers but for the generalization, we can change it to be a **dot product** between <strong style="color: mediumpurple;">q</strong> and <strong style="color: limegreen;">X</strong> vectors. This is just a lot more efficient to calculate dot product, but it creates one product with the end results. As you remember, when calculating dot product of two vectors the results looks like $\vec{a} \cdot \vec{b} = |\vec{a}| * |\vec{b}| * cos(\theta)$. This might cause a problem when the dimension of the vector is large. Why is it a problem? Look at the next step and the _softmax_ function. It is a great function but can cause a vanishing gradient problem when the value of an element is really large and our value magnitude increases with the increase of the input dimension. That's why you're not using just a dot product, but a **scaled dot product**, that way our new $e_i$ formula looks like $e_i = \textcolor{mediumpurple}{q} \cdot \textcolor{limegreen}{X_i} / \sqrt{D_Q}$. 
 
-> If you're having problem understanding why dot product creates a large numbers with high dimensional vectors please check 3Blue1Brown's [Youtube video on the subject][dot-product] 
+> If you're a having problem understanding why dot product creates a large number with high dimensional vectors please check 3Blue1Brown's [Youtube video on the subject][dot-product] 
 
-Additionally, we want to be able to use more than one query vector <strong style="color: limegreen;">q</strong>. It was great to have a single query vector for each timestamp of the decoder but it can be a lot simpler when we use all of them at the same time, so we change our vector to vectors <strong style="color: limegreen;">Q</strong> (Shape $N_Q \times D_Q$). This also affect the output shapes of the similarities scores and the attention:
+Additionally, we want to be able to use more than one query vector <strong style="color: mediumpurple;">q</strong>. It was great to have a single query vector for each timestamp of the decoder but it can be a lot simpler when we use all of them at the same time, so we change our vector to vectors <strong style="color: limegreen;">Q</strong> (Shape $N_Q \times D_Q$). This also affect the output shapes of the similarities scores and the attention:
 
-- **Input vectors**: <strong style="color: royalblue;">X</strong> (shape $N_X \times D_X$)
-- **Query vectors**: <strong style="color: limegreen;">Q</strong> (Shape $N_Q \times D_Q$)
+- **Input vectors**: <strong style="color: limegreen;">X</strong> (shape $N_X \times D_X$)
+- **Query vectors**: <strong style="color: mediumpurple;">Q</strong> (Shape $N_Q \times D_Q$)
 - **Similarity function**: _scaled dot product_
-- **Similarities**: $E = \textcolor{limegreen}{Q}\textcolor{royalblue}{X^T}$ (shape $N_Q \times N_X$), $E_{i,j} = \textcolor{limegreen}{Q_i} \cdot \textcolor{royalblue}{X_j} / \sqrt{D_Q}$
+- **Similarities**: $E = \textcolor{mediumpurple}{Q}\textcolor{limegreen}{X^T}$ (shape $N_Q \times N_X$), $E_{i,j} = \textcolor{mediumpurple}{Q_i} \cdot \textcolor{limegreen}{X_j} / \sqrt{D_Q}$
 - **Attention weights**: $A = \text{softmax}(E, dim=1)$ (shape $N_Q \times N_X$)
-- **Output**: $Y = A\textcolor{royalblue}{X}$ (shape $N_Q \times D_X$) where $Y_i = \sum_j(A_{i,j},\textcolor{royalblue}{X_j})$
+- **Output**: $\textcolor{hotpink}{Y} = A\textcolor{limegreen}{X}$ (shape $N_Q \times D_X$) where $\textcolor{hotpink}{Y_i} = \sum_j(A_{i,j},\textcolor{limegreen}{X_j})$
 
-You might wonder why _softmax_ is calculated over _dim=1_? This is because we want to get probability distribution for every query vector over input vectors. Another thing you should notice is that computation of the similarity scores simplified to just matrix multiplication.
+You might wonder why _softmax_ is calculated over _dim=1_? This is because we want to get a probability distribution for every query vector over input vectors. Another thing you should notice is that computation of the similarity scores simplified to just matrix multiplication.
 
 ### The Layer
 
@@ -207,6 +207,50 @@ You might wonder why _softmax_ is calculated over _dim=1_? This is because we wa
     <figcaption>Figure 17: Attention and Self-Attention Layers, Credits: <a href="https://arxiv.org/abs/1706.03762" target="_blank"><i>“Attention Is All You Need”</i></a>, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a>, <a href="http://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a></figcaption>
 </figure>
 
+Now we're getting into the juicy stuff. The first step on the diagram is a standard approach to attention. We have only our <strong style="color: mediumpurple;">Query vectors</strong> and <strong style="color: limegreen;">Input vectors</strong>. We're using the input twice, once when computing **Similarities** and the second time when computing the <strong style="color: hotpink;">Output vectors</strong>. We might want to use those vectors in a slightly different way and this is where the idea of <strong style="color: darkorange;">Key</strong> and <strong style="color: royalblue;">Value</strong> comes.
+
+<figure>
+    <img src="key-value-matrixes.png" alt="Key Value matrixes extraction">
+    <figcaption>Figure 18: <strong style="color: darkorange;">Key</strong> and <strong style="color: royalblue;">Value</strong> separation, Source:  <a target="_blank" href="http://localhost:8000/2021/05/introduction-to-attention-mechanism#the-layer">Attention Layer Diagram</a> </figcaption>
+</figure>
+
+You might wonder what those vectors are and why are they important? I've found one intuition behind the general concept of query/value/key on the [stackexchange](https://stats.stackexchange.com/a/424127):
+
+> The key/value/query concepts come from retrieval systems. For example, when you type a query to search for some video on Youtube, the search engine will map your **query** against a set of **keys** (video title, description, etc.) associated with candidate videos in the database, then present you the best matched videos (**values**).
+
+
+If we look at that from a usability perspective, they allow the model to decide on how to use the input data. By creating trainable weights (<strong style="color: darkorange;">W<sub>K</sub></strong> and <strong style="color: royalblue;">W<sub>V</sub></strong>) we can adjust the input to fit different tasks.
+
+> **Notice**
+> It just happens that all my vectors have the same length, exact shapes have to match (look at the shapes shown in the description), but they don't have to be the same.
+
+At this moment our **Attention Layer** is ready! Can we do even better? YES!!!
+
+#### Self-Attention Layer
+
+<figure>
+    <img src="self-attention-layer.png" alt="Self-Attention Layer">
+    <figcaption>Figure 19: Self-Attention Layer structure, Source:  <a target="_blank" href="http://localhost:8000/2021/05/introduction-to-attention-mechanism#the-layer">Attention Layer Diagram</a> </figcaption>
+</figure>
+
+All this time, when using Attention Layer we were creating separate <strong style="color: mediumpurple;">Query vectors</strong> and that has changed in the Self-Attention approach. This time we're adding another weights matrix (<strong style="color: mediumpurple;">W<sub>Q</sub></strong>) which is going to use in the computation of the new <strong style="color: mediumpurple;">Query vectors</strong>. That way we're enabling our model to learn a transformation of the <strong style="color: limegreen;">Input vectors</strong> on its own. 
+
+What we have here is called **Self-Attention Layer** which is a general-purpose layer you can use in your model. It accepts <strong style="color: limegreen;">Input vectors</strong> and outputs <strong style="color: hotpink;">Output vectors</strong>. The whole layer is **Permutation Equavariant** ($f(s(x)) = s(f(x))$), that means when you permute the <strong style="color: limegreen;">Input vectors</strong> output will be the same but permuted.
+
+At last, I need to explain why I had changed the colors. The reason was to match the colors used in [The Illustrated Transformer][illustrated-transformer] blog post.
+
+<figure>
+    <img src="ilustrated-transformer.png" alt="Self-Attention matrix computation">
+    <figcaption>Figure 19: Self-Attention Layer matrix computation, Design from:  <a target="_blank" href="http://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a> </figcaption>
+</figure>
+
+## Conclusions
+
+From this point onwards we can use the **Self-Attention Layer** to create a **Transformer** but this article is too long already. You should have an intuition on how the attention mechanism works and why it works. I'm going to create another article on designing the **Transformers** and **Multi-Headed Attention** but for now please refer to [The Illustrated Transformer][illustrated-transformer].
+
+**Jay Alammar** did a very good job explaining how transformers work and there is an additional example with vector computation. My post tries to explain how the idea of Attention and Self-Attention was created and because a lot of you come here after reading that blog post, I want you to feel familiar with the color schema.
+
+I hope you've enjoyed the diagrams and if you have any questions please feel free to ask.
 
 ### References:
 
