@@ -25,7 +25,7 @@ export default function generateTextBlock(inputs, svg, id, options) {
       .append('rect')
       .attr('fill', 'transparent')
       .attr('stroke-width', 1)
-      .attr('stroke', inputs.borderColor)
+      .attr('stroke', d.borderColor ? d.borderColor : inputs.borderColor)
       .attr('id', options.diagramId + d.id)
       .attr('width', d.sizeX != null ? d.sizeX : elementWidth)
       .attr('height', d.sizeY != null ? d.sizeY : elementHeight)

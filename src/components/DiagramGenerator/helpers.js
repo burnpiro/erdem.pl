@@ -118,10 +118,11 @@ function generateLines(inputs, block, d, svg) {
   const linesBlock = svg.select(`.${inputs.blockName}-block`).append('g');
 
   for (let i = 0; i < multiLinkData.length; i += 1) {
+    const color = d.lines[i].color ? d.lines[i].color : 'black';
     linesBlock
       .append('path')
       .attr('d', multiLinkData[i])
-      .attr('stroke', 'black')
+      .attr('stroke', color)
       .attr('stroke-width', 3)
       .attr('fill', 'none')
       .attr('marker-end', 'url(#arrow)');

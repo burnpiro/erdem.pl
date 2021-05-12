@@ -19,7 +19,7 @@ Before even start explaining Attention we have to go back and see the problem wh
     <div  class="center-all" id="pure-rnn-sts-diagram">
         <rnn-process></rnn-process>
     </div>
-    <figcaption>Figure 1: Sequence-to-sequence with RNN, Designed base on <a href="https://arxiv.org/abs/1409.3215" target="_blank"><i>“Sequence to sequence learning with neural networks”</i>, NeurIPS 2014</a> Paper</figcaption>
+    <figcaption>Figure 1: Sequence-to-sequence with RNN, Designed base on <a href="https://arxiv.org/abs/1409.3215" target="_blank"><i>“Sequence to sequence learning with neural networks”</i>, NeurIPS 2014</a> Paper, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a></figcaption>
 </figure>
 
 This solution works fine as long as the sentence is short. After the decoder is done with its job, we're left with the **context vector _c_** and the **initial decoder state $s_0$**. Those two vectors have to _"summarize"_ the whole input sequence because we're going to feed them into the decoder part of our model. You can treat the context vector as something that transferring information between the encoded sequence and the decoded sequence.
@@ -36,7 +36,7 @@ The idea is to create **a new context vector every timestep** of the decoder whi
     <div class="center-all" id="rnn-sts-with-attention-diagram">
         <rnn-with-attention></rnn-with-attention>
     </div>
-    <figcaption>Figure 2: Sequence-to-sequence with RNN (with Attention), Designed base on <a href="https://arxiv.org/abs/1409.0473" target="_blank"><i>“Neural machine transla$on by jointly learning to align and translate”</i>, NeurIPS 2015</a> Paper</figcaption>
+    <figcaption>Figure 2: Sequence-to-sequence with RNN (with Attention), Designed base on <a href="https://arxiv.org/abs/1409.0473" target="_blank"><i>“Neural machine transla$on by jointly learning to align and translate”</i>, NeurIPS 2015</a> Paper, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a></figcaption>
 </figure>
 
 This time we're computing an additional context vector on every step of the decoder. Let us go through one whole step to explain what is happening.
@@ -116,7 +116,7 @@ This is still a thing but instead of solving that problem, make use of it to abs
     <div class="center-all" id="rnn-imtos-with-attention-diagram">
         <image-with-attention></image-with-attention>
     </div>
-    <figcaption>Figure 9: Image Captioning with Attention (still RNN), Designed base on <a href="https://arxiv.org/abs/1502.03044" target="_blank"><i>“Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention”</i>, ICML 2015</a> Paper</figcaption>
+    <figcaption>Figure 9: Image Captioning with Attention (still RNN), Designed base on <a href="https://arxiv.org/abs/1502.03044" target="_blank"><i>“Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention”</i>, ICML 2015</a> Paper, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a></figcaption>
 </figure>
 
 In this paper, the authors are proposing a solution based on convolutional feature extraction instead of the standard RNN encoder network. We're using those features from CNN to compute state and then to compute alignment scores for every timestep of the RNN decoder. As in the previous example, I'm going to walk you through the whole process, but you probably are able to understand it base on the interactive diagram above :)
@@ -174,14 +174,54 @@ As you can see, the caption has changed. Now it's saying _"A man and a woman pla
 
 ## Let's abstract the Attention
 
-Now, when you know what the Attention is, we can start working on abstracting the idea to create so called _"Attention Layer"_. 
+Now, when you know what the Attention is, we can start working on abstracting the idea to create so called _"Attention Layer"_. First, lets sum up what we have right now:
+
+- **Input vectors**: <strong style="color: royalblue;">X</strong> (shape $N_X \times D_X$)
+- **Query vector**: <strong style="color: limegreen;">q</strong> (shape $D_Q$), this is our previous hidden state, but I've changed the color to green
+- **Similarity function**: $f_{att}$
+- **Similarities**: **e**, $e_i = f_{att}(\textcolor{limegreen}{q}, \textcolor{royalblue}{X_i})$
+- **Attention weights**: $a = \text{softmax}(e)$ (shape $N_X$)
+- **Output**: $y = \sum_i(a_i,\textcolor{royalblue}{X_i})$
+
+Currently our similarity function is $f_{att}$ which was correct, base on early attention papers but for the generalization we can change it to be a **dot product** between <strong style="color: limegreen;">q</strong> and <strong style="color: royalblue;">X</strong> vectors. This is just a lot more efficient to calculate dot product, but it creates one product with the end results. As you remember, when calculating dot product of two vectors the results looks like $\vec{a} \cdot \vec{b} = |\vec{a}| * |\vec{b}| * cos(\theta)$. This might cause a problem when dimension of the vector is large. Why is it a problem? Look at the next step and the _softmax_ function. It is a great function but can cause a vanishing gradient problem when the value of an element is really large and our value magnitude increases with the increase of the input dimension. That's why you're not using just a dot product, but a **scaled dot product**, that way our new $e_i$ formula looks like $e_i = \textcolor{limegreen}{q} \cdot \textcolor{royalblue}{X_i} / \sqrt{D_Q}$. 
+
+> If you're having problem understanding why dot product creates a large numbers with high dimensional vectors please check 3Blue1Brown's [Youtube video on the subject][dot-product] 
+
+Additionally, we want to be able to use more than one query vector <strong style="color: limegreen;">q</strong>. It was great to have a single query vector for each timestamp of the decoder but it can be a lot simpler when we use all of them at the same time, so we change our vector to vectors <strong style="color: limegreen;">Q</strong> (Shape $N_Q \times D_Q$). This also affect the output shapes of the similarities scores and the attention:
+
+- **Input vectors**: <strong style="color: royalblue;">X</strong> (shape $N_X \times D_X$)
+- **Query vectors**: <strong style="color: limegreen;">Q</strong> (Shape $N_Q \times D_Q$)
+- **Similarity function**: _scaled dot product_
+- **Similarities**: $E = \textcolor{limegreen}{Q}\textcolor{royalblue}{X^T}$ (shape $N_Q \times N_X$), $E_{i,j} = \textcolor{limegreen}{Q_i} \cdot \textcolor{royalblue}{X_j} / \sqrt{D_Q}$
+- **Attention weights**: $A = \text{softmax}(E, dim=1)$ (shape $N_Q \times N_X$)
+- **Output**: $Y = A\textcolor{royalblue}{X}$ (shape $N_Q \times D_X$) where $Y_i = \sum_j(A_{i,j},\textcolor{royalblue}{X_j})$
+
+You might wonder why _softmax_ is calculated over _dim=1_? This is because we want to get probability distribution for every query vector over input vectors. Another thing you should notice is that computation of the similarity scores simplified to just matrix multiplication.
+
+### The Layer
+
+<figure>
+    <div class="center-all" id="attention-layer-diagram">
+        <attention-layer></attention-layer>
+    </div>
+    <figcaption>Figure 17: Attention and Self-Attention Layers, Credits: <a href="https://arxiv.org/abs/1706.03762" target="_blank"><i>“Attention Is All You Need”</i></a>, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a>, <a href="http://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a></figcaption>
+</figure>
+
 
 ### References:
 
 - Sutskever et al, “Sequence to sequence learning with neural networks”, NeurIPS 2014 [https://arxiv.org/abs/1409.3215][sq-to-sq]
-- Bahdanau et al, “Neural machine transla$on by jointly learning to align and translate”, ICLR 2015 [https://arxiv.org/abs/1409.0473][rnn-with-attention]
+- Bahdanau et al, “Neural machine translation by jointly learning to align and translate”, ICLR 2015 [https://arxiv.org/abs/1409.0473][rnn-with-attention]
 - Xu et al, “Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention”, ICML 2015 [https://arxiv.org/abs/1502.03044][show-attend-tell]
+- Ashish Vaswani et al, “Attention Is All You Need”, NeurIPS 2017 [https://arxiv.org/abs/1706.03762][attention-is-all]
+- Jay Alammar, “The Illustrated Transformer”, 2018 [http://jalammar.github.io/illustrated-transformer/][illustrated-transformer]
+- 3Blue1Brown, "Dot products and duality | EoLA #9", 2016 [Youtube LyGKycYT2v0][dot-product]
+- University of Michigan, "Deep Learning for Computer Vision", 2019 [Lectures][michigan-uni]
 
 [sq-to-sq]: https://arxiv.org/abs/1409.3215
 [rnn-with-attention]: https://arxiv.org/abs/1409.0473
 [show-attend-tell]: https://arxiv.org/abs/1502.03044
+[attention-is-all]: https://arxiv.org/abs/1706.03762
+[illustrated-transformer]: http://jalammar.github.io/illustrated-transformer/
+[dot-product]: https://www.youtube.com/watch?v=LyGKycYT2v0
+[michigan-uni]: https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/
