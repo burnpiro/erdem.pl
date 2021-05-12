@@ -145,10 +145,9 @@ blockquote {
 table {
   width: 750px;
   border-collapse: collapse;
-  margin:50px auto;
+  margin: 50px auto;
 
   & tr {
-
     /* Zebra striping */
     &:nth-of-type(odd) {
       background: #eee;
@@ -230,6 +229,20 @@ div.wide-container {
     justify-content: center;
     align-items: center;
   }
+
+  .center-all-lg {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+@include breakpoint-lg {
+  .center-all-lg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /**
@@ -237,7 +250,7 @@ div.wide-container {
  */
 
 /* Adjust the position of the line numbers */
-.gatsby-highlight pre[class*="language-"].line-numbers {
+.gatsby-highlight pre[class*='language-'].line-numbers {
   padding-left: 2.8em;
 }
 
@@ -253,7 +266,7 @@ div.wide-container {
   overflow: auto;
 }
 
-.gatsby-highlight pre[class*="language-"].line-numbers {
+.gatsby-highlight pre[class*='language-'].line-numbers {
   padding: 0;
   padding-left: 2.8em;
   overflow: initial;

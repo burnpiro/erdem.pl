@@ -16,7 +16,7 @@ The attention mechanism is one of the most important inventions in Machine Learn
 Before even start explaining Attention we have to go back and see the problem which Attention was supposed to solve. Before 2015, there was an issue with RNN which was occurred when the input sequence was really long.
 
 <figure>
-    <div  class="center-all" id="pure-rnn-sts-diagram">
+    <div  class="center-all-lg" id="pure-rnn-sts-diagram">
         <rnn-process></rnn-process>
     </div>
     <figcaption>Figure 1: Sequence-to-sequence with RNN, Designed base on <a href="https://arxiv.org/abs/1409.3215" target="_blank"><i>“Sequence to sequence learning with neural networks”</i>, NeurIPS 2014</a> Paper, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a></figcaption>
@@ -33,7 +33,7 @@ It is a lot easier to compress the first sentence to the context vector than to 
 The idea is to create **a new context vector every timestep** of the decoder which attends differently to the encoded sequence.
 
 <figure>
-    <div class="center-all" id="rnn-sts-with-attention-diagram">
+    <div class="center-all-lg" id="rnn-sts-with-attention-diagram">
         <rnn-with-attention></rnn-with-attention>
     </div>
     <figcaption>Figure 2: Sequence-to-sequence with RNN (with Attention), Designed base on <a href="https://arxiv.org/abs/1409.0473" target="_blank"><i>“Neural machine transla$on by jointly learning to align and translate”</i>, NeurIPS 2015</a> Paper, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a></figcaption>
@@ -113,7 +113,7 @@ I've written a piece on positional encoding as a separate article because there 
 This is still a thing but instead of solving that problem, make use of it to abstract attention mechanism and use it for something different than a sequence of text. What about describing images with attention? There is a paper from the same year called [_"Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention"_][show-attend-tell] that uses attention on CNN's embedding to generate image captioning with the help of an RNN decoder.
 
 <figure>
-    <div class="center-all" id="rnn-imtos-with-attention-diagram">
+    <div class="center-all-lg" id="rnn-imtos-with-attention-diagram">
         <image-with-attention></image-with-attention>
     </div>
     <figcaption>Figure 9: Image Captioning with Attention (still RNN), Designed base on <a href="https://arxiv.org/abs/1502.03044" target="_blank"><i>“Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention”</i>, ICML 2015</a> Paper, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a></figcaption>
@@ -201,7 +201,7 @@ You might wonder why _softmax_ is calculated over _dim=1_? This is because we wa
 ### The Layer
 
 <figure>
-    <div class="center-all" id="attention-layer-diagram">
+    <div class="center-all-lg" id="attention-layer-diagram">
         <attention-layer></attention-layer>
     </div>
     <figcaption>Figure 17: Attention and Self-Attention Layers, Credits: <a href="https://arxiv.org/abs/1706.03762" target="_blank"><i>“Attention Is All You Need”</i></a>, <a href="https://web.eecs.umich.edu/~justincj/teaching/eecs498/FA2019/" target="_blank">UMich</a>, <a href="http://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a></figcaption>

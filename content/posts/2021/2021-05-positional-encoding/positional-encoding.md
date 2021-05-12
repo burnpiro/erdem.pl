@@ -36,7 +36,7 @@ As you can see these values depend on $d_{model}$ (input dimension) and $i$ (ind
 ## Positional encoding visualization
 
 <figure>
-    <div class="center-all" id="sin-position-embedding-diagram">
+    <div class="center-all-lg" id="sin-position-embedding-diagram">
         <sin-position-embedding></sin-position-embedding>
     </div>
     <figcaption>Figure 2: Positional Encoding visualization, Designed base on <a href="https://arxiv.org/abs/1706.03762" target="_blank"><i>“Attention Is All You Need”</i>, NeurIPS 2017</a> Paper</figcaption>
