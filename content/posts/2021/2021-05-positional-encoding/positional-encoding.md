@@ -45,7 +45,7 @@ As you can see these values depend on $d_{model}$ (input dimension) and $i$ (ind
 
 #### Values
 
-We calculate the value for each index using the formula for given index. It's worth noticing that $2i$ value in $cos$ function is an even number so to calculate value for 0th and 1st indexes we're going to use $sin(\frac{pos}{10000^{0/50}}) = sin(pos)$ and $cos(\frac{pos}{10000^{0/50}}) = cos(pos)$. That's why value for 0th and 1st indexes are only dependent on the value of $pos$ instead of both $pos$ and $d_{model}$. This changes from the 2nd index onward because dividend is not longer equal to 0, so the whole divisor is larger than 1 $(10000^{2i/50})$.
+We calculate the value for each index using the formula for a given index. It's worth noticing that $2i$ value in $cos$ function is an even number so to calculate values for 0th and 1st indexes we're going to use $sin(\frac{pos}{10000^{0/50}}) = sin(pos)$ and $cos(\frac{pos}{10000^{0/50}}) = cos(pos)$. That's why values for 0th and 1st indexes are only dependent on the value of $pos$ instead of both $pos$ and $d_{model}$. This changes from the 2nd index onward because the dividend is no longer equal to 0, so the whole divisor is larger than 1 $(10000^{2i/50})$.
 
 #### Dimension dependency
 
@@ -94,7 +94,7 @@ Positional embeddings are there to give a transformer knowledge about the positi
 - $i$ - index within the vector
 - $d_{model}$ - dimension of the input
 
-Value is calculated alternately with the help of the periodic functions ($sin$ and $cos$) and the wavelength of those functions increase with higher dimensions of the input vector. Values for indexes closer to the top of the vector (lower indexes) are changing quickly when those further away require a lot of positions to change a value (large periods).
+Value is calculated alternately with the help of the periodic functions ($sin$ and $cos$) and the wavelength of those functions increases with higher dimensions of the input vector. Values for indexes closer to the top of the vector (lower indexes) are changing quickly when those further away require a lot of positions to change a value (large periods).
 
 This is just one way of doing positional encoding. Current SOTA models have encoders trained along with the model instead of using predefined functions. The authors even mentioned that option in the paper but didn't notice a difference in the results:
 
