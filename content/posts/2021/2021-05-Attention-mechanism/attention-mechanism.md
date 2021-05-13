@@ -71,7 +71,7 @@ Now a lot of things happen (3 steps in the diagram above). First, we multiplied 
 > **Note:**<br/>
 > You've probably noticed that at this point "context vector" is actually a "context scalar" but this is just because we decided to have only 1D output (easier to show and understand for now). I'm going to switch to vectors when we get to abstracting attention to its own layer.
 
-### 4. Compute first output
+### 4. Compute the first output
 
 <figure>
     <img src="first-output.png">
@@ -108,7 +108,7 @@ You probably started to worry about what happened with my information from the l
 
 _"We're not using the fact that h vector is an ordered sequence. It is used as unordered set instead. To solve this we have to add a positional encoding to each element"_
 
-I've written a piece on positional encoding as a separate article because there is too much information to squeze into this one. If you're interested please check [Understanding Positional Encoding in Transformers](https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers).
+I've written a piece on positional encoding as a separate article because there is too much information to squeeze into this one. If you're interested please check [Understanding Positional Encoding in Transformers](https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers).
 
 This is still a thing but instead of solving that problem, make use of it to abstract attention mechanism and use it for something different than a sequence of text. What about describing images with attention? There is a paper from the same year called [_"Show, Attend, and Tell: Neural Image Caption Generation with Visual Attention"_][show-attend-tell] that uses attention on CNN's embedding to generate image captioning with the help of an RNN decoder.
 
@@ -174,7 +174,7 @@ As you can see, the caption has changed. Now it's saying _"A man and a woman pla
 
 ## Let's abstract the Attention
 
-Now, when you know what the Attention is, we can start working on abstracting the idea to create so called _"Attention Layer"_. First, lets sum up what we have right now:
+Now, when you know what the Attention is, we can start working on abstracting the idea to create the so-called _"Attention Layer"_. First, let's sum up what we have right now:
 
 - **Input vectors**: <strong style="color: limegreen;">X</strong> (shape $N_X \times D_X$)
 - **Query vector**: <strong style="color: mediumpurple;">q</strong> (shape $D_Q$), this is our previous hidden state, but I've changed the color to purpule to match the work from "The Illustrated Transformer"
@@ -183,11 +183,11 @@ Now, when you know what the Attention is, we can start working on abstracting th
 - **Attention weights**: $a = \text{softmax}(e)$ (shape $N_X$)
 - **Output**: $y = \sum_i(a_i,\textcolor{limegreen}{X_i})$
 
-Currently, our similarity function is $f_{att}$ which was correct, base on early attention papers but for the generalization, we can change it to be a **dot product** between <strong style="color: mediumpurple;">q</strong> and <strong style="color: limegreen;">X</strong> vectors. This is just a lot more efficient to calculate dot product, but it creates one product with the end results. As you remember, when calculating dot product of two vectors the results looks like $\vec{a} \cdot \vec{b} = |\vec{a}| * |\vec{b}| * cos(\theta)$. This might cause a problem when the dimension of the vector is large. Why is it a problem? Look at the next step and the _softmax_ function. It is a great function but can cause a vanishing gradient problem when the value of an element is really large and our value magnitude increases with the increase of the input dimension. That's why you're not using just a dot product, but a **scaled dot product**, that way our new $e_i$ formula looks like $e_i = \textcolor{mediumpurple}{q} \cdot \textcolor{limegreen}{X_i} / \sqrt{D_Q}$. 
+Currently, our similarity function is $f_{att}$ which was correct, base on early attention papers but for the generalization, we can change it to be a **dot product** between <strong style="color: mediumpurple;">q</strong> and <strong style="color: limegreen;">X</strong> vectors. This is just a lot more efficient to calculate dot product, but it creates one product with the end results. As you remember, when calculating dot product of two vectors the results look like $\vec{a} \cdot \vec{b} = |\vec{a}| * |\vec{b}| * cos(\theta)$. This might cause a problem when the dimension of the vector is large. Why is it a problem? Look at the next step and the _softmax_ function. It is a great function but can cause a vanishing gradient problem when the value of an element is really large and our value magnitude increases with the increase of the input dimension. That's why you're not using just a dot product, but a **scaled dot product**, that way our new $e_i$ formula looks like $e_i = \textcolor{mediumpurple}{q} \cdot \textcolor{limegreen}{X_i} / \sqrt{D_Q}$. 
 
 > If you're a having problem understanding why dot product creates a large number with high dimensional vectors please check 3Blue1Brown's [Youtube video on the subject][dot-product] 
 
-Additionally, we want to be able to use more than one query vector <strong style="color: mediumpurple;">q</strong>. It was great to have a single query vector for each timestamp of the decoder but it can be a lot simpler when we use all of them at the same time, so we change our vector to vectors <strong style="color: limegreen;">Q</strong> (Shape $N_Q \times D_Q$). This also affect the output shapes of the similarities scores and the attention:
+Additionally, we want to be able to use more than one query vector <strong style="color: mediumpurple;">q</strong>. It was great to have a single query vector for each timestamp of the decoder but it can be a lot simpler when we use all of them at the same time, so we change our vector to vectors <strong style="color: limegreen;">Q</strong> (Shape $N_Q \times D_Q$). This also affects the output shapes of the similarities scores and the attention:
 
 - **Input vectors**: <strong style="color: limegreen;">X</strong> (shape $N_X \times D_X$)
 - **Query vectors**: <strong style="color: mediumpurple;">Q</strong> (Shape $N_Q \times D_Q$)
