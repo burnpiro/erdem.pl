@@ -1250,7 +1250,7 @@ const step4 = {
       },
       {
         id: 'title',
-        val: `<span style="font-size: 18px">Self-attention calculation in matrix form, Source: Illustrated Transformer</span>`,
+        val: `<span style="white-space: nowrap; font-size: 18px; text-align: left; width: 600px;">Self-attention calculation in matrix form, Source: Illustrated Transformer</span>`,
         sizeX: `600px`,
         sizeY: `25px`,
         borderColor: 'transparent',
