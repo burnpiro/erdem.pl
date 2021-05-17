@@ -14,7 +14,7 @@ const CustomPageComponent = () => {
       description={subtitle}
       displayCookie={false}
     >
-      <Page title="Positional Encoding in transformers" wide={true}>
+      <Page title="Positional Encoding in Transformers" wide={true}>
         <InputPositionEmbeddingSin />
       </Page>
     </Layout>
