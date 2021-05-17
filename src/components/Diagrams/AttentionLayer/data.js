@@ -10,9 +10,39 @@ const animationHeight = 700;
 const boxSize = 50;
 const circleR = 16;
 
-const ETooltip = `
+const ETooltip1 = `
 <span>
-E<sub>i,j</sub> = <strong style="color: #FFADAD;">Q<sub>i</sub></strong><strong style="color: #9BF6FF;">X<sub>j</sub></strong> / sqrt(D<sub>Q</sub>
+E<sub>i,j</sub> = <strong style="color: mediumpurple;">Q<sub>i</sub></strong><strong style="color: limegreen">X<sub>j</sub></strong> / sqrt(D<sub>Q</sub>)
+</span>
+`;
+const ETooltip2 = `
+<span>
+E<sub>i,j</sub> = <strong style="color: mediumpurple;">Q<sub>i</sub></strong><strong style="color: darkorange">K<sub>j</sub></strong> / sqrt(D<sub>Q</sub>)
+</span>
+`;
+const KTooltip = `
+<span>
+<strong style="color: darkorange">K<sub>i</sub></strong> = <strong style="color: limegreen;">X<sub>i</sub></strong><strong style="color: darkorange">W<sub>Ki</sub></strong>
+</span>
+`;
+const VTooltip = `
+<span>
+<strong style="color: royalblue">V<sub>i</sub></strong> = <strong style="color: limegreen;">X<sub>i</sub></strong><strong style="color: royalblue">W<sub>Vi</sub></strong>
+</span>
+`;
+const QTooltip = `
+<span>
+<strong style="color: mediumpurple">Q<sub>i</sub></strong> = <strong style="color: limegreen;">X<sub>i</sub></strong><strong style="color: mediumpurple">W<sub>Qi</sub></strong>
+</span>
+`;
+const YTooltip1 = `
+<span>
+<strong style="color: hotpink">Y<sub>i</sub></strong> = ∑<sub>j</sub>(<span style="">A<sub>i,j</sub></span><strong style="color: limegreen">X<sub>j</sub></strong>)
+</span>
+`;
+const YTooltip2 = `
+<span>
+<strong style="color: hotpink">Y<sub>i</sub></strong> = ∑<sub>j</sub>(<span style="">A<sub>i,j</sub></span><strong style="color: royalblue">V<sub>j</sub></strong>)
 </span>
 `;
 
@@ -140,7 +170,7 @@ const step1 = {
         val: `<span>
           E<sub>1,1</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
           (bottomRowPosition - 0.3) * animationHeight,
@@ -151,7 +181,7 @@ const step1 = {
         val: `<span>
           E<sub>2,1</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize,
           (bottomRowPosition - 0.3) * animationHeight,
@@ -162,7 +192,7 @@ const step1 = {
         val: `<span>
           E<sub>3,1</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize * 2,
           (bottomRowPosition - 0.3) * animationHeight,
@@ -173,7 +203,7 @@ const step1 = {
         val: `<span>
           E<sub>1,2</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
           (bottomRowPosition - 0.3) * animationHeight + boxSize,
@@ -184,7 +214,7 @@ const step1 = {
         val: `<span>
           E<sub>2,2</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize,
           (bottomRowPosition - 0.3) * animationHeight + boxSize,
@@ -195,7 +225,7 @@ const step1 = {
         val: `<span>
           E<sub>3,2</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize * 2,
           (bottomRowPosition - 0.3) * animationHeight + boxSize,
@@ -206,7 +236,7 @@ const step1 = {
         val: `<span>
           E<sub>1,3</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
           (bottomRowPosition - 0.3) * animationHeight + boxSize * 2,
@@ -217,7 +247,7 @@ const step1 = {
         val: `<span>
           E<sub>2,3</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize,
           (bottomRowPosition - 0.3) * animationHeight + boxSize * 2,
@@ -228,7 +258,7 @@ const step1 = {
         val: `<span>
           E<sub>3,3</sub>
         </span>`,
-        tooltipValue: ETooltip,
+        tooltipValue: ETooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize * 2,
           (bottomRowPosition - 0.3) * animationHeight + boxSize * 2,
@@ -656,6 +686,7 @@ const step1 = {
         val: `<span>
           Y<sub>1</sub>
         </span>`,
+        tooltipValue: YTooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3,
           boxSize,
@@ -681,6 +712,7 @@ const step1 = {
         val: `<span>
           Y<sub>2</sub>
         </span>`,
+        tooltipValue: YTooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize,
           boxSize,
@@ -706,6 +738,7 @@ const step1 = {
         val: `<span>
           Y<sub>3</sub>
         </span>`,
+        tooltipValue: YTooltip1,
         position: [
           (firstRowPosition + boxPadding) * animationWidth * 3 + boxSize * 2,
           boxSize,
@@ -813,6 +846,13 @@ const step2 = {
       val: State2Text,
     })),
   },
+  attention: {
+    ...step1.attention,
+    items: step1.attention.items.map(el => ({
+      ...el,
+      tooltipValue: el.id.match(/e/gi) != null ? ETooltip2 : el.tooltipValue,
+    })),
+  },
   inputs: {
     ...step1.inputs,
     items: step1.inputs.items.map((el, idx) => {
@@ -867,6 +907,7 @@ const step2 = {
           val: `<span>
             K<sub>${idx + 1}</sub>
           </span>`,
+          tooltipValue: KTooltip,
           lines: [el.lines[0]],
         };
       }),
@@ -903,6 +944,7 @@ const step2 = {
         val: `<span>
           V<sub>${idx + 1}</sub>
         </span>`,
+        tooltipValue: VTooltip,
         position: [
           el.position[0],
           step1.attention.items[9].position[1] + idx * boxSize,
@@ -960,6 +1002,10 @@ const step2 = {
       };
     }),
   },
+  outputs: {
+    ...step1.output,
+    items: step1.output.items.map(el => ({ ...el, tooltipValue: YTooltip2 })),
+  },
 };
 
 const step3 = {
@@ -971,6 +1017,10 @@ const step3 = {
       sizeY: `430px`,
       val: State3Text,
     })),
+  },
+  query: {
+    ...step2.query,
+    items: step2.query.items.map(el => ({ ...el, tooltipValue: QTooltip })),
   },
   queryWeights: {
     ...step2.queryWeights,
