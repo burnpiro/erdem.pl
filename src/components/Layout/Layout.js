@@ -9,9 +9,15 @@ type Props = {
   children: ReactNode,
   title: string,
   description?: string,
+  displayCookie?: boolean,
 };
 
-const Layout = ({ children, title, description }: Props) => (
+const Layout = ({
+  children,
+  title,
+  description,
+  displayCookie = true,
+}: Props) => (
   <React.Fragment>
     <div className={styles.layout}>
       <Helmet>
@@ -24,9 +30,11 @@ const Layout = ({ children, title, description }: Props) => (
       </Helmet>
       {children}
     </div>
-    <CookieConsent location="bottom">
-      This website uses cookies to enhance the user experience
-    </CookieConsent>
+    {displayCookie && (
+      <CookieConsent location="bottom">
+        This website uses cookies to enhance the user experience
+      </CookieConsent>
+    )}
   </React.Fragment>
 );
 
