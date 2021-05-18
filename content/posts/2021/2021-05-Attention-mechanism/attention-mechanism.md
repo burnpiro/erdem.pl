@@ -13,7 +13,7 @@ description: 'How Attention was created? Why does it work and why it is one of t
 
 The attention mechanism is one of the most important inventions in Machine Learning, at this moment (2021) it's used to achieve impressive results in almost every field of ML, and today I want to explain where it came from and how it works.
 
-Before even start explaining Attention we have to go back and see the problem which Attention was supposed to solve. Before 2015, there was an issue with RNN which was occurred when the input sequence was really long.
+Before even beginning to explain Attention we have to go back and see the problem which Attention was supposed to solve. Before 2015, there was an issue with RNN which was occurred when the input sequence was really long.
 
 <figure>
     <div  class="center-all-lg" id="pure-rnn-sts-diagram">
@@ -235,7 +235,7 @@ At this moment our **Attention Layer** is ready! Can we do even better? YES!!!
 
 All this time, when using Attention Layer we were creating separate <strong style="color: mediumpurple;">Query vectors</strong> and that has changed in the Self-Attention approach. This time we're adding another weights matrix (<strong style="color: mediumpurple;">W<sub>Q</sub></strong>) which is going to use in the computation of the new <strong style="color: mediumpurple;">Query vectors</strong>. That way we're enabling our model to learn a transformation of the <strong style="color: limegreen;">Input vectors</strong> on its own. 
 
-What we have here is called **Self-Attention Layer** which is a general-purpose layer you can use in your model. It accepts <strong style="color: limegreen;">Input vectors</strong> and outputs <strong style="color: hotpink;">Output vectors</strong>. The whole layer is **Permutation Equavariant** ($f(s(x)) = s(f(x))$), that means when you permute the <strong style="color: limegreen;">Input vectors</strong> output will be the same but permuted.
+What we have here is called **Self-Attention Layer** which is a general-purpose layer you can use in your model. It accepts <strong style="color: limegreen;">Input vectors</strong> and outputs <strong style="color: hotpink;">Output vectors</strong>. The whole layer is **Permutation Equivariant** ($f(s(x)) = s(f(x))$), that means when you permute the <strong style="color: limegreen;">Input vectors</strong> output will be the same but permuted.
 
 At last, I need to explain why I had changed the colors. The reason was to match the colors used in [The Illustrated Transformer][illustrated-transformer] blog post.
 
