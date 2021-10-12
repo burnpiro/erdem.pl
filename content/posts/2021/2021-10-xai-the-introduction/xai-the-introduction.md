@@ -10,6 +10,11 @@ tags:
 description: 'What are XAI methods? Interpretability vs Explainability. Taxonomy of the model interpretability. What are the Attribution Methods?'
 ---
 
+<figure class="full-fig-width">
+    <img src="featured-image.png" alt="featured image" class=" center-all-lg"/>
+    <figcaption><a href="https://www.freepik.com/vectors/technology">Technology vector created by upklyak - www.freepik.com</a></figcaption>
+</figure>
+
 ## Explainable Artificial Intelligence
 
 Explainable Artificial Intelligence (XAI) is one of the youngest and one of the fastest developing branches of the field. The objective of the XAI method is to provide an explanation for the deep learning model that is understandable by humans. This is especially important in safety-critical domains like healthcare or security. The methods presented in the literature over the years often promise that they will provide a clear answer to the question of how the model made its decision.

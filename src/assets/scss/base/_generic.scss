@@ -212,6 +212,13 @@ div.wide-container {
   max-width: 90vw;
 }
 
+figure.full-fig-width {
+  margin-left: 0;
+  margin-right: 0;
+  width: 90vw;
+  transform: translateX(-25%);
+}
+
 .flex-container {
   display: flex;
   flex-direction: column;
