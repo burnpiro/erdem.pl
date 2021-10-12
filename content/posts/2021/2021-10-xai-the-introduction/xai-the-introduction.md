@@ -50,7 +50,7 @@ As shown in the taxonomy (see [Fig. 1](#figure-1)), post-hoc interpretability is
 
 ## Attribution Methods
 
-Attribution methods are one of the types of post-hoc methods (see section [1.2](##model-agnostic-and-model-specific)). Attribution methods, as the name says, attribute the input features to a given prediction. It can be defined as:
+Attribution methods are one of the types of post-hoc methods (see section [1.2](#model-agnostic-and-model-specific)). Attribution methods, as the name says, attribute the input features to a given prediction. It can be defined as:
 
 > __Definition 2.1 (Attribution method)__ Given an input vector $x ∈ R ^n$ where $n$ represents the number of dimensions, class $C$ and the model $F : R ^n → R ^C$ . The attribution method is defined as $A(F, x, C) : R ^n → R ^n$ . Provided explanation corresponds to the "importance" of an element from the input vector for a given class $C$ and model $F$ .
 
@@ -66,7 +66,7 @@ To better visualize the attribution, we can look at [Figure 2](#figure-2) For pr
 </figure>
 
 As in the case of interpretability versus explainability (section [1](#interpretability-vs-explainability)), the is a lack of agreement on vocabulary. Attribution methods are often known
-as _saliency methods_, _feature relevance_, _feature importance_, _heatmaps_, _neuron activations_, and _saliency masks_.
+as _"saliency methods"_, _"feature relevance"_, _"feature importance"_, _"heatmaps"_, _"neuron activations"_, and _"saliency masks"_.
 
 ## Measuring XAI Methods
 
@@ -91,7 +91,7 @@ The data in the quantitative research is stored in a numeric form. This numeric 
 
 ### Sensitivity and Infidelity
 
-If you're interested in quantitative methods, I had written an article about Infidelity and Sensitivity metrics. Two the most popular metrics already implemented in [Captum library](https://captum.ai/). Article is available here:
+If you're interested in quantitative methods, I had written an article about Infidelity and Sensitivity metrics. Two of the most popular metrics already implemented in [Captum library](https://captum.ai/). The article is available here:
 
 [Measuring XAI methods with Infidelity and Sensitivity](https://erdem.pl/2021/03/measuring-xai-methods-with-infidelity-and-sensitivity)
 
@@ -100,7 +100,7 @@ If you're interested in quantitative methods, I had written an article about Inf
 1. [Reg (EU) 2016/679][gdpr-regulation] of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Dir 95/46/EC (General Data Protection Regulation) 2016.
 2. R. Guidotti, A. Monreale, S. Ruggieri, F. Turini, F. Giannotti, D. Pedreschi. [A survey of methods for explaining black box models.][survery-of-methods] ACM computing surveys (CSUR), 51(5):1–42, 2018.
 3. A. B. Arrieta, N. Díaz-Rodríguez, J. Del Ser, A. Bennetot, S. Tabik, A. Barbado, S. García, S. Gil-López, D. Molina, R. Benjamins, i in. [Explainable artificial intelligence (xai): Concepts, taxonomies, opportunities and challenges toward responsible ai.][concepts-taxonomies] Information Fusion, 58:82–115, 2020.
-4. O. Biran, C. Cotton. [Explanation and justification in machine learning: A survey.][taxonomy-survey] IJCAI-17 workshop on explainable AI (XAI), wolumen 8, strony 8–13, 2017.
+4. O. Biran, C. Cotton. [Explanation and justification in machine learning: A survey.][taxonomy-survey] IJCAI-17 workshop on explainable AI (XAI), volume 8, pages 8–13, 2017.
 5. A. Adadi, M. Berrada. [Peeking inside the black-box: a survey on explainable artificial intelligence (xai).][model-agnostic-specific] IEEE access, 6:52138–52160, 2018.
 6. A. Khosla, N. Jayadevaprakash, B. Yao, L. Fei-Fei. Stanford dogs dataset. [https://www.kaggle.com/jessicali9530/stanford-dogs-dataset][stanford-dogs], 2019. Accessed: 2021-10-01.
 7. J. W. Creswell. [Educational research: Planning, conducting, and evaluating quantitative.][educational-research] Prentice Hall Upper Saddle River, NJ, 2002.
