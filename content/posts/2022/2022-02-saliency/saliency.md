@@ -23,9 +23,11 @@ $$$
 Where $\lambda$ is a regularisation parameter. To find the value of $I$, we can use the back-propagation method. Unlike in the standard learning process, we are going to back-propagate with respect to the input image, not the first convolution layer. This optimization allows us to produce images that visualize a particular class in our model (see [Fig. 1](#figure-1)).
 
 <figure id="figure-1">
-    <img src="saliency-class-image-visualization.png" alt="Taxonomy of interpretability"/>
+    <img src="saliency-class-image-visualization.png" alt="Class visualization"/>
     <figcaption>Figure 1: The class model visualizations for several classes, source <a href="https://arxiv.org/abs/1312.6034">[1]</a>.</figcaption>
 </figure>
+
+## From class visualization to Saliency
 
 This idea can be extrapolated, and with minor modifications, we should be able to query for spatial support of class $c$ in a given image $I_0$. To do this, we have to rank pixels of $I_0$ in relation to their importance in predicting score $S_c(I_0)$. Authors assume that we can approximate $S_c(I)$ with a linear function in the neighborhood of $I_0$ with:
 
@@ -44,7 +46,7 @@ $$$
 where $ch$ is a color channel of the pixel $(i,j)$ and $h(i,j,ch)$ is an index of the $w$ corresponding to the same pixel $(i,j)$. With the obtained map, we can visualize pixel importance for the input image $I_0$ as shown in the [Figure 2](#figure-2).
 
 <figure id="figure-2">
-    <img src="pug-saliency.png" alt="Taxonomy of interpretability"/>
+    <img src="pug-saliency.png" alt="Saliency result"/>
     <figcaption>Figure 2: Visualization of the saliency map by the Saliency generated for the class <i>"pug"</i>. Image source: <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">Stanford Dogs</a></figcaption>
 </figure>
 
