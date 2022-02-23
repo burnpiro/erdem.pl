@@ -28,10 +28,10 @@ To reconstruct the activation on a specific layer, we are attaching __deconv lay
 To calculate the reconstruction, deconvnet layer has to be able to reverse operations performed by the CNN layers. Authors designed specific components to compote the reverse operations done by CNN layers:
 
 ### Filtering
-_Filtering_ in the original CNN computes ___feature maps___ using learned filters. Reversing that operation requires the use of a transposed version of the same filters. Those transposed filters are then applied to the \textit{Rectified Unpooled Maps}.
+_Filtering_ in the original CNN computes ___feature maps___ using learned filters. Reversing that operation requires the use of a transposed version of the same filters. Those transposed filters are then applied to the ___Rectified Unpooled Maps___.
 
 ### Rectification
-_Rectification_ uses the same _ReLU_ non-linearity [[4]][relu] to compute ___Rectified Unpooled Maps___ as it is used in CNN. It is simply just rectifying the values and propagate only non-negative ones to the _filtering_ layer.
+_Rectification_ uses the same _ReLU_ non-linearity [[4]][relu] to compute _Rectified Unpooled Maps_ as it is used in CNN. It is simply just rectifying the values and propagate only non-negative ones to the _filtering_ layer.
 
 ### Unpooling
 _Unpooling_ corresponds to the _Pooling Layer_ of CNN (see [Fig. 2](#figure-2)). The original max-pooling operation is non-invertible, but this approach uses additional variables called ___switch variables___, which are responsible for remembering the locations of the maxima for each pooling region. The unpooling layer uses these variables to make a reconstruction into the same locations as when the pooling was calculated.
