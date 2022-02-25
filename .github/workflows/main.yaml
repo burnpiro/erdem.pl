@@ -28,7 +28,7 @@ jobs:
           npm run test --runInBand --no-cache
       - name: Coverage 🥧
         run: |
-          npm run test --runInBand --no-cache
+          npm run test:coverage
       - name: Build 🔨
         run: |
           npm run build
