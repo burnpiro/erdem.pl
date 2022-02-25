@@ -15,7 +15,7 @@ type Props = {
 const Meta = ({ date, readTime }: Props) => (
   <div className={styles['meta']}>
     <span className={styles['meta__date']}>
-      Published {format(parse(date, 'yyyy-MM-dd', new Date()), 'd MMM, yyyy')}
+      Published {format(parse(date, 'yyyy-MM-dd', new Date()), 'd MMM yyyy')}
     </span>
     {readTime && <span className={styles['meta__dot']}> &middot; </span>}
     {readTime && <ReadTime readTime={readTime} />}
