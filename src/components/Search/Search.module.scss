@@ -1,0 +1,21 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.search {
+  &__container {
+    max-width: $layout-post-width;
+    margin: 0 auto;
+    padding: 15px 25px 25px 0;
+  }
+  &__item {
+    &__icon {
+      height: 36px;
+      width: 36px;
+    }
+  }
+  &__form {
+    //max-width: $layout-post-width;
+    //margin: 0 auto;
+    //padding: 15px;
+  }
+}

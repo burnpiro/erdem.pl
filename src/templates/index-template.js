@@ -8,6 +8,7 @@ import Page from '../components/Page';
 import Pagination from '../components/Pagination';
 import { useSiteMetadata } from '../hooks';
 import type { PageContext, AllMarkdownRemark } from '../types';
+import Search from '../components/Search';
 
 type Props = {
   data: AllMarkdownRemark,
@@ -33,6 +34,7 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
     <Layout title={pageTitle} description={siteSubtitle}>
       <Sidebar isIndex />
       <Page>
+        <Search />
         <Feed edges={edges} />
         <Pagination
           prevPagePath={prevPagePath}
