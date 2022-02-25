@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import moment from 'moment';
+import { parse, format } from 'date-fns';
 import styles from './Meta.module.scss';
 import ReadTime from '../ReadTime';
 
@@ -15,7 +15,7 @@ type Props = {
 const Meta = ({ date, readTime }: Props) => (
   <div className={styles['meta']}>
     <span className={styles['meta__date']}>
-      Published {moment(date).format('D MMM YYYY')}
+      Published {format(parse(date, 'yyyy-MM-dd', new Date()), 'd MMM, yyyy')}
     </span>
     {readTime && <span className={styles['meta__dot']}> &middot; </span>}
     {readTime && <ReadTime readTime={readTime} />}

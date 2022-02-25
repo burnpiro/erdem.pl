@@ -1,4 +1,5 @@
-const moment = require('moment');
+const parse = require('date-fns/parse');
+const format = require('date-fns/format');
 const readingTime = require('reading-time');
 const _ = require('lodash');
 const { fmImagesToRelative } = require('gatsby-remark-relative-images');
@@ -19,8 +20,9 @@ const onCreateNode = ({ node, actions }) => {
       createNodeField({
         node,
         name: 'slug',
-        value: `/${moment(node.frontmatter.date).format(
-          'YYYY/MM'
+        value: `/${format(
+          parse(node.frontmatter.date, 'yyyy-MM-dd', new Date()),
+          'yyyy/MM'
         )}/${_.kebabCase(node.frontmatter.title)}`,
       });
     }
