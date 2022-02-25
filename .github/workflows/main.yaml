@@ -19,7 +19,7 @@ jobs:
           node-version: '12'
       - name: Install 🔧
         run: |
-          npm install
+          npm install --frozen-lockfile
       - name: Type check ❴❵
         run: |
           npm run flow-typed
