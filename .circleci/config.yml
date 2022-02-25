@@ -13,7 +13,7 @@ jobs:
       - restore_cache:
           keys:
             - dependencies-{{ checksum "package-lock.json" }}
-      - run: npm install --frozen-lockfile
+      - run: npm install
       - save_cache:
           paths:
             - node_modules
