@@ -8,7 +8,7 @@ slug: "/pages/work"
 
 #### UA Support [(Github)](https://github.com/burnpiro/uasupport) [(Website)](https://uasupport.pl)
 
-I've created an application that help Ukrainian refugees to find accommodation and aid. Application organizes the work of volunteers and gethers information about aid/accommodaction avaiability i various regions across UE. It works as fully automated and scalable system on GCP as serverless app. 
+I’ve created an application that helps Ukrainian refugees to find accommodation and aid. The application organizes the work of volunteers and gathers information about aid/accommodation availability in various regions across UE. It works as a fully automated and scalable system on GCP as a serverless app.
 
 ![uasupport.pl scrren](images/uasupport.png)
 
