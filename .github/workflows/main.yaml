@@ -18,6 +18,8 @@ jobs:
         with:
           node-version: '12'
       - name: Install 🔧
+        env:
+          GOOGLE_ANALITICS_ID: ${{ secrets.GOOGLE_ANALITICS_ID }}
         run: |
           npm install --frozen-lockfile
       - name: Type check ❴❵
@@ -30,6 +32,8 @@ jobs:
         run: |
           npm run test:coverage
       - name: Build 🔨
+        env:
+          GOOGLE_ANALITICS_ID: ${{ secrets.GOOGLE_ANALITICS_ID }}
         run: |
           npm run build
       - name: Deploy 🚀
