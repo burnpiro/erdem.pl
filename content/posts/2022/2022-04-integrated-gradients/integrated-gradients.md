@@ -7,7 +7,7 @@ tags:
 - 'Machine Learning'
 - 'XAI'
 - 'Interpretability'
-description: 'Integrated Gradients method.'
+description: 'Dive into Integrated Gradients method. How the values are calculated? What are the different baselines?'
 ---
 
 ## What is Integrated Gradients method?
