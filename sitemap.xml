@@ -3,6 +3,7 @@
 <url> <loc>https://erdem.pl/tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/pages/about</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/pages/work</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/2022/04/xai-methods-guided-grad-cam</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/2022/04/xai-methods-integrated-gradients</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/2022/02/xai-methods-guided-backpropagation</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/2022/02/xai-methods-deconvolution</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -79,6 +80,7 @@
 <url> <loc>https://erdem.pl/page/4</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/page/5</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/page/6</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/page/7</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/object-detection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/xai-infidelity/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/diagrams/attention-layer/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
