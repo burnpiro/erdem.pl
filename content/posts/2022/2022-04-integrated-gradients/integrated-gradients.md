@@ -70,6 +70,8 @@ In recent years there was discussion about replacing constant color baseline wit
     <figcaption>Figure 4: Alternative baselines for IG. Gaussian baseline is using <b>σ = 0.5</b> to generate noise. Blur baseline is using <b>σ = 5</b> in a gaussian filter. All the values are clipped at <b><0,1></b> to be within the range of the scaled colors. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[5]</a></figcaption>
 </figure>
 
+### Further reading
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl//2021/10/xai-methods-the-introduction)
 
 ### References:
 

@@ -57,6 +57,9 @@ Guided GradCAM is a combination of GradCAM's map and GBP attribution. To compute
     <figcaption>Figure 3: Visualization of the saliency map by the Guided GradCAM generated for the class <b>dandie_dinmont</b>. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[4]</a></figcaption>
 </figure>
 
+### Further reading
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl//2021/10/xai-methods-the-introduction)
+
 ### References:
 
 1. R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, D. Batra. [Grad-cam: Visual explanations from deep networks via gradient-based localization][selvaraju2017grad]. Proceedings of the IEEE international conference on computer vision, pages 618–626, 2017.

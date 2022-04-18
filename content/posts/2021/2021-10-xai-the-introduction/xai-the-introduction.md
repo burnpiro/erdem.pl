@@ -95,6 +95,16 @@ If you're interested in quantitative methods, I had written an article about Inf
 
 [Measuring XAI methods with Infidelity and Sensitivity](https://erdem.pl/2021/03/measuring-xai-methods-with-infidelity-and-sensitivity)
 
+### Further reading
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a list (will be updated with new articles):
+
+- [Saliency - one of the first attribution XAI methods](https://erdem.pl/2022/02/xai-methods-saliency)
+- [Deconvolution - using CNN structure for interpretability](https://erdem.pl/2022/02/xai-methods-deconvolution)
+- [Guided Backpropagation - guiding Saliency with Deconvolution](https://erdem.pl/2022/02/xai-methods-guided-backpropagation)
+- [Integrated Gradients - most popular XAI method](https://erdem.pl/2022/04/xai-methods-integrated-gradients)
+- [Guided GradCAM - guide the GradCAM output for better explanation](https://erdem.pl/2022/04/xai-methods-guided-grad-cam)
+- [Noise Tunnel - how to improve other methods accuracy](https://erdem.pl/2022/04/xai-methods-noise-tunnel)
+
 ### References:
 
 1. [Reg (EU) 2016/679][gdpr-regulation] of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Dir 95/46/EC (General Data Protection Regulation) 2016.
