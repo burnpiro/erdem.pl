@@ -12,7 +12,7 @@ description: 'Dive into Integrated Gradients method. How the values are calculat
 
 ## What is Integrated Gradients method?
 
-Integrated Gradients (__IG__) [1][sundararajan2017axiomatic] is a method proposed by Sundararajan et al. that bases on two axioms: __Sensitivity__ and __Implementation Invariance__. Authors argue that those two axioms should be satisfied by all attribution methods. The definition of those two axioms is as follows:
+Integrated Gradients (__IG__) [[1]][sundararajan2017axiomatic] is a method proposed by Sundararajan et al. that bases on two axioms: __Sensitivity__ and __Implementation Invariance__. Authors argue that those two axioms should be satisfied by all attribution methods. The definition of those two axioms is as follows:
 
 > __Definition 1 (Axiom: Sensitivity)__ _An attribution method satisfies **Sensitivity** if for every input and baseline that differ in one feature but have different predictions, then the differing feature should be given a non-zero attribution. If the function implemented by the deep network does not depend (mathematically) on some variable, then the attribution to that variable is always zero._
 
@@ -52,30 +52,30 @@ In the approximated calculation (Eq. 2), $m$ defines a number of interpolation s
 
 <figure id="figure-2">
     <img src="ig-saint_bernard-interpolation.png" alt="IG Interpolation"/>
-    <figcaption>Figure 2: Five-step interpolation between the baseline <b>x'</b> and the input image <b>x</b>. The first image on the left (alpha:0.0) is not a part of the interpolation process. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[4]</a></figcaption>
+    <figcaption>Figure 2: Five-step interpolation between the baseline <b>x'</b> and the input image <b>x</b>. The first image on the left (alpha:0.0) is not a part of the interpolation process. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[5]</a></figcaption>
 </figure>
 
 
 <figure id="figure-3">
     <img src="ig-saint_bernard.png" alt="IG Results"/>
-    <figcaption>Figure 3: Visualization of the saliency map by the IG generated for the class <b>saint_bernard</b>. The result is averaged over 50 interpolation steps. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[4]</a></figcaption>
+    <figcaption>Figure 3: Visualization of the saliency map by the IG generated for the class <b>saint_bernard</b>. The result is averaged over 50 interpolation steps. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[5]</a></figcaption>
 </figure>
 
 ### Baselines
 
-In recent years there was discussion about replacing constant color baseline with an alternative. One of the first propositions was to add Gaussian noise to the original image (see [Fig. 4a](#figure-4)). __Gaussian baseline__ was introduced by Smilkov et al. [2][smilkov2017smoothgrad] and used a Gaussian distribution centered on the current image with a variance $\sigma$. This variance is the only parameter when tuning the method. Another baseline is called __Blur baseline__ and uses a multi-dimensional gaussian filter (see [Fig. 4b](#figure-4)). The idea presented by Fong and Vedaldi [3][fong2017interpretable] blurred version of the image is a domain-specific way to represent missing information and therefore be a valid baseline according to the original definition. Inspired by the work of Fong and Vedaldi, Sturmfels et al. [3][sturmfels2020] introduced another version of the baseline, which is based on the original image. This baseline is called the __Maximum Distance baseline__ and creates a baseline by constructing an image with the largest value of the $L1$ distance from the original image. The result of that can be seen in [Figure 4c](#figure-4). The problem with the maximum distance is that it doesn't represent the "absence of feature". It contains the information about the original image, just in a different form. In the same work, Sturmfels et al. created another baseline called __Uniform baseline__. This time, the baseline doesn't require an input image and uses only uniform distribution to generate a baseline (see [Fig. 4d](#figure-4)). The problem with selecting a baseline is not solved, and for any further experiments, the "black image" baseline is going to be used.
+In recent years there was discussion about replacing constant color baseline with an alternative. One of the first propositions was to add Gaussian noise to the original image (see [Fig. 4a](#figure-4)). __Gaussian baseline__ was introduced by Smilkov et al. [[2]][smilkov2017smoothgrad] and used a Gaussian distribution centered on the current image with a variance $\sigma$. This variance is the only parameter when tuning the method. Another baseline is called __Blur baseline__ and uses a multi-dimensional gaussian filter (see [Fig. 4b](#figure-4)). The idea presented by Fong and Vedaldi [[3]][fong2017interpretable] blurred version of the image is a domain-specific way to represent missing information and therefore be a valid baseline according to the original definition. Inspired by the work of Fong and Vedaldi, Sturmfels et al. [[4]][sturmfels2020] introduced another version of the baseline, which is based on the original image. This baseline is called the __Maximum Distance baseline__ and creates a baseline by constructing an image with the largest value of the $L1$ distance from the original image. The result of that can be seen in [Figure 4c](#figure-4). The problem with the maximum distance is that it doesn't represent the "absence of feature". It contains the information about the original image, just in a different form. In the same work, Sturmfels et al. created another baseline called __Uniform baseline__. This time, the baseline doesn't require an input image and uses only uniform distribution to generate a baseline (see [Fig. 4d](#figure-4)). The problem with selecting a baseline is not solved, and for any further experiments, the "black image" baseline is going to be used.
 
 <figure id="figure-4">
     <img src="ig_baselines.png" alt="IG Baselines"/>
-    <figcaption>Figure 4: Alternative baselines for IG. Gaussian baseline is using <b>σ = 0.5</b> to generate noise. Blur baseline is using <b>σ = 5</b> in a gaussian filter. All the values are clipped at <b><0,1></b> to be within the range of the scaled colors. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[4]</a></figcaption>
+    <figcaption>Figure 4: Alternative baselines for IG. Gaussian baseline is using <b>σ = 0.5</b> to generate noise. Blur baseline is using <b>σ = 5</b> in a gaussian filter. All the values are clipped at <b><0,1></b> to be within the range of the scaled colors. Image source: Stanford Dogs <a href="https://www.kaggle.com/jessicali9530/stanford-dogs-dataset">[5]</a></figcaption>
 </figure>
 
 
 ### References:
 
-1. M. Sundararajan, A. Taly, Q. Yan. [Axiomatic attribution for deep networks.][sundararajan2017axiomatic] International Conference on Machine Learning, strony 3319–3328. PMLR, 2017.
+1. M. Sundararajan, A. Taly, Q. Yan. [Axiomatic attribution for deep networks.][sundararajan2017axiomatic] International Conference on Machine Learning, pages 3319–3328. PMLR, 2017.
 2. D. Smilkov, N. Thorat, B. Kim, F. Viégas, M. Wattenberg. [Smoothgrad: removing noise by adding noise.][smilkov2017smoothgrad] arXiv preprint arXiv:1706.03825, 2017.
-3. R. C. Fong, A. Vedaldi. [Interpretable explanations of black boxes by meaningful perturbation][fong2017interpretable]. Proceedings of the IEEE International Conference on Computer Vision, strony 3429–3437, 2017.
+3. R. C. Fong, A. Vedaldi. [Interpretable explanations of black boxes by meaningful perturbation][fong2017interpretable]. Proceedings of the IEEE International Conference on Computer Vision, pages 3429–3437, 2017.
 4. P. Sturmfels, S. Lundberg, S.-I. Lee. [Visualizing the impact of feature attribution baselines][sturmfels2020]. Distill, 5(1):e22, 2020.
 5. A. Khosla, N. Jayadevaprakash, B. Yao, L. Fei-Fei. Stanford dogs dataset. [https://www.kaggle.com/jessicali9530/stanford-dogs-dataset][stanford-dogs], 2019. Accessed: 2021-10-01.
 
