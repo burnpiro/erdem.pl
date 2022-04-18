@@ -44,7 +44,7 @@ _Unpooling_ corresponds to the _Pooling Layer_ of CNN (see [Fig. 2](#figure-2)).
 Propagation through the whole deconvnet gives us a representation of the features from the first layer of the original CNN (the last deconvnet layer corresponds to the first CNN layer). This approach causes the saliency map to feature some biases from the first convolutional layer and the representation looks like a localized edge detector (see [Fig. 3](#figure-3)). It usually works better when there is a clear distinction in the feature importance rather than similar values for the whole image.
 
 ### Further reading
-I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl//2021/10/xai-methods-the-introduction)
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
 
 ### References:
 

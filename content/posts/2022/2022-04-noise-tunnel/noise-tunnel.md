@@ -55,7 +55,7 @@ Even if Noise Tunnel method improves accuracy of the XAI methods it adds a large
 
 
 ### Further reading
-I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl//2021/10/xai-methods-the-introduction)
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
 
 ### References:
 

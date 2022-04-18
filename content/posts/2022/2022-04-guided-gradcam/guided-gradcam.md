@@ -58,7 +58,7 @@ Guided GradCAM is a combination of GradCAM's map and GBP attribution. To compute
 </figure>
 
 ### Further reading
-I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl//2021/10/xai-methods-the-introduction)
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
 
 ### References:
 
