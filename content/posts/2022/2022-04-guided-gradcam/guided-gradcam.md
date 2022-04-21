@@ -7,7 +7,7 @@ tags:
 - 'Machine Learning'
 - 'XAI'
 - 'Interpretability'
-description: 'Improved GradCAM XAI method. Why is it better than the original? How the "Guiding" part works?'
+description: 'Improved GradCAM XAI method. Why is it better than the original? How does the "Guiding" part works?'
 ---
 
 ## What is Guided GradCAM method?
@@ -16,7 +16,7 @@ __Guided GradCAM__ is a method created by Selvaraju et al. [[1]][selvaraju2017gr
 
 ### Class Activation Mapping
 
-Class Activation Mapping (__CAM__) [[2]][zhou2016learning] is an approach to localize regions responsible for a class prediction. This idea replaces the fully connected layers on the CNN with more convolutional layers and global average pooling (GAP) [[3]][lin2013network].
+Class Activation Mapping (__CAM__) [[2]][zhou2016learning] is an approach to localizing regions responsible for a class prediction. This idea replaces the fully connected layers on the CNN with more convolutional layers and global average pooling (GAP) [[3]][lin2013network].
 
 <figure id="figure-1">
     <img src="cam-structure.png" alt="CAM "/>
@@ -31,7 +31,7 @@ $$
 
 Where $w_k^c$ is a weight corresponding to the unit $k$ and class $c$, and $f_k(x,y)$ is an activation of the last convolutional layer at the location $(x,y)$ for unit $k$ (visualized in [Fig. 1](#figure-1), the bottom part of the image).
 
-Selvaraju et al. argue that the CAM approach has a major drawback which is a requirement to modify the network and replace all fully-connected layers with convolutional layers. This makes CAM only applicable to certain tasks and reduces the performance of the network itself. They introduce the method that fixes all mentioned issues and call it __GradCAM__. This method is implementation agnostic (within the CNNs) and can be applied without any modifications to the network. As the name says, GradCAM uses a gradient to generate CAMs. Unlike in the original CAM paper, GradCAM allows selecting the convolutional layer we use as a feature map against which we compute the gradient. The gradient is computed for a given score $y^c$ ($c$ indicated a class) before the softmax layer. Then we use a feature map from the selected layer and calculate weight $a_k^c$ for every neuron (see eq. below) (similar to calculating weight for every unit in CAM).
+Selvaraju et al. argue that the CAM approach has a major drawback which is a requirement to modify the network and replace all fully-connected layers with convolutional layers. This makes CAM only applicable to certain tasks and reduces the performance of the network itself. They introduce the method that fixes all mentioned issues and calls it __GradCAM__. This method is implementation agnostic (within the CNNs) and can be applied without any modifications to the network. As the name says, GradCAM uses a gradient to generate CAMs. Unlike in the original CAM paper, GradCAM allows selecting the convolutional layer we use as a feature map against which we compute the gradient. The gradient is computed for a given score $y^c$ ($c$ indicated a class) before the softmax layer. Then we use a feature map from the selected layer and calculate weight $a_k^c$ for every neuron (see eq. below) (similar to calculating weight for every unit in CAM).
 
 $$
 a_k^c = \frac{1}{Z} \sum_{i} \sum_{j} \frac{\partial y^c}{\partial A_{ij}^k}
@@ -50,7 +50,7 @@ The ReLU is used there to cutoff any non-positive values. The intuition behind u
     <figcaption>Figure 2: Guided GradCAM computation process. Source: <a href="https://arxiv.org/abs/1610.02391">Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization</a></figcaption>
 </figure>
 
-Guided GradCAM is a combination of GradCAM's map and GBP attribution. To compute the Guided GradCAM value, we are performing Hadamard product (also known as element-wise multiplication) of the attribution from GBP with a map from GradCAM (see [Fig. 2](#figure-2)). Combining GBP and GradCAM allow us to generate sharp attributions, as presented in [Figure 3](#figure-3).
+Guided GradCAM is a combination of GradCAM's map and GBP attribution. To compute the Guided GradCAM value, we are performing the Hadamard product (also known as element-wise multiplication) of the attribution from GBP with a map from GradCAM (see [Fig. 2](#figure-2)). Combining GBP and GradCAM allows us to generate sharp attributions, as presented in [Figure 3](#figure-3).
 
 <figure id="figure-3">
     <img src="501-Dandie_Dinmont-Dandie_Dinmont.png" alt="Guided GradCAM Result"/>
@@ -58,7 +58,7 @@ Guided GradCAM is a combination of GradCAM's map and GBP attribution. To compute
 </figure>
 
 ### Further reading
-I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is the main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
 
 ### References:
 

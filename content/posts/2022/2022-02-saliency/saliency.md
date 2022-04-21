@@ -53,7 +53,7 @@ where $ch$ is a color channel of the pixel $(i,j)$ and $h(i,j,ch)$ is an index o
 The original _Saliency_ method produces a lot of additional noise but still gives us an idea of which part of the input image is relevant when predicting a specific class. This often causes a problem when the object on the image has a lot of details and the model is using most of them to make a prediction.
 
 ### Further reading
-I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is the main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
 
 ### References:
 

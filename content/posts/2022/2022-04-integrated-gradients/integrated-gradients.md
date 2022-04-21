@@ -12,13 +12,13 @@ description: 'Dive into Integrated Gradients method. How the values are calculat
 
 ## What is Integrated Gradients method?
 
-Integrated Gradients (__IG__) [[1]][sundararajan2017axiomatic] is a method proposed by Sundararajan et al. that bases on two axioms: __Sensitivity__ and __Implementation Invariance__. Authors argue that those two axioms should be satisfied by all attribution methods. The definition of those two axioms is as follows:
+Integrated Gradients (__IG__) [[1]][sundararajan2017axiomatic] is a method proposed by Sundararajan et al. that is based on two axioms: __Sensitivity__ and __Implementation Invariance__. Authors argue that those two axioms should be satisfied by all attribution methods. The definition of those two axioms is as follows:
 
 > __Definition 1 (Axiom: Sensitivity)__ _An attribution method satisfies **Sensitivity** if for every input and baseline that differ in one feature but have different predictions, then the differing feature should be given a non-zero attribution. If the function implemented by the deep network does not depend (mathematically) on some variable, then the attribution to that variable is always zero._
 
 > __Definition 2 (Axiom:  Implementation Invariance)__ _Two networks are functionally equivalent if their outputs are equal for all inputs, despite having very different implementations. Attribution methods should satisfy Implementation Invariance, i.e., the attributions are always identical for two functionally equivalent networks._
 
-The sensitivity axiom introduces the __baseline__ which is an important part of the IG method. Baseline is defined as an __absence of feature__ in an input. This definition is confusing, especially when dealing with complex models, but the baseline could be interpreted as _"input from the input space that produces a neutral prediction"_. A baseline can be treated as an input to produce a counterfactual explanation by checking how the model behaves when moving from baseline to the original image.
+The sensitivity axiom introduces the __baseline__ which is an important part of the IG method. A baseline is defined as an __absence of a feature__ in an input. This definition is confusing, especially when dealing with complex models, but the baseline could be interpreted as _"input from the input space that produces a neutral prediction"_. A baseline can be treated as an input to produce a counterfactual explanation by checking how the model behaves when moving from baseline to the original image.
 
 The authors give the example of the baseline for an object recognition network, which is a black image. I personally think that a black image doesn't represent an _"absence of feature"_, because this absence should be defined based on the manifold that represents data. This means that a black image could work as an absence of a feature in one network but may not work for a network trained on a different dataset, allowing a network to use black pixels in prediction.
 
@@ -31,7 +31,7 @@ Authors argue that gradient-based methods are violating Sensitivity (Def. 1). As
 
 ### How IG is calculated?
 
-In IG definition we have a function $F$ representing our model, input $x \in \mathbb{R}^{n}$ ($x$ is in $\mathbb{R}^n$ because this is a general definition of IG and not CNN specific), and the baseline $x' \in \mathbb{R}^{n}$. We assume straightline path between $x$ and $x'$ and compute gradients long that path. The integrated gradient along $i^th$ dimension is defined as:
+In IG definition we have a function $F$ representing our model, input $x \in \mathbb{R}^{n}$ ($x$ is in $\mathbb{R}^n$ because this is a general definition of IG and not CNN specific), and the baseline $x' \in \mathbb{R}^{n}$. We assume a straight line path between $x$ and $x'$ and compute gradients long that path. The integrated gradient along $i^th$ dimension is defined as:
 
 <figcaption>Equation 1</figcaption>
 
@@ -39,7 +39,7 @@ $$
 IntegratedGrads_{i}(x) ::= (x_{i} - x'_{i})\times\int_{\alpha=0}^1\frac{\partial F(x'+\alpha \times (x - x'))}{\partial x_i}{d\alpha}
 $$
 
-The original definition of Integrated Gradients is incalculable (because of integral). Therefore, the implementation of the method uses approximated value by replacing the integral with summation:
+The original definition of Integrated Gradients is incalculable (because of the integral). Therefore, the implementation of the method uses approximated value by replacing the integral with the summation:
 
 <figcaption>Equation 2</figcaption>
 
@@ -63,7 +63,7 @@ In the approximated calculation (Eq. 2), $m$ defines a number of interpolation s
 
 ### Baselines
 
-In recent years there was discussion about replacing constant color baseline with an alternative. One of the first propositions was to add Gaussian noise to the original image (see [Fig. 4a](#figure-4)). __Gaussian baseline__ was introduced by Smilkov et al. [[2]][smilkov2017smoothgrad] and used a Gaussian distribution centered on the current image with a variance $\sigma$. This variance is the only parameter when tuning the method. Another baseline is called __Blur baseline__ and uses a multi-dimensional gaussian filter (see [Fig. 4b](#figure-4)). The idea presented by Fong and Vedaldi [[3]][fong2017interpretable] blurred version of the image is a domain-specific way to represent missing information and therefore be a valid baseline according to the original definition. Inspired by the work of Fong and Vedaldi, Sturmfels et al. [[4]][sturmfels2020] introduced another version of the baseline, which is based on the original image. This baseline is called the __Maximum Distance baseline__ and creates a baseline by constructing an image with the largest value of the $L1$ distance from the original image. The result of that can be seen in [Figure 4c](#figure-4). The problem with the maximum distance is that it doesn't represent the "absence of feature". It contains the information about the original image, just in a different form. In the same work, Sturmfels et al. created another baseline called __Uniform baseline__. This time, the baseline doesn't require an input image and uses only uniform distribution to generate a baseline (see [Fig. 4d](#figure-4)). The problem with selecting a baseline is not solved, and for any further experiments, the "black image" baseline is going to be used.
+In recent years there was discussion about replacing the constant color baseline with an alternative. One of the first propositions was to add Gaussian noise to the original image (see [Fig. 4a](#figure-4)). __Gaussian baseline__ was introduced by Smilkov et al. [[2]][smilkov2017smoothgrad] and used a Gaussian distribution centered on the current image with a variance $\sigma$. This variance is the only parameter when tuning the method. Another baseline is called __Blur baseline__ and uses a multi-dimensional gaussian filter (see [Fig. 4b](#figure-4)). The idea presented by Fong and Vedaldi [[3]][fong2017interpretable] blurred version of the image is a domain-specific way to represent missing information and therefore be a valid baseline according to the original definition. Inspired by the work of Fong and Vedaldi, Sturmfels et al. [[4]][sturmfels2020] introduced another version of the baseline, which is based on the original image. This baseline is called the __Maximum Distance baseline__ and creates a baseline by constructing an image with the largest value of the $L1$ distance from the original image. The result of that can be seen in [Figure 4c](#figure-4). The problem with the maximum distance is that it doesn't represent the "absence of feature". It contains the information about the original image, just in a different form. In the same work, Sturmfels et al. created another baseline called __Uniform baseline__. This time, the baseline doesn't require an input image and uses only uniform distribution to generate a baseline (see [Fig. 4d](#figure-4)). The problem with selecting a baseline is not solved, and for any further experiments, the "black image" baseline is going to be used.
 
 <figure id="figure-4">
     <img src="ig_baselines.png" alt="IG Baselines"/>
@@ -71,7 +71,7 @@ In recent years there was discussion about replacing constant color baseline wit
 </figure>
 
 ### Further reading
-I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is a main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
+I’ve decided to create a series of articles explaining the most important XAI methods currently used in practice. Here is the main article: [XAI Methods - The Introduction](https://erdem.pl/2021/10/xai-methods-the-introduction)
 
 ### References:
 
