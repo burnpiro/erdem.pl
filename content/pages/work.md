@@ -6,9 +6,11 @@ slug: "/pages/work"
 
 ## My recent work/project
 
-#### UA Support [(Github)](https://github.com/burnpiro/uasupport) [(Website)](https://uasupport.pl)
+#### UA Support [(Github)](https://github.com/burnpiro/uasupport)
 
 I’ve created an application that helps Ukrainian refugees to find accommodation and aid. The application organizes the work of volunteers and gathers information about aid/accommodation availability in various regions across UE. It works as a fully automated and scalable system on GCP as a serverless app.
+
+As of May 4th 2022 the application is fully aquired by [AirBnB.org](https://www.airbnb.org/).
 
 ![uasupport.pl scrren](images/uasupport.png)
 
