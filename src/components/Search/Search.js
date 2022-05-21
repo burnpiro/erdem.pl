@@ -57,7 +57,8 @@ const SearchResults = ({ query, store, index }) => {
               primary={result.title}
               secondary={
                 <React.Fragment>
-                  <span>{result.description}</span><br/>
+                  <span>{result.description}</span>
+                  <br />
                   <span>
                     {format(
                       parse(result.date, 'yyyy-MM-dd', new Date()),
@@ -119,7 +120,7 @@ const Search = () => {
       className={styles['search__container']}
     >
       <Grid item>
-        <img src={SearchIcon} />
+        <img src={SearchIcon} alt={'search icon'} />
       </Grid>
       <Grid item xs>
         <form noValidate autoComplete="off" className={styles['search__form']}>
@@ -137,7 +138,7 @@ const Search = () => {
                     onClick={clearQuery}
                     onMouseDown={clearQuery}
                   >
-                    <img src={ClearIcon} style={{ width: '18px' }} />
+                    <img src={ClearIcon} style={{ width: '18px' }} alt={'clear search'} />
                   </IconButton>
                 </InputAdornment>
               ),

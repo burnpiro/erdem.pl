@@ -71,6 +71,16 @@ h6 {
   @include margin-bottom(0.5);
 }
 
+
+@include breakpoint-md-down {
+  html {
+    font-size: $typographic-root-mobile-font-size;
+  }
+  body {
+    font-size: $typographic-root-mobile-font-size;
+  }
+}
+
 img {
   border: 0;
   max-width: 100%;

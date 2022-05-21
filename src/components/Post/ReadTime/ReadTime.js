@@ -20,13 +20,19 @@ const ReadTime = ({ readTime: { text, minutes } }: Props) => (
           src={pikaCoffee}
           key={index}
           className={styles['readTime__icon-pika']}
+          alt={'15min coffee icon'}
         />
       )
     )}
     {Array.from(
       new Array((Math.floor(minutes / 5) % 4) + (minutes < 20 ? 1 : 0))
     ).map((key, index) => (
-      <img src={coffee} key={index} className={styles['readTime__icon']} />
+      <img
+        src={coffee}
+        key={index}
+        className={styles['readTime__icon']}
+        alt={'5min coffee icon'}
+      />
     ))}
     <span className={styles['readTime__text']}>{text}</span>
   </span>

@@ -25,6 +25,7 @@ const Contacts = ({ contacts, slim }: Props) => {
               href={getContactHref(name, contacts[name])}
               rel="noopener noreferrer"
               target="_blank"
+              title={name}
             >
               <Icon icon={getIcon(name)} />
             </a>

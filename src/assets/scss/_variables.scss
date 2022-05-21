@@ -4,13 +4,13 @@
 
 // Colors
 $color-base: #222;
-$color-primary: #5d93ff;
-$color-secondary: #f7a046;
-$color-success: #43a047;
+$color-primary: #3568CD;
+$color-secondary: #AF632C;
+$color-success: #1D8722;
 $color-error: #d32f2f;
 
 $color-white: #fff;
-$color-gray: lighten($color-base, 40%);
+$color-gray: lighten($color-base, 30%);
 $color-gray-border: lighten($color-base, 77%);
 $color-gray-bg: lighten($color-base, 79%);
 
@@ -18,7 +18,8 @@ $color-gray-bg: lighten($color-base, 79%);
 $typographic-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
   Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 
-$typographic-root-font-size: 100;
+$typographic-root-font-size: 1rem;
+$typographic-root-mobile-font-size: 1.075rem;
 $typographic-base-font-size: 16px;
 $typographic-small-font-size: 14px;
 

@@ -31,7 +31,7 @@ const Layout = ({
       {children}
     </div>
     {displayCookie && (
-      <CookieConsent location="bottom">
+      <CookieConsent location="bottom" style={{ backgroundColor: '#222' }}>
         This website uses cookies to enhance the user experience
       </CookieConsent>
     )}
