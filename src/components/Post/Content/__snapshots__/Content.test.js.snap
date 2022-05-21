@@ -27,10 +27,12 @@ exports[`Content renders correctly 1`] = `
       className="readTime"
     >
       <img
+        alt="5min coffee icon"
         className="readTime__icon"
         src="file"
       />
       <img
+        alt="5min coffee icon"
         className="readTime__icon"
         src="file"
       />

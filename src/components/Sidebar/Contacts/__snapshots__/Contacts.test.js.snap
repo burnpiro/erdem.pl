@@ -15,6 +15,7 @@ exports[`Contacts renders correctly 1`] = `
         href="mailto:#"
         rel="noopener noreferrer"
         target="_blank"
+        title="email"
       >
         <svg
           className="icon"
@@ -34,6 +35,7 @@ exports[`Contacts renders correctly 1`] = `
         href="https://www.twitter.com/#"
         rel="noopener noreferrer"
         target="_blank"
+        title="twitter"
       >
         <svg
           className="icon"
@@ -53,6 +55,7 @@ exports[`Contacts renders correctly 1`] = `
         href="https://github.com/#"
         rel="noopener noreferrer"
         target="_blank"
+        title="github"
       >
         <svg
           className="icon"
@@ -72,6 +75,7 @@ exports[`Contacts renders correctly 1`] = `
         href="#"
         rel="noopener noreferrer"
         target="_blank"
+        title="rss"
       >
         <svg
           className="icon"

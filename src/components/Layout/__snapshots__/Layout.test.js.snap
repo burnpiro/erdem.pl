@@ -13,6 +13,7 @@ Array [
       Object {
         "alignItems": "baseline",
         "background": "#353535",
+        "backgroundColor": "#222",
         "bottom": "0",
         "color": "white",
         "display": "flex",

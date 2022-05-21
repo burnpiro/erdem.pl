@@ -93,6 +93,7 @@ Array [
                 href="mailto:#"
                 rel="noopener noreferrer"
                 target="_blank"
+                title="email"
               >
                 <svg
                   className="icon"
@@ -112,6 +113,7 @@ Array [
                 href="https://www.twitter.com/#"
                 rel="noopener noreferrer"
                 target="_blank"
+                title="twitter"
               >
                 <svg
                   className="icon"
@@ -131,6 +133,7 @@ Array [
                 href="https://github.com/#"
                 rel="noopener noreferrer"
                 target="_blank"
+                title="github"
               >
                 <svg
                   className="icon"
@@ -150,6 +153,7 @@ Array [
                 href="https://www.linkedin.com/in/#"
                 rel="noopener noreferrer"
                 target="_blank"
+                title="linkedin"
               >
                 <svg
                   className="icon"
@@ -169,6 +173,7 @@ Array [
                 href="#"
                 rel="noopener noreferrer"
                 target="_blank"
+                title="rss"
               >
                 <svg
                   className="icon"
@@ -216,6 +221,7 @@ Array [
       Object {
         "alignItems": "baseline",
         "background": "#353535",
+        "backgroundColor": "#222",
         "bottom": "0",
         "color": "white",
         "display": "flex",
