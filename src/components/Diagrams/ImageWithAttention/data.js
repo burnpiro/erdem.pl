@@ -22,7 +22,7 @@ const step1 = {
       {
         id: 'x1',
         val: `<span>
-          <img src="${personImg}">
+          <img src="${personImg}" alt="orignal_img">
         </span>`,
         tooltipValue: `
           <span>

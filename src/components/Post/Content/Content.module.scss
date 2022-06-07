@@ -24,7 +24,7 @@
       text-align: center;
       @include margin-top(0);
       background: #ededed;
-      color: #555555;
+      color: #111111;
       position: relative;
       border-left: 8px solid $color-secondary;
       @include padding(1, 0.5, 1, 1);
@@ -51,6 +51,10 @@
 
       & ul {
         text-align: left;
+      }
+
+      & a {
+        font-weight: bold;
       }
 
       //& span {

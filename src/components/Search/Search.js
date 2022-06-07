@@ -44,12 +44,13 @@ const SearchResults = ({ query, store, index }) => {
           >
             <ListItemIcon>
               {result.template === 'page' && (
-                <img src={WebIcon} className={styles['search__item__icon']} />
+                <img src={WebIcon} className={styles['search__item__icon']} alt={'search'}/>
               )}
               {result.template !== 'page' && (
                 <img
                   src={ArticleIcon}
                   className={styles['search__item__icon']}
+                  alt={'search'}
                 />
               )}
             </ListItemIcon>
