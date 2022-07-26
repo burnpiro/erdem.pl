@@ -20,6 +20,12 @@ Tracking and recognition of farm animals (pigs) with CNN and Siamese network.
 
 ![Tracking example](images/fat-tracking.png)
 
+#### Airport gate assignment [(GitHub)](https://github.com/burnpiro/airport-ai) [(Visualization)](https://burnpiro.github.io/airport-ai/) [(Medium)](https://pokropow.medium.com/airport-simulation-for-evaluation-of-airport-gate-assignment-problem-428ec03f6a62)
+
+Airport simulation for evaluation of airport gate assignment problem.
+
+![AGAP applocation](images/agap-screen.png)
+
 #### Temporal Network of city bicycles [(GitHub)](https://github.com/burnpiro/wod-bike-temporal-network) [(Website)](https://burnpiro.github.io/wod-bike-temporal-network)
 
 Creation of usage network to provide historical information about trends and users preferences.
