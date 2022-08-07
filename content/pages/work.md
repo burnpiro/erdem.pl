@@ -14,6 +14,12 @@ As of May 4th, 2022 the application is fully acquired by [AirBnB.org](https://ww
 
 ![uasupport.pl scrren](images/uasupport.png)
 
+#### Attribution Methods in Interpretability of CNNs [(PDF)](https://github.com/burnpiro/wiz-masters-thesis/raw/main/Attribution_Methods_in_Interpretability_of_Deep_Convolutional_Neural_Networks.pdf) [(GitHub)](https://github.com/burnpiro/xai-correlation)
+
+Analysis of methods and measures used in Explainable Artificial Intelligence. Effect of augmentation on the interpretability of deep learning models by checking their structural similarity. Comparision of the robustness of XAI methods.
+
+![XAI robustness](images/xai-robustness.png)
+
 #### FAT (Farm Animal Tracking) [(Github)](https://github.com/burnpiro/farm-animal-tracking) [(Example)](https://www.youtube.com/watch?v=ifHIbjOHczI) [(Presentation)](https://docs.google.com/presentation/d/1mxaBre5yrApX7LIijgDAWB04z2IriVpcyB9XnURZkWM/edit?usp=sharing)
 
 Tracking and recognition of farm animals (pigs) with CNN and Siamese network.
