@@ -30,6 +30,9 @@
     "react",
     "theme"
   ],
+  "engines": {
+    "node": "12"
+  },
   "dependencies": {
     "@material-ui/core": "^4.9.2",
     "@material-ui/styles": "^4.9.0",
