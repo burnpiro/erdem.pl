@@ -12,6 +12,8 @@ I’ve created an application that helps Ukrainian refugees to find accommodatio
 
 As of May 4th, 2022 the application is fully acquired by [AirBnB.org](https://www.airbnb.org/).
 
+Project was notniced by the European Commission's Open Source Observatory and summarized in the [article about it](https://joinup.ec.europa.eu/collection/open-source-observatory-osor/news/volunteering-accommodation-ukrainians-europe).
+
 ![uasupport.pl scrren](images/uasupport.png)
 
 #### Attribution Methods in Interpretability of CNNs [(PDF)](https://github.com/burnpiro/wiz-masters-thesis/raw/main/Attribution_Methods_in_Interpretability_of_Deep_Convolutional_Neural_Networks.pdf) [(GitHub)](https://github.com/burnpiro/xai-correlation)
