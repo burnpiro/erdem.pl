@@ -3,6 +3,7 @@ title: Introduction to Attention Mechanism
 date: '2021-05-12'
 template: 'post'
 draft: false
+popular: 4
 tags:
   - 'Machine Learning'
   - 'Transformers'

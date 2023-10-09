@@ -18,4 +18,4 @@ But, what do I do exactly? Mostly everything related with Machine Learning and J
 - Testing (Jest, Jasmine, Puppeteer, Cypress and many more)
 - DevOps (build systems with Webpack/Rollup, process management and load balancing with PM2 or Cluster, CI/CD)
 
-That's really long list, I'm surprised you're read it all. If you want to grab a coffee I'm currently stationed in Wroclaw (Poland). To contact me please go to [Contact](/contact)
+That's really long list, I'm surprised you're read it all. If you want to grab a coffee I'm currently stationed in Wroclaw (Poland).

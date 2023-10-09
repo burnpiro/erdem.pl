@@ -3,6 +3,7 @@ title: Animal recognition with Siamese Networks and Mean Embeddings
 date: '2021-02-25'
 template: 'post'
 draft: false
+popular: 1
 tags:
   - 'Machine Learning'
   - 'Siamese Networks'

@@ -3,6 +3,7 @@ title: Finding correlations in time series data
 date: '2020-06-28'
 template: 'post'
 draft: false
+popular: 1
 tags:
   - 'Data Science'
   - 'MachineLearning'

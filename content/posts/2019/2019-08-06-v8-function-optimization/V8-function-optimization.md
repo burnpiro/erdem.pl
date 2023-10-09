@@ -3,6 +3,7 @@ title: V8 function optimization
 date: '2019-08-06'
 template: 'post'
 draft: false
+popular: 5
 tags:
   - 'Engines'
   - 'Javascript'

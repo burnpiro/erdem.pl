@@ -3,6 +3,7 @@ title: Understanding Region of Interest (RoI Pooling)
 date: '2020-02-06'
 template: 'post'
 draft: false
+popular: 7
 tags:
   - 'RCNN'
   - 'Machine Learning'
