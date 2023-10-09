@@ -21,7 +21,7 @@ const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
 
   return (
     <div className={styles['tabset']}>
-      <label
+      <div
         onClick={() => handleItemClick(selectedTabType.POPULAR)}
         className={
           defaultSelectedTab === selectedTabType.POPULAR
@@ -30,8 +30,8 @@ const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
         }
       >
         Popular
-      </label>
-      <label
+      </div>
+      <div
         onClick={() => handleItemClick(selectedTabType.MAIN)}
         className={
           defaultSelectedTab === selectedTabType.MAIN
@@ -40,7 +40,7 @@ const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
         }
       >
         Recent
-      </label>
+      </div>
     </div>
   );
 };
