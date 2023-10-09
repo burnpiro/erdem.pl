@@ -3,6 +3,7 @@ title: Understanding Positional Encoding in Transformers
 date: '2021-05-10'
 template: 'post'
 draft: false
+popular: 1
 tags:
 - 'Machine Learning'
 - 'Transformers'

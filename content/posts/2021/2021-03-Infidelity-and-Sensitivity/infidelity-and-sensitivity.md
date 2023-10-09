@@ -3,6 +3,7 @@ title: Measuring XAI methods with Infidelity and Sensitivity
 date: '2021-03-16'
 template: 'post'
 draft: false
+popular: 4
 tags:
 - 'Machine Learning'
 - 'XAI'

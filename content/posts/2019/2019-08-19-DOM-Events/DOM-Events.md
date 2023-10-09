@@ -3,6 +3,7 @@ title: A modern guide to Events in JavaScript
 date: '2019-08-19'
 template: 'post'
 draft: false
+popular: 3
 tags:
   - 'DOM'
   - 'Javascript'

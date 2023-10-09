@@ -3,6 +3,7 @@ title: Understanding Region of Interest - Part 2 (RoI Align)
 date: '2020-02-09'
 template: 'post'
 draft: false
+popular: 4
 tags:
   - 'RCNN'
   - 'Machine Learning'
