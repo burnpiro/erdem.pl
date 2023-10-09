@@ -3,6 +3,7 @@ title: t-SNE clearly explained
 date: '2020-04-13'
 template: 'post'
 draft: false
+popular: 3
 tags:
   - 'Dimensionality Reduction'
   - 'Machine Learning'
