@@ -9,6 +9,8 @@ import Pagination from '../components/Pagination';
 import { useSiteMetadata } from '../hooks';
 import type { PageContext, AllMarkdownRemark } from '../types';
 import Search from '../components/Search';
+import Tabs from "../components/Tabs";
+import {selectedTabType} from "../components/Tabs/Tabs";
 
 type Props = {
   data: AllMarkdownRemark,
@@ -35,6 +37,7 @@ const IndexTemplate = ({ data, pageContext }: Props) => {
       <Sidebar isIndex />
       <Page>
         <Search />
+        <Tabs selectedTab={selectedTabType.MAIN} />
         <Feed edges={edges} />
         <Pagination
           prevPagePath={prevPagePath}

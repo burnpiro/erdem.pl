@@ -1,0 +1,43 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/mixins';
+
+.tabset {
+  &__tab {
+    position: relative;
+    display: inline-block;
+    padding: 15px 15px 25px;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    cursor: pointer;
+    font-weight: 600;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 15px;
+      bottom: 10px;
+      width: 22px;
+      height: 4px;
+      background: #8d8d8d;
+    }
+
+    &:hover {
+      color: $typographic-link-s-font-color;
+
+      &::after {
+        background: $typographic-link-s-font-color;
+      }
+    }
+
+    &-checked {
+      color: $typographic-link-s-font-color;
+      border-color: #ccc;
+      border-bottom: 1px solid #fff;
+      margin-bottom: -1px;
+
+      &::after {
+        background: $typographic-link-s-font-color;
+      }
+    }
+  }
+}
