@@ -25,7 +25,7 @@ module.exports = {
     name: 'Kemal Erdem',
     photo: '/main.jpg',
     bio:
-      'ML Developer, Software Architect, Freelance Consultant, JS Engineer, MTB lover',
+      'ML Developer, Software Architect, JS Engineer, Ultra-distance cyclist',
     contacts: {
       email: 'kemalpiro@gmail.com',
       twitter: 'burnpiro',
