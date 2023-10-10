@@ -13,16 +13,10 @@ type Props = {
 };
 
 const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
-  const handleItemClick = newSelectedTab => {
-    if (newSelectedTab !== defaultSelectedTab) {
-      window.location.href = `/${newSelectedTab}`;
-    }
-  };
-
   return (
     <div className={styles['tabset']}>
-      <div
-        onClick={() => handleItemClick(selectedTabType.POPULAR)}
+      <a
+        href={window.location.origin + `/${selectedTabType.POPULAR}`}
         className={
           defaultSelectedTab === selectedTabType.POPULAR
             ? styles['tabset__tab'] + ' ' + styles['tabset__tab-checked']
@@ -30,9 +24,9 @@ const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
         }
       >
         Popular
-      </div>
-      <div
-        onClick={() => handleItemClick(selectedTabType.MAIN)}
+      </a>
+      <a
+        href={window.location.origin + `/${selectedTabType.MAIN}`}
         className={
           defaultSelectedTab === selectedTabType.MAIN
             ? styles['tabset__tab'] + ' ' + styles['tabset__tab-checked']
@@ -40,7 +34,7 @@ const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
         }
       >
         Recent
-      </div>
+      </a>
     </div>
   );
 };
