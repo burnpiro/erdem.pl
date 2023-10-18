@@ -16,7 +16,7 @@ const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
   return (
     <div className={styles['tabset']}>
       <a
-        href={window.location.origin + `/${selectedTabType.POPULAR}`}
+        href={`/${selectedTabType.POPULAR}`}
         className={
           defaultSelectedTab === selectedTabType.POPULAR
             ? styles['tabset__tab'] + ' ' + styles['tabset__tab-checked']
@@ -26,7 +26,7 @@ const Tabs = ({ selectedTab: defaultSelectedTab }: Props) => {
         Popular
       </a>
       <a
-        href={window.location.origin + `/${selectedTabType.MAIN}`}
+        href={`/${selectedTabType.MAIN}`}
         className={
           defaultSelectedTab === selectedTabType.MAIN
             ? styles['tabset__tab'] + ' ' + styles['tabset__tab-checked']
