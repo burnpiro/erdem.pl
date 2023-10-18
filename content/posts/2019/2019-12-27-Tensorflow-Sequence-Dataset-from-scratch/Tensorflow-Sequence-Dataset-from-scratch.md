@@ -3,6 +3,7 @@ title: How to create Tensorflow 2 Sequence Dataset from scratch
 date: '2019-12-28'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Tensorflow'
   - 'Machine Learning'

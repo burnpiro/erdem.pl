@@ -3,6 +3,7 @@ title: XAI Methods - Guided Backpropagation
 date: '2022-02-22'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Machine Learning'
   - 'XAI'

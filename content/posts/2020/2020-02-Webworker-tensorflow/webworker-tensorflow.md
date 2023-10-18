@@ -3,6 +3,7 @@ title: Making TensorflowJS work faster with WebWorkers.
 date: '2020-02-17'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'JavaScript'
   - 'TensorflowJS'

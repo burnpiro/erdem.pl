@@ -3,6 +3,7 @@ title: Is Symbol really useful?
 date: '2019-07-24'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Libraries'
   - 'Javascript'

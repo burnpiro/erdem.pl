@@ -3,6 +3,7 @@ title: XAI Methods - The Introduction
 date: '2021-10-12'
 template: 'post'
 draft: false
+popular: 0
 tags:
 - 'Machine Learning'
 - 'XAI'

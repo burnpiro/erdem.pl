@@ -3,6 +3,7 @@ title: Can JSON.parse() be performance improvement?
 date: '2019-08-07'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Engines'
   - 'Javascript'

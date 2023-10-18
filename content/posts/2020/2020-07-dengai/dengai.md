@@ -3,6 +3,7 @@ title: DengAI - How to approach Data Science competitions? (EDA)
 date: '2020-07-31'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Data Science'
   - 'MachineLearning'
