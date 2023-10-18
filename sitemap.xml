@@ -85,6 +85,11 @@
 <url> <loc>https://erdem.pl/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/popular/page/1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/popular/page/2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/popular/page/3</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/popular/page/4</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/popular/page/5</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/popular/page/6</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://erdem.pl/popular/page/7</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/object-detection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/xai-infidelity/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://erdem.pl/diagrams/attention-layer/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
