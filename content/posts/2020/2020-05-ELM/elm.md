@@ -3,6 +3,7 @@ title: Introduction to Extreme Learning Machines
 date: '2020-05-13'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'AI'
   - 'Neural Networks'

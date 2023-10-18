@@ -3,6 +3,7 @@ title: React - state management without libraries (with hooks)
 date: '2019-09-06'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Libraries'
   - 'Javascript'

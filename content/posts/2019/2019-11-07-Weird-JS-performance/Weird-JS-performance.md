@@ -3,6 +3,7 @@ title: JSF*ck - Does code weirdness affect execution performance?
 date: '2019-11-07'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Javascript'
   - 'Performance'

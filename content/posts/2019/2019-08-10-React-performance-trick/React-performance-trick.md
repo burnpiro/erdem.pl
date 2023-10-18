@@ -3,6 +3,7 @@ title: React performance tricks
 date: '2019-08-10'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Libraries'
   - 'Javascript'

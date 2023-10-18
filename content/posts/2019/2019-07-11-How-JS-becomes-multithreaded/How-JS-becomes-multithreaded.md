@@ -3,6 +3,7 @@ title: How JS becomes multi threaded?
 date: '2019-07-11'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'Performance'
   - 'Javascript'

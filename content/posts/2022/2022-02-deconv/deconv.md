@@ -3,6 +3,7 @@ title: XAI Methods - Deconvolution
 date: '2022-02-21'
 template: 'post'
 draft: false
+popular: 0
 tags:
 - 'Machine Learning'
 - 'XAI'
