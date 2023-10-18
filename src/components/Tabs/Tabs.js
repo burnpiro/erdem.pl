@@ -4,8 +4,8 @@ import styles from './Tabs.module.scss';
 import { types } from '@babel/core';
 
 export const selectedTabType = {
-  POPULAR: 'popular',
-  MAIN: '',
+  POPULAR: '',
+  MAIN: 'recent',
 };
 
 type Props = {
