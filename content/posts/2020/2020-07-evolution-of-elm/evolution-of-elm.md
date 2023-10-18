@@ -3,6 +3,7 @@ title: Evolution of Extreme Learning Machines
 date: '2020-07-23'
 template: 'post'
 draft: false
+popular: 0
 tags:
   - 'AI'
   - 'Neural Networks'
