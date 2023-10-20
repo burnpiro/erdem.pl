@@ -1,0 +1,14 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins';
+
+.default-diagram-continaer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  max-width: unset !important;
+
+  g {
+    z-index: 1;
+  }
+}
