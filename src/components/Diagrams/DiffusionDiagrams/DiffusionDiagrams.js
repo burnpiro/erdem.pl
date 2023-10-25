@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import styles from './DefaultDiagram.module.scss';
+import styles from './DiffusionDiagrams.module.scss';
 import DiagramGenerator from '../../DiagramGenerator/DiagramGenerator';
 import ProcessControls from '../../DiagramGenerator/ProcessControls';
 import { useLoadDiagramData } from '../../../hooks';
 import { ACTIONS } from '../../DiagramGenerator/helpers';
 import {animationHeight, animationWidth, steps} from '../ImageWithAttention/data';
+import PositionSliders from "../InputPositionEmbeddingSin/PositionSliders";
+import {defaultItems} from "../InputPositionEmbeddingSin/data";
 
 const DIAGRAMS = {
   'diffusion/forward_diffusion': import(
-    './diagrams/2023-10-diffusion-models/forward-diffusion.js'
+    './diagrams/forward-diffusion.js'
   ),
 };
 
@@ -70,7 +72,7 @@ const defaultDiagram = {
   steps: {},
 };
 
-const DefaultDiagram = props => {
+const DiffusionDiagrams = props => {
   const [
     { animationHeight, animationWidth, defaultItems, steps },
     setData,
@@ -85,43 +87,11 @@ const DefaultDiagram = props => {
     loadData();
   }, [props.src]);
 
-  console.log(steps);
   const [step, setStep] = useState(1);
-  const [state, dispatch] = useReducer(reducer, {
-    ...positions.reduce((posAcc, pos) => {
-      return {
-        ...posAcc,
-        ...elements.reduce(
-          (acc, el) => ({ ...acc, [`pos${pos},i${el}`]: pos }),
-          {}
-        ),
-      };
-    }, {}),
-    positions: positions.reduce((posAcc, pos) => {
-      return {
-        ...posAcc,
-        [`pos${pos}`]: elements.reduce(
-          (acc, el) => ({ ...acc, [`i${el}`]: pos }),
-          {}
-        ),
-      };
-    }, {}),
-  });
-
-  const onStepForward = () => {
-    setStep(step + 1);
-  };
-
-  const onStepBackward = () => {
-    setStep(step - 1);
-  };
-
-  const onStateChange = (value, key, action) => {
-    dispatch({ type: action, value, key });
-  };
 
   const onSliderPositionChange = (value, position) => {
-    dispatch({ type: POSITION_ACTIONS.SET_POS, value, position });
+    console.log(value, position)
+    setStep(value);
   };
 
   const currStep = steps[`step${step}`];
@@ -137,11 +107,16 @@ const DefaultDiagram = props => {
               animationWidth={animationWidth}
               id="image-with-attention"
           />
-          <ProcessControls
-            onStepForward={onStepForward}
-            onStepBackward={onStepBackward}
-            prevDisabled={step < 2}
-            nextDisabled={step >= Object.keys(steps).length}
+          <PositionSliders
+              onUpdateValue={onSliderPositionChange}
+              colors={['blue']}
+              elements={[0]}
+              min={1}
+              max={Object.keys(steps).length}
+              prefix={""}
+              style={{maxWidth: `50%`}}
+              fullWidth={false}
+              updateOnChange={true}
           />
         </React.Fragment>
       )}
@@ -149,4 +124,4 @@ const DefaultDiagram = props => {
   );
 };
 
-export default DefaultDiagram;
+export default DiffusionDiagrams;
