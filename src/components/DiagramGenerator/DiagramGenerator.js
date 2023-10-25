@@ -2,14 +2,12 @@ import React from 'react';
 import * as d3 from 'd3';
 import useD3 from '../../hooks/use-d3';
 import styles from './DiagramGenerator.module.scss';
-import {
-  generateArrowElement,
-  generateTooltopElement,
-} from './helpers';
+import { generateArrowElement, generateTooltopElement } from './helpers';
 import generateCircleBlock from './generateCircleBlock';
 import generateLineChartBlock from './generateLineChartBlock';
 import generateTextBlock from './generateTextBlock';
 import generateRectBlock from './generateRectBlock';
+import { useWindowSize } from '../../hooks';
 
 let arrowDef = null;
 const toolTips = {};
@@ -58,6 +56,7 @@ function DiagramGenerator({
     console.log(val, elId);
   },
 }) {
+  const windowSize = useWindowSize();
   const ref = useD3(
     svg => {
       if (diagramId === '') {
@@ -86,6 +85,10 @@ function DiagramGenerator({
         height: animationHeight,
         minWidth: animationWidth,
         width: animationWidth,
+          transform:
+              windowSize.width < animationWidth
+                  ? `scale(${windowSize.width / animationWidth})`
+                  : '',
         marginRight: '0px',
         marginLeft: '0px',
       }}
