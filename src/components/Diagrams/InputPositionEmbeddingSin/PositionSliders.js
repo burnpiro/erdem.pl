@@ -8,6 +8,12 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
+    maxWidth: '100%',
+  },
+  containerFullWidth: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
     maxWidth: '100% !important',
   },
   sliderLabel: {
@@ -32,40 +38,70 @@ const PositionSlider = withStyles({
   },
 })(Slider);
 
+const defaultElements = [0, 1, 2, 3];
+const defaultColors = ['blue', 'blue', 'blue', 'blue'];
+
 const PositionSliders = ({
   onUpdateValue,
-  colors = ['blue', 'blue', 'blue', 'blue'],
+  colors = defaultColors,
+  min = 0,
+  max = 20,
+  elements = defaultElements,
+  prefix = 'pos',
+  style = {},
+  fullWidth = true,
+  updateOnChange = false,
 }) => {
   const classes = useStyles();
 
-  const onChange = [0, 1, 2, 3].map(el => (event, value) => {
+  const onChange = elements.map(el => (event, value) => {
     onUpdateValue(value, `pos${el}`);
   });
   return (
-    <div className={classes.container}>
-      {[0, 1, 2, 3].map(el => (
+    <div
+      className={fullWidth ? classes.containerFullWidth : classes.container}
+      style={style}
+    >
+      {elements.map(el => (
         <Fragment key={`post${el}`}>
           <Typography
             id="discrete-slider"
             gutterBottom
             className={classes.sliderLabel}
           >
-            {`pos${el}`}
+            {`${prefix}${el}`}
           </Typography>
-          <PositionSlider
-            className={classes.slider}
-            style={{ color: colors[el] }}
-            name={`pos${el}`}
-            aria-label={`pos${el}`}
-            defaultValue={el}
-            aria-labelledby={`slider-pos${el}`}
-            valueLabelDisplay="auto"
-            step={1}
-            onChangeCommitted={onChange[el]}
-            marks
-            min={0}
-            max={20}
-          />
+          {updateOnChange ? (
+            <PositionSlider
+              className={classes.slider}
+              style={{ color: colors[el] }}
+              name={`${prefix}${el}`}
+              aria-label={`${prefix}${el}`}
+              defaultValue={el}
+              aria-labelledby={`slider-pos${el}`}
+              valueLabelDisplay="auto"
+              step={1}
+              onChange={onChange[el]}
+              marks
+              min={min}
+              max={max}
+            />
+          ) : (
+            <PositionSlider
+              className={classes.slider}
+              style={{ color: colors[el] }}
+              name={`${prefix}${el}`}
+              aria-label={`${prefix}${el}`}
+              defaultValue={el}
+              aria-labelledby={`slider-pos${el}`}
+              valueLabelDisplay="auto"
+              step={1}
+              onChangeCommitted={onChange[el]}
+              marks
+              min={min}
+              max={max}
+            />
+          )}
         </Fragment>
       ))}
     </div>
