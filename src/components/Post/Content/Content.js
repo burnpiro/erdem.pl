@@ -9,7 +9,7 @@ import RNNWithAttention from '../../Diagrams/RNNWithAttention/RNNWithAttention';
 import ImageWithAttention from '../../Diagrams/ImageWithAttention/ImageWithAttention';
 import InputPositionEmbeddingSin from '../../Diagrams/InputPositionEmbeddingSin/InputPositionEmbeddingSin';
 import AttentionLayer from '../../Diagrams/AttentionLayer/AttentionLayer';
-import DefaultDiagram from '../../Diagrams/DefaultDiagram/DefaultDiagram';
+import DiffusionDiagrams from '../../Diagrams/DiffusionDiagrams/DiffusionDiagrams';
 
 type Props = {
   body: string,
@@ -31,7 +31,7 @@ const renderAst = new rehypeReact({
     'image-with-attention': ImageWithAttention,
     'sin-position-embedding': InputPositionEmbeddingSin,
     'attention-layer': AttentionLayer,
-    'basic-diagram': DefaultDiagram,
+    'diffusion-diagram': DiffusionDiagrams,
   },
 }).Compiler;
 

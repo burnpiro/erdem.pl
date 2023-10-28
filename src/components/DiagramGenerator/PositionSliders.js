@@ -51,6 +51,7 @@ const PositionSliders = ({
   style = {},
   fullWidth = true,
   updateOnChange = false,
+  displayElementName = true,
 }) => {
   const classes = useStyles();
 
@@ -69,13 +70,13 @@ const PositionSliders = ({
             gutterBottom
             className={classes.sliderLabel}
           >
-            {`${prefix}${el}`}
+            {`${prefix}${displayElementName ? el : ''}`}
           </Typography>
           {updateOnChange ? (
             <PositionSlider
               className={classes.slider}
               style={{ color: colors[el] }}
-              name={`${prefix}${el}`}
+              name={`${prefix}${displayElementName ? el : ''}`}
               aria-label={`${prefix}${el}`}
               defaultValue={el}
               aria-labelledby={`slider-pos${el}`}
@@ -90,7 +91,7 @@ const PositionSliders = ({
             <PositionSlider
               className={classes.slider}
               style={{ color: colors[el] }}
-              name={`${prefix}${el}`}
+              name={`${prefix}${displayElementName ? el : ''}`}
               aria-label={`${prefix}${el}`}
               defaultValue={el}
               aria-labelledby={`slider-pos${el}`}
