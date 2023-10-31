@@ -192,10 +192,10 @@ const step3 = {
               (bottomRowPosition - 0.3) * animationHeight + posBoxSize * 0.5,
             ],
             to: [
-              firstRowPosition * animationWidth + posBoxSize * 3,
+              firstRowPosition * animationWidth + posBoxSize * 3 ,
               (bottomRowPosition - 0.3) * animationHeight + posBoxSize * 0.5,
             ],
-            orientation: 'horizontal',
+            orientation: 'vertical',
           },
         ],
       },
