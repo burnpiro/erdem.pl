@@ -1,17 +1,15 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import styles from './DiffusionDiagrams.module.scss';
 import DiagramGenerator from '../../DiagramGenerator/DiagramGenerator';
-import ProcessControls from '../../DiagramGenerator/ProcessControls';
-import { useLoadDiagramData } from '../../../hooks';
 import { ACTIONS } from '../../DiagramGenerator/helpers';
-import {animationHeight, animationWidth, steps} from '../ImageWithAttention/data';
-import PositionSliders from "../InputPositionEmbeddingSin/PositionSliders";
-import {defaultItems} from "../InputPositionEmbeddingSin/data";
+
+import PositionSliders from '../../DiagramGenerator/PositionSliders';
+import * as forwardDiffusionData from './diagrams/forward-diffusion';
+import * as reverseDiffusionData from './diagrams/reverse-diffusion';
 
 const DIAGRAMS = {
-  'diffusion/forward_diffusion': import(
-    './diagrams/forward-diffusion.js'
-  ),
+  'diffusion/forward_diffusion': forwardDiffusionData,
+  'diffusion/reverse_diffusion': reverseDiffusionData,
 };
 
 const POSITION_ACTIONS = {
@@ -90,7 +88,6 @@ const DiffusionDiagrams = props => {
   const [step, setStep] = useState(1);
 
   const onSliderPositionChange = (value, position) => {
-    console.log(value, position)
     setStep(value);
   };
 
@@ -101,22 +98,22 @@ const DiffusionDiagrams = props => {
       {currStep && (
         <React.Fragment>
           <DiagramGenerator
-              data={currStep}
-              step={step}
-              animationHeight={animationHeight}
-              animationWidth={animationWidth}
-              id="image-with-attention"
+            data={currStep}
+            step={step}
+            animationHeight={animationHeight}
+            animationWidth={animationWidth}
           />
           <PositionSliders
-              onUpdateValue={onSliderPositionChange}
-              colors={['blue']}
-              elements={[0]}
-              min={1}
-              max={Object.keys(steps).length}
-              prefix={""}
-              style={{maxWidth: `50%`}}
-              fullWidth={false}
-              updateOnChange={true}
+            onUpdateValue={onSliderPositionChange}
+            colors={['blue']}
+            elements={[0]}
+            min={1}
+            max={Object.keys(steps).length}
+            prefix={''}
+            style={{ maxWidth: `50%` }}
+            fullWidth={false}
+            updateOnChange={true}
+            displayElementName={false}
           />
         </React.Fragment>
       )}
