@@ -24,6 +24,18 @@ function generateArrowElement(svg) {
     .attr('stroke', 'black');
 }
 
+function guidGenerator(length = 16) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
 function generateTooltopElement(svg, containerId) {
   const returnObj = {
     element: d3
@@ -161,6 +173,18 @@ const addHTMLContent = (
       .attr('dx', height / 2)
       .html(`<div class="${styles['html-object']}">${objVal}</div>`);
   }
+  if (type === 'polygon') {
+    return block
+        .append('foreignObject')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('stroke', color)
+        .style('font-size', fontSize)
+        .attr('x', d.points[0][0])
+        .attr('y', d.points[0][1])
+        .html(`<div class="${styles['html-object']}">${objVal}</div>`);
+  }
+
   return block
     .append('foreignObject')
     .attr('width', width)
@@ -181,4 +205,5 @@ export {
   generateLines,
   DEFAULT_FONTSIZE,
   addHTMLContent,
+  guidGenerator
 };

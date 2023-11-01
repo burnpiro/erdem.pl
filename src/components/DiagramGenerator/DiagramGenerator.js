@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import useD3 from '../../hooks/use-d3';
 import styles from './DiagramGenerator.module.scss';
-import { generateArrowElement, generateTooltopElement } from './helpers';
+import {
+  generateArrowElement,
+  generateTooltopElement,
+  guidGenerator,
+} from './helpers';
 import generateCircleBlock from './generateCircleBlock';
 import generateLineChartBlock from './generateLineChartBlock';
 import generateTextBlock from './generateTextBlock';
 import generateRectBlock from './generateRectBlock';
 import { useWindowSize } from '../../hooks';
+import generatePolygonBlock from './generatePolygonBlock';
 
 let arrowDef = null;
 const toolTips = {};
@@ -35,6 +40,9 @@ function printBlocks(inputs, svg, id, options) {
     case 'circle':
       generateCircleBlock(inputs, svg, id, mappedOptions);
       break;
+    case 'polygon':
+      generatePolygonBlock(inputs, svg, id, mappedOptions);
+      break;
     case 'text':
       generateTextBlock(inputs, svg, id, mappedOptions);
       break;
@@ -50,27 +58,33 @@ function DiagramGenerator({
   step,
   animationWidth = 1200,
   animationHeight = 500,
-  id = 'diagram-container',
+  id,
   values = {},
   onUpdateValues = (val, elId) => {
     console.log(val, elId);
   },
 }) {
+  const [currId, setCurrId] = useState(id || guidGenerator());
+  useEffect(() => {
+    if (id != null && id !== '') {
+      setCurrId(id);
+    }
+  }, [id]);
   const windowSize = useWindowSize();
   const ref = useD3(
     svg => {
       if (diagramId === '') {
-        diagramId = `${id}-`;
+        diagramId = `${currId}-`;
       }
       if (arrowDef == null) {
         arrowDef = generateArrowElement(svg);
       }
-      if (toolTips[id] == null) {
-        toolTips[id] = generateTooltopElement(svg, id);
+      if (toolTips[currId] == null) {
+        toolTips[currId] = generateTooltopElement(svg, currId);
       }
 
       Object.values(data).forEach(itemBlock => {
-        printBlocks(itemBlock, svg, id, { values, onUpdateValues });
+        printBlocks(itemBlock, svg, currId, { values, onUpdateValues });
       });
     },
     [data, step, values]
@@ -78,17 +92,17 @@ function DiagramGenerator({
 
   return (
     <div
-      id={id}
+      id={currId}
       style={{
         position: 'relative',
         minHeight: animationHeight,
         height: animationHeight,
         minWidth: animationWidth,
         width: animationWidth,
-          transform:
-              windowSize.width < animationWidth
-                  ? `scale(${windowSize.width / animationWidth})`
-                  : '',
+        transform:
+          windowSize.width < animationWidth
+            ? `scale(${windowSize.width / animationWidth})`
+            : '',
         marginRight: '0px',
         marginLeft: '0px',
       }}
