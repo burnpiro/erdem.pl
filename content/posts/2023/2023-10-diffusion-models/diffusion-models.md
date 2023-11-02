@@ -77,6 +77,51 @@ Researchers from OpenAI in their 2021 paper[[3]][iddpm2021] decided that using l
     <figcaption>Figure 5: Forward diffusion process using <b>cosine schedule</b>.</figcaption>
 </figure>
 
+#### Real noising process (only last equation is important)
+
+As you can imagine, adding noise to the image using forward diffusion process ig going to be slow. __Training process doesn't use examples in line with the forward process but rather it uses samples from arbitrary timestep t__. This means at each training step we would need to iterate through t steps to generate 1 training sample. But 2020 paper has the solution but first we have to define the entire noise to be added at _T_ as:
+
+$$$
+q(x_{1:T}|x_0) := \prod_{t=1}^{T}q(x_t|x_{t-1})
+$$$
+
+The paper describes whole transition very poorly (maybe because authors are just doing that kind of math in their head). We're going to do it manually. First we need to apply reparameterization trick ( $$\mathcal{N}(\mu, \sigma^2) = \mu + \sigma *\epsilon$$ ) on single forward step definition.
+
+$$$
+q(x_{t}|x_{t-1}) = \mathcal{N}(x_{t}, \sqrt{1 - \beta_t}x_{t-1}, \beta_tI ) \\ 
+= \sqrt{1 - \beta_t}x_{t-1} + \sqrt{\beta_t}\epsilon
+$$$
+
+- $$\epsilon$$ is from $$\mathcal{N}(0,1)$$
+
+Now authors introduced some notation:
+- $$\alpha_t = 1 - \beta_t$$
+- $$\hat\alpha_t := \prod_{s=1}^{t} a_s$$
+
+This notation is only for the ease of transformation. Now our function looks like that:
+
+$$$
+q(x_{t}|x_{t-1}) = \sqrt{\alpha_t}x_{t-1} + \sqrt{1- \alpha_t}\epsilon
+$$$
+
+And we can extend it to previous timesteps:
+
+$$$
+q(x_{t}|x_{t-1}) = \sqrt{\alpha_t}x_{t-1} + \sqrt{1- \alpha_t}\epsilon \\
+= \sqrt{\alpha_t\alpha_{t-1}}x_{t-2} + \sqrt{1- \alpha_t\alpha_{t-1}}\epsilon \\
+= \sqrt{\alpha_t\alpha_{t-1}\alpha_{t-2}}x_{t-3} + \sqrt{1- \alpha_t\alpha_{t-1}\alpha_{t-2}}\epsilon \\
+= \sqrt{\alpha_t\alpha_{t-1}\alpha_{t-2}\alpha_{t-3}}x_{t-4} + \sqrt{1- \alpha_t\alpha_{t-1}\alpha_{t-2}\alpha_{t-3}}\epsilon \\
+$$$
+
+At the end we can make use of second extra notation and compress all the $$\alpha$$'s to one definition starting at $$x_0$$:
+
+$$$
+q(x_{t}|x_{0}) = \sqrt{\hat\alpha_t}x_{0} + \sqrt{1- \hat\alpha_t}\epsilon = \mathcal{N}(x_{t}, \sqrt{\hat\alpha_t}x_{0}, (1 - \hat\alpha_t)I )
+$$$
+
+With that equation we can calculate noise at any arbitrary step __t__ ($$\hat\alpha_t$$ is known because $$\beta_t$$ is known) without going through the process.
+
+
 ## Reverse diffusion process
 
 As you probably figure it out, the goal of the reverse diffusion process is to convert pure noise into an image. To do that we're going to use some neural network (ignore architecture for now, we'll get into it soon). If you're familiar with GANs (Generative Adversarial Networks) (Fig. 6) we're trying to train something similar to the _generator network_. The only difference is that our network will have an easier job because it doesn't have to do all the work in one step.
@@ -90,7 +135,7 @@ Ok, so why not just use GANs? It took some very smart people a long time to figu
 
 > Learning in this framework involves estimating small perturbations to a diffusion process. __Estimating small perturbations is more tractable__ than explicitly describing the full distribution with a single, non-analytically-normalizable, potential function. Furthermore, since a diffusion process exists for any smooth target distribution, this method can capture data distributions of arbitrary form.
 
-#### Reverse diffusion misconception
+### Reverse diffusion misconception
 
 You've probably head that _"Diffusion probabilistic model is a parameterized Markov Chain"_. That is true but for some reason people have wrong idea about that the __neural network__ does in the diffusion model. In 2020 paper [[2]][ddpm2020] authors are using this graph to describe the process.
 
@@ -117,7 +162,30 @@ Please notice that i've scaled the number of steps from 1000 to 10. This is beca
     <figcaption>Figure 9:: Reverse diffusion process</figcaption>
 </figure>
 
+### Some math (you can skip but probably worth reading)
+The process looks very simple but you probably have some questions like _"where did you get that equation from?"_. First we need to copy the equation for the reverse process from the 2020 paper[[2]][ddpm2020]:
 
+$$$
+p_\theta(x_{0:T}) := p(x_T)\prod_{t=1}^{T}p_\theta(x_{t-1}|x_t)
+$$$
+
+where:
+
+$$$
+p_\theta(x_{t-1}|x_{t}) = \mathcal{N}(x_{t-1}, \mu_\theta(x_t,t), \sum_{\theta}(x_t,t))
+$$$
+
+This might seam complicated but is basically says that $$p_\theta(x_{0:T})$$ (diffusion process) is __chain of gaussian transitions__ starting at $$p(x_T)$$ and __iterating T times__ using equation for one diffusion process step $$p_\theta(x_{t-1}|x_{t})$$.
+
+Now it's time to explain how the single step works and how to get something to implement. $$\mathcal{N}(x_{t-1}, \mu_\theta(x_t,t), \sum_{\theta}(x_t,t))$$ has 2 parts:
+
+- $$\mu_\theta(x_t,t)$$ (mean)
+- $$\sum_{\theta}(x_t,t)$$ which equals $$\sigma_t^2I$$ (variance)
+
+Authors of the 2020 paper decided to set the second part to be __time dependant but not trainable__. It's not set to be constant but rather set to equal $$\beta_TI$$. This is the same beta from the schedule before. Now the only thing that is left is the first part (mean). 
+
+
+[Full diffusion process (gDrive)](https://drive.google.com/file/d/13UCkMZCs_AktbkEAAmJ_jeumuZlGFC0e/view?usp=sharing)
 
 
 ### References:
