@@ -10,6 +10,7 @@ import ImageWithAttention from '../../Diagrams/ImageWithAttention/ImageWithAtten
 import InputPositionEmbeddingSin from '../../Diagrams/InputPositionEmbeddingSin/InputPositionEmbeddingSin';
 import AttentionLayer from '../../Diagrams/AttentionLayer/AttentionLayer';
 import DiffusionDiagrams from '../../Diagrams/DiffusionDiagrams/DiffusionDiagrams';
+import Citation from '../Citation';
 
 type Props = {
   body: string,
@@ -35,17 +36,20 @@ const renderAst = new rehypeReact({
   },
 }).Compiler;
 
-const Content = ({ body, htmlAst, title, date, readTime }: Props) => (
-  <div className={styles['content']}>
-    <h1 className={styles['content__title']}>{title}</h1>
-    <Meta date={date} readTime={readTime} />
-    <div
-      className={styles['content__body']}
-      // dangerouslySetInnerHTML={{ __html: body }}
-    >
-      {renderAst(htmlAst)}
+const Content = ({ body, slug, htmlAst, title, date, readTime }: Props) => {
+  return (
+    <div className={styles['content']}>
+      <h1 className={styles['content__title']}>{title}</h1>
+      <Meta date={date} readTime={readTime} />
+      <div
+        className={styles['content__body']}
+        // dangerouslySetInnerHTML={{ __html: body }}
+      >
+        {renderAst(htmlAst)}
+      </div>
+      <Citation slug={slug} title={title} date={date} />
     </div>
-  </div>
-);
+  );
+};
 
 export default Content;
