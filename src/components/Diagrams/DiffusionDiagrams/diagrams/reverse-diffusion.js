@@ -15,10 +15,10 @@ const bottomRowPosition = 0.8;
 const topRowPosition = 0.1;
 
 const formula1 = katex.renderToString(
-  `x_{t-1} = \\frac{1}{\\sqrt{a_t}} (x_t - \\frac{\\beta_t}{\\sqrt{1-\\hat\\alpha}} \\epsilon_\\theta(x_t,t)) + \\sqrt{\\beta_t}\\epsilon`
+  `x_{t-1} = \\frac{1}{\\sqrt{a_t}} (x_t - \\frac{\\beta_t}{\\sqrt{1-\\bar\\alpha}} \\epsilon_\\theta(x_t,t)) + \\sqrt{\\beta_t}\\epsilon`
 );
 const formula2 = katex.renderToString(
-  `x_{t-1} = \\frac{1}{\\sqrt{a_t}} (x_t - \\frac{\\beta_t}{\\sqrt{1-\\hat\\alpha}} \\epsilon_\\theta(x_t,t))`
+  `x_{t-1} = \\frac{1}{\\sqrt{a_t}} (x_t - \\frac{\\beta_t}{\\sqrt{1-\\bar\\alpha}} \\epsilon_\\theta(x_t,t))`
 );
 
 const descriptionStep2 = `<span style="padding: 0 10px 0 10px">
