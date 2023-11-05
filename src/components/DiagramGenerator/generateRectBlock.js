@@ -16,6 +16,8 @@ export default function generateRectBlock(inputs, svg, id, options) {
   const fontSize = inputs.fontSize || DEFAULT_FONTSIZE;
 
   inputs.items.forEach(d => {
+    const elSizeX = Number.parseInt(d.sizeX, 10) || sizeX;
+    const elSizeY = Number.parseInt(d.sizeY, 10) || sizeY;
     const block = inputBlocks.append('g');
     block
       .append('rect')
@@ -23,8 +25,8 @@ export default function generateRectBlock(inputs, svg, id, options) {
       .attr('stroke-width', 1)
       .attr('stroke', inputs.borderColor)
       .attr('id', options.diagramId + d.id)
-      .attr('width', sizeX)
-      .attr('height', sizeY)
+      .attr('width', elSizeX)
+      .attr('height', elSizeY)
       .attr('x', d.position[0])
       .attr('y', d.position[1])
       .attr('dx', 80);
@@ -35,8 +37,8 @@ export default function generateRectBlock(inputs, svg, id, options) {
 
     if (d.val != null) {
       addHTMLContent(block, d, {
-        width: sizeX,
-        height: sizeY,
+        width: elSizeX,
+        height: elSizeY,
         color: inputs.borderColor,
         fontSize,
         vals: d.valVars,
@@ -50,7 +52,7 @@ export default function generateRectBlock(inputs, svg, id, options) {
         .style('font-size', fontSize)
         .attr('x', d.position[0] + 12)
         .attr('y', d.position[1])
-        .attr('dy', d.namePosition === 'top' ? -sizeY * 0.5 : sizeY * 1.5)
+        .attr('dy', d.namePosition === 'top' ? -elSizeY * 0.5 : elSizeY * 1.5)
         .attr('dx', (-d.name.length * fontSize) / 8)
         .text(d.name);
     }
@@ -61,8 +63,8 @@ export default function generateRectBlock(inputs, svg, id, options) {
     if (d.tooltipValue != null) {
       addTooltip(options.toolTips, block, inputs, d, {
         id,
-        sizeX,
-        sizeY,
+        sizeX: elSizeX,
+        sizeY: elSizeY,
         type: 'rect',
       });
     }
