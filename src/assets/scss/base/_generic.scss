@@ -235,16 +235,16 @@ figure.full-fig-width {
   align-items: center;
 }
 
+.center-all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @include breakpoint-sm {
   .flex-container {
     flex-direction: row;
     align-items: start;
-  }
-
-  .center-all {
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .center-all-lg {

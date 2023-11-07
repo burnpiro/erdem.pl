@@ -10,6 +10,10 @@
   margin-bottom: #{$number * $typographic-leading + 'px'};
 }
 
+@mixin margin-left($number) {
+  margin-left: #{$number * $typographic-leading + 'px'};
+}
+
 @mixin margin($top, $right, $bottom: null, $left: null) {
   @if $left==null and $bottom==null {
     margin: #{$top *

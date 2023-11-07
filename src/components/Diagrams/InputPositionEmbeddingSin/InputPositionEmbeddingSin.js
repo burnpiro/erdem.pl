@@ -7,7 +7,7 @@ import { ACTIONS } from '../../DiagramGenerator/helpers';
 import { steps, animationWidth, animationHeight, defaultItems } from './data';
 
 import styles from './InputPositionEmbeddingSin.module.scss';
-import PositionSliders from './PositionSliders';
+import PositionSliders from '../../DiagramGenerator/PositionSliders';
 
 const POSITION_ACTIONS = {
   ...ACTIONS,

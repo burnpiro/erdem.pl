@@ -30,6 +30,7 @@ const Post = ({ post }: Props) => {
 
       <div className={styles['post__content']}>
         <Content
+          slug={slug}
           body={html}
           htmlAst={htmlAst}
           title={title}
