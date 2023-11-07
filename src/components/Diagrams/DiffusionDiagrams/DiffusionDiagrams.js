@@ -6,10 +6,12 @@ import { ACTIONS } from '../../DiagramGenerator/helpers';
 import PositionSliders from '../../DiagramGenerator/PositionSliders';
 import * as forwardDiffusionData from './diagrams/forward-diffusion';
 import * as reverseDiffusionData from './diagrams/reverse-diffusion';
+import * as diffusionModel from './diagrams/diffusion-model';
 
 const DIAGRAMS = {
   'diffusion/forward_diffusion': forwardDiffusionData,
   'diffusion/reverse_diffusion': reverseDiffusionData,
+  'diffusion/diffusion_model': diffusionModel,
 };
 
 const POSITION_ACTIONS = {

@@ -159,7 +159,7 @@ Please notice that I've scaled the number of steps from 1000 to 10. This is beca
     <div class="center-all" id="reverse-diffusion-diagram">
         <diffusion-diagram src="diffusion/reverse_diffusion"></diffusion-diagram>
     </div>
-    <figcaption>Figure 9:: Reverse diffusion process</figcaption>
+    <figcaption>Figure 9: Reverse diffusion process</figcaption>
 </figure>
 
 ### Some math (you can skip but probably worth reading)
@@ -182,7 +182,7 @@ Now it's time to explain how the single step works and how to get something to i
 - $$\mu_\theta(x_t,t)$$ (mean)
 - $$\sum_{\theta}(x_t,t)$$ which equals $$\sigma_t^2I$$ (variance)
 
-The Authors of the 2020 paper decided to set the second part to be __time dependant but not trainable__. It's not set to be constant but rather set to equal $$\beta_TI$$. This is the same beta from the schedule before. Now the only thing that is left is the first part (mean). To be honest, I'm not the best person to explain what happens next (mostly because I don't consider myself to be a mathematical mid). There are far smarter people and one of them is _Lilian Weng_ who described the hard math of the reverse process [on his blogpost][lilian2021blog] (also check the Appendix A in the 2020 paper [[2]][ddpm2020]). What we need to know from all of this is that
+The Authors of the 2020 paper decided to set the second part to be __time dependant but not trainable__. It's not set to be constant but rather set to equal $$\beta_TI$$. This is the same beta from the schedule before. Now the only thing that is left is the first part (mean). To be honest, I'm not the best person to explain what happens next (mostly because I don't consider myself to be a mathematical mid). There are far smarter people, and one of them is _Lilian Weng_ who described the hard math of the reverse process [on his blogpost][lilian2021blog] (also check the Appendix A in the 2020 paper [[2]][ddpm2020]). What we need to know from all of this is that
 
 $$$
 \mu_\theta(x_t,t) = \frac{1}{\sqrt{\alpha_t}} ( x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}} \epsilon_\theta(x_t, t) )
@@ -228,7 +228,17 @@ First should be obvious when your network predicts the noise that is already qui
 
 ## Architecture
 
-Finally, we can move to discussing the architecture. 
+Finally, we can move to discussing the architecture.
+
+
+<figure>
+    <div class="center-all" id="diffusion-model-architecture">
+        <diffusion-diagram src="diffusion/diffusion_model"></diffusion-diagram>
+    </div>
+    <figcaption>Figure 11: Diffusion model architecture. </figcaption>
+</figure>
+
+For those who like reading pytorch visualizations, [HERE (gDrive)](https://drive.google.com/file/d/1XVwlD8wuTazW2myf4sV-TZF_YkIfwL7z/view?usp=sharing) is a full model (including label embedder).
 
 ### References:
 

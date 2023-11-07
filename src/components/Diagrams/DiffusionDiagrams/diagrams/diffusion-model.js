@@ -26,7 +26,7 @@ const COLORS = {
   downsample: '#005fa3',
   attention: '#e78200',
   upsample: '#00a36a',
-}
+};
 
 const legend = `<span style="font-size: 16px; line-height: 20px">
 <strong>Input</strong><br/>
@@ -52,6 +52,22 @@ Next step is to add information about the current timestep <b>t</b>. To do that 
 
 const descriptionStep4 = `<span style="font-size: 16px; padding: 8px;">
 To make the network conditional (dependent on the external input), we're adding <b>text embedder</b>. It will create embedding for given text and <b>add output vector to the timestep embedding</b>. 
+</span>`;
+
+const descriptionStep5 = `<span style="font-size: 16px; padding: 8px;">
+Detailed exploded view of the ResNet/Conv Block. All blocks are structured in the same way, only tensor shapes are different.
+</span>`;
+
+const descriptionStep6 = `<span style="font-size: 16px; padding: 8px;">
+Detailed exploded view of the Downsample Block. All blocks are structured in the same way, only tensor shapes are different.
+</span>`;
+
+const descriptionStep7 = `<span style="font-size: 16px; padding: 8px;">
+Detailed exploded view of the Upsample Block. All blocks are structured in the same way, only tensor shapes are different.
+</span>`;
+
+const descriptionStep8 = `<span style="font-size: 16px; padding: 8px;">
+Detailed exploded view of the Attention Block. All blocks are structured in the same way, only tensor shapes are different.
 </span>`;
 
 const operation1Desc = `<span>
@@ -1347,7 +1363,14 @@ const step5 = {
   },
   text: {
     ...step4.text,
-    items: [step4.text.items[0], step4.text.items[1]],
+    items: [
+      step4.text.items[0],
+      step4.text.items[1],
+      {
+        ...step4.text.items[2],
+        val: descriptionStep5,
+      },
+    ],
   },
 };
 
@@ -1718,6 +1741,17 @@ const step6 = {
       },
     ],
   },
+  text: {
+    ...step5.text,
+    items: [
+      step5.text.items[0],
+      step5.text.items[1],
+      {
+        ...step5.text.items[2],
+        val: descriptionStep6,
+      },
+    ],
+  },
 };
 
 const step7 = {
@@ -1792,7 +1826,7 @@ const step7 = {
         sizeY: posBoxSize * 11.5,
         position: [
           step4.upsample.items[2].position[0],
-          step4.upsample.items[2].position[1] - posBoxSize ,
+          step4.upsample.items[2].position[1] - posBoxSize,
         ],
       },
     ],
@@ -1803,9 +1837,10 @@ const step7 = {
       {
         id: 'att_out',
         val: `<div style="font-size: 12px; background-color: ${COLORS.attention}; height: 100%; width: 100%"></div>`,
-        tooltipValue: 'Output from the previous block (in this case 5th Self-Attention block)',
+        tooltipValue:
+          'Output from the previous block (in this case 5th Self-Attention block)',
         sizeY: posBoxSize / 2,
-        sizeX: posBoxSize ,
+        sizeX: posBoxSize,
         position: [
           step4.upsample.items[2].position[0] + posBoxSize * 2.5,
           step5.downsample.items[0].position[1] + posBoxSize * 0.5,
@@ -1814,7 +1849,8 @@ const step7 = {
       {
         id: 'maxpool',
         val: '<span style="font-size: 12px">Upsample</span>',
-        tooltipValue: 'Upsample (scale_factor=2, mode="bilinear", align_corners=True)',
+        tooltipValue:
+          'Upsample (scale_factor=2, mode="bilinear", align_corners=True)',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -1830,16 +1866,17 @@ const step7 = {
             to: [
               step4.upsample.items[2].position[0] + posBoxSize * 3,
               step5.downsample.items[0].position[1] + posBoxSize * 1.25,
-            ]
+            ],
           },
-        ]
+        ],
       },
       {
         id: 'skip',
         val: `<div style="font-size: 12px; background-color: ${COLORS.conv}; height: 100%; width: 100%"></div>`,
-        tooltipValue: 'Output from the previous block (in this case 5th Self-Attention block)',
+        tooltipValue:
+          'Output from the previous block (in this case 5th Self-Attention block)',
         sizeY: posBoxSize,
-        sizeX: posBoxSize / 2 ,
+        sizeX: posBoxSize / 2,
         position: [
           step4.upsample.items[2].position[0] + posBoxSize * 0.5,
           step5.downsample.items[0].position[1] + posBoxSize * 2.5,
@@ -1864,26 +1901,26 @@ const step7 = {
             to: [
               step4.upsample.items[2].position[0] + posBoxSize * 3,
               step5.downsample.items[0].position[1] + posBoxSize * 2.25,
-            ]
+            ],
           },
           {
             from: [
-              step4.upsample.items[2].position[0] + posBoxSize ,
+              step4.upsample.items[2].position[0] + posBoxSize,
               step5.downsample.items[0].position[1] + posBoxSize * 3,
             ],
             to: [
               step4.upsample.items[2].position[0] + posBoxSize * 2.25,
               step5.downsample.items[0].position[1] + posBoxSize * 3,
             ],
-            orientation: 'horizontal'
-          }
-        ]
+            orientation: 'horizontal',
+          },
+        ],
       },
       {
         id: 'conv2',
         val: '<span style="font-size: 12px">Conv2d</span>',
         tooltipValue:
-            '2D convolution (in = block_in_size, out = block_out_size, kernel_size=3, padding=1)',
+          '2D convolution (in = block_in_size, out = block_out_size, kernel_size=3, padding=1)',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -1908,7 +1945,7 @@ const step7 = {
         id: 'groupnorm',
         val: '<span style="font-size: 12px">GroupNorm</span>',
         tooltipValue:
-            'Group Normalization (groups = 1, channels = block_out_size)',
+          'Group Normalization (groups = 1, channels = block_out_size)',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -1931,7 +1968,7 @@ const step7 = {
         id: 'conv2_2',
         val: '<span style="font-size: 12px">Conv2d</span>',
         tooltipValue:
-            '2D convolution (in = block_out_size, out = block_out_size, kernel_size=3, padding=1). Yes, in and out has the same num of channels.',
+          '2D convolution (in = block_out_size, out = block_out_size, kernel_size=3, padding=1). Yes, in and out has the same num of channels.',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -1943,7 +1980,7 @@ const step7 = {
         id: 'conv2_3',
         val: '<span style="font-size: 12px">Conv2d</span>',
         tooltipValue:
-            '2D convolution (in = block_in_size, out = block_out_size, kernel_size=3, padding=1)',
+          '2D convolution (in = block_in_size, out = block_out_size, kernel_size=3, padding=1)',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -1968,7 +2005,7 @@ const step7 = {
         id: 'groupnorm_2',
         val: '<span style="font-size: 12px">GroupNorm</span>',
         tooltipValue:
-            'Group Normalization (groups = 1, channels = block_out_size)',
+          'Group Normalization (groups = 1, channels = block_out_size)',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -1991,7 +2028,7 @@ const step7 = {
         id: 'conv2_4',
         val: '<span style="font-size: 12px">Conv2d</span>',
         tooltipValue:
-            '2D convolution (in = block_out_size, out = block_out_size, kernel_size=3, padding=1). Yes, in and out has the same num of channels.',
+          '2D convolution (in = block_out_size, out = block_out_size, kernel_size=3, padding=1). Yes, in and out has the same num of channels.',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -2040,7 +2077,7 @@ const step7 = {
         id: 'linear',
         val: '<span style="font-size: 12px">Linear</span>',
         tooltipValue:
-            'Linear layer (in = embedding vector length, out = block out channels)',
+          'Linear layer (in = embedding vector length, out = block out channels)',
         sizeY: posBoxSize / 2,
         sizeX: posBoxSize * 3,
         position: [
@@ -2052,7 +2089,7 @@ const step7 = {
         id: 'sum',
         val: '<b style="font-size: 16px">+</b>',
         tooltipValue:
-            'Sum transformed embedding vector and output from the 2nd conv block. This is the output from the entire Upsample block',
+          'Sum transformed embedding vector and output from the 2nd conv block. This is the output from the entire Upsample block',
         sizeY: circleR * 2,
         sizeX: circleR * 2,
         position: [
@@ -2096,10 +2133,334 @@ const step7 = {
           },
         ],
       },
-    ]
+    ],
   },
-  test: {
+  text: {
     ...step6.text,
+    items: [
+      step6.text.items[0],
+      step6.text.items[1],
+      {
+        ...step6.text.items[2],
+        val: descriptionStep7,
+      },
+    ],
+  },
+};
+
+const step8 = {
+  ...step4,
+  conv: {
+    ...step7.conv,
+  },
+  attention: {
+    ...step4.attention,
+    items: [
+      step4.attention.items[0],
+      step4.attention.items[1],
+      step4.attention.items[2],
+      step4.attention.items[3],
+      step4.attention.items[4],
+      {
+        ...step4.attention.items[5],
+        sizeX: posBoxSize * 9,
+        sizeY: posBoxSize * 12,
+      },
+    ],
+  },
+  doubleconvblock: {
+    ...step5.doubleconvblock,
+    items: [
+      {
+        id: 'att_out',
+        val: `<div style="font-size: 12px; background-color: ${COLORS.upsample}; height: 100%; width: 100%"></div>`,
+        tooltipValue:
+          'Output from the previous block (in this case 3rd upsample)',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 5.5,
+          step5.downsample.items[0].position[1] + posBoxSize * 0.5,
+        ],
+      },
+      {
+        id: 'reshape',
+        val: '<span style="font-size: 12px">reshape</span>',
+        tooltipValue:
+          'Reshape tensor (64,64,64) to (4096, 64)<br/> (in_size x in_size, channels) ',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 4.5,
+          step5.downsample.items[0].position[1] + posBoxSize,
+        ],
+      },
+      {
+        id: 'norm_1',
+        val: '<span style="font-size: 12px">LayerNorm</span>',
+        tooltipValue: 'Layer Normalization <br/> with norm shape = [64]',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 4.5,
+          step5.downsample.items[0].position[1] + posBoxSize * 2,
+        ],
+        lines: [
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 6,
+              step5.downsample.items[0].position[1] + posBoxSize * 1.5,
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 6,
+              step5.downsample.items[0].position[1] + posBoxSize * 1.75,
+            ],
+            orientation: 'vertical',
+          },
+        ],
+      },
+      {
+        id: 'mha',
+        val:
+          '<span style="padding-bottom: 38px;font-size: 16px">Multi-Head Attention</span>',
+        tooltipValue: 'Multi-Head Attention (embed_dim = 64, num_heads = 4)',
+        sizeY: posBoxSize * 3,
+        sizeX: posBoxSize * 6,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 2,
+          step5.downsample.items[0].position[1] + posBoxSize * 3,
+        ],
+        lines: [
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 6,
+              step5.downsample.items[0].position[1] + posBoxSize * 2.5,
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 6,
+              step5.downsample.items[0].position[1] + posBoxSize * 2.75,
+            ],
+            orientation: 'vertical',
+          },
+        ],
+      },
+      {
+        id: 'ath_1',
+        val: '<span style="font-size: 12px; line-height: 14px">AH</span>',
+        tooltipValue: 'Attention Head (embed_dim = 64)',
+        sizeY: posBoxSize,
+        sizeX: posBoxSize,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 2.25,
+          step5.downsample.items[0].position[1] + posBoxSize * 4.5,
+        ],
+      },
+      {
+        id: 'ath_2',
+        val: '<span style="font-size: 12px; line-height: 14px">AH</span>',
+        tooltipValue: 'Attention Head (embed_dim = 64)',
+        sizeY: posBoxSize,
+        sizeX: posBoxSize,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 3.75,
+          step5.downsample.items[0].position[1] + posBoxSize * 4.5,
+        ],
+      },
+      {
+        id: 'ath_3',
+        val: '<span style="font-size: 12px; line-height: 14px">AH</span>',
+        tooltipValue: 'Attention Head (embed_dim = 64)',
+        sizeY: posBoxSize,
+        sizeX: posBoxSize,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 5.25,
+          step5.downsample.items[0].position[1] + posBoxSize * 4.5,
+        ],
+      },
+      {
+        id: 'ath_4',
+        val: '<span style="font-size: 12px; line-height: 14px">AH</span>',
+        tooltipValue: 'Attention Head (embed_dim = 64)',
+        sizeY: posBoxSize,
+        sizeX: posBoxSize,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 6.75,
+          step5.downsample.items[0].position[1] + posBoxSize * 4.5,
+        ],
+      },
+      {
+        id: 'add_1',
+        val: '<span style="font-size: 20px; font-weight: bold">+</span>',
+        tooltipValue:
+          'Add attention output to resized input (shape (4096, 64))',
+        sizeY: posBoxSize,
+        sizeX: posBoxSize,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 8.5,
+          step5.downsample.items[0].position[1] + posBoxSize * 6.5,
+        ],
+        lines: [
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 7.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 1.25,
+            ],
+            points: [
+              [
+                step4.upsample.items[2].position[0] + posBoxSize * 9,
+                step5.downsample.items[0].position[1] + posBoxSize * 1.25,
+              ],
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 9,
+              step5.downsample.items[0].position[1] + posBoxSize * 6.25,
+            ],
+            orientation: 'multi-squared',
+          },
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 5.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 6,
+            ],
+            points: [
+              [
+                step4.upsample.items[2].position[0] + posBoxSize * 5.5,
+                step5.downsample.items[0].position[1] + posBoxSize * 7,
+              ],
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 8.25,
+              step5.downsample.items[0].position[1] + posBoxSize * 7,
+            ],
+            orientation: 'multi-squared',
+          },
+        ],
+      },
+      {
+        id: 'norm_2',
+        val: '<span style="font-size: 12px">LayerNorm</span>',
+        tooltipValue: 'Layer Normalization <br/> with norm shape = [64]',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 7,
+          step5.downsample.items[0].position[1] + posBoxSize * 8,
+        ],
+        lines: [
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 9,
+              step5.downsample.items[0].position[1] + posBoxSize * 7.5,
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 9,
+              step5.downsample.items[0].position[1] + posBoxSize * 7.75,
+            ],
+            orientation: 'vertical',
+          },
+        ],
+      },
+      {
+        id: 'lin_1',
+        val: '<span style="font-size: 12px">Linear</span>',
+        tooltipValue: 'Linear (in=64, out=64)',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 7,
+          step5.downsample.items[0].position[1] + posBoxSize * 8.5,
+        ],
+      },
+      {
+        id: 'GELU',
+        val: '<span style="font-size: 12px">GELU</span>',
+        tooltipValue: 'Gaussian Error Linear Units',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 7,
+          step5.downsample.items[0].position[1] + posBoxSize * 9,
+        ],
+      },
+      {
+        id: 'lin_2',
+        val: '<span style="font-size: 12px">Linear</span>',
+        tooltipValue: 'Linear (in=64, out=64)',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 7,
+          step5.downsample.items[0].position[1] + posBoxSize * 9.5,
+        ],
+      },
+      {
+        id: 'add_2',
+        val: '<span style="font-size: 20px; font-weight: bold">+</span>',
+        tooltipValue: 'Add attention output to output from last linear layer',
+        sizeY: posBoxSize,
+        sizeX: posBoxSize,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 5,
+          step5.downsample.items[0].position[1] + posBoxSize * 9.5,
+        ],
+        lines: [
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 7,
+              step5.downsample.items[0].position[1] + posBoxSize * 9.75,
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 6.25,
+              step5.downsample.items[0].position[1] + posBoxSize * 9.75,
+            ],
+          },
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 5.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 6,
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 5.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 9.25,
+            ],
+          },
+        ],
+      },
+      {
+        id: 'reshape',
+        val: '<span style="font-size: 12px">reshape</span>',
+        tooltipValue: 'Reshape tensor (4096, 64) to (64, 64, 64)',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 4,
+          step5.downsample.items[0].position[1] + posBoxSize * 11,
+        ],
+        lines: [
+          {
+            from: [
+              step4.upsample.items[2].position[0] + posBoxSize * 5.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 10.5,
+            ],
+            to: [
+              step4.upsample.items[2].position[0] + posBoxSize * 5.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 10.75,
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  text: {
+    ...step7.text,
+    items: [
+      step7.text.items[0],
+      step7.text.items[1],
+      {
+        ...step7.text.items[2],
+        val: descriptionStep8,
+      },
+    ],
   },
 };
 
@@ -2111,6 +2472,7 @@ const steps = {
   step5,
   step6,
   step7,
+  step8,
 };
 
 export { steps, animationWidth, animationHeight };
