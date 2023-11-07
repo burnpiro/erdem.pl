@@ -70,7 +70,14 @@ function DiagramGenerator({
       setCurrId(id);
     }
   }, [id]);
-  const windowSize = useWindowSize();
+  // Add option for server rendering
+  const windowSize =
+    typeof window !== 'undefined'
+      ? useWindowSize()
+      : {
+          width: 1920,
+          height: 1000,
+        };
   const ref = useD3(
     svg => {
       if (diagramId === '') {

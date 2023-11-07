@@ -36,6 +36,42 @@ exports[`Post renders correctly 1`] = `
       >
         <div />
       </div>
+      <div
+        className="citation"
+      >
+        <h3>
+          Citation
+        </h3>
+        <blockquote
+          className="citation__text"
+        >
+          Test name, (Sep 2016). "test". 
+          <a
+            href="http://localhost/2020/02/understanding-region-of-interest-ro-i-pooling"
+          >
+            http://localhost/2020/02/understanding-region-of-interest-ro-i-pooling
+          </a>
+        </blockquote>
+        <b>
+          or
+        </b>
+        <pre
+          className="citation__code"
+          data-language="javascript"
+        >
+          <code>
+            @article{erdem2016understandingRegionOfInterestRoIPooling,
+    title   = "test",
+    author  = "Test name",
+    journal = "http://localhost",
+    year    = "2016",
+    month   = "Sep",
+    url     = "http://localhost/2020/02/understanding-region-of-interest-ro-i-pooling"
+}
+
+          </code>
+        </pre>
+      </div>
     </div>
   </div>
   <div
