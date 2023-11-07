@@ -21,7 +21,7 @@ describe('Post', () => {
       html: '<p>test</p>',
       htmlAst: { children: [], data: { quirksMode: false }, type: 'root' },
       fields: {
-        slug: '/test',
+        slug: '/2020/02/understanding-region-of-interest-ro-i-pooling',
         categorySlug: '/test-category',
         tagSlugs: ['/test_0', '/test_1'],
       },
