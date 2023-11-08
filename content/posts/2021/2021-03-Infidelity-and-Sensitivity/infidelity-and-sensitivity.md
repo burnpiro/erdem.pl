@@ -10,6 +10,7 @@ tags:
 - 'Metrics'
 - 'Interpretability' 
 description: 'The intuition behind Infidelity and Sensitivity metrics for XAI methods.'
+img: sens-changed.png
 ---
 
 Explainable Artificial Intelligence (__XAI__) is getting more and more popular every year. Also every year we have more methods that aim to explain how our models work. The only problem with most of those approaches is comparison.

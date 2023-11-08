@@ -9,6 +9,7 @@ tags:
   - 'MachineLearning'
   - 'Data Analysis'
 description: 'How to preprocess data for the ML competitions? Example based on DengAI.'
+img: main.jpg
 ---
 
 <figure class="image">

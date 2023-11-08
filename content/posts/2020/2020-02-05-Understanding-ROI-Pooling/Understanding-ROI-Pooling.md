@@ -10,6 +10,7 @@ tags:
   - 'AI'
   - 'Neural Networks'
 description: 'Quick and easy explanation what is RoI Pooling and how it works? Why do we event using it in Fast R-CNNs? Can we use sth better instead?'
+img: ROI-pooling.gif
 ---
 
 <figure class="image">

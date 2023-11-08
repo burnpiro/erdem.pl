@@ -10,6 +10,7 @@ tags:
   - 'AI'
   - 'Neural Networks'
 description: 'A visual explanation of how RoI Align works and why is it better than standard RoI Pooling?'
+img: roi-align.gif
 ---
 
 <figure class="image">

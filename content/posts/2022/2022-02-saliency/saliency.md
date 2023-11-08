@@ -9,6 +9,7 @@ tags:
 - 'XAI'
 - 'Interpretability'
 description: 'What is Saliency? How it works and why the name confuses people?'
+img: pug-saliency.png
 ---
 
 ## What is Saliency and why the same is confusing?

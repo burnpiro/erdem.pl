@@ -10,6 +10,7 @@ tags:
 - 'Positional Encoding'
 - 'How To' 
 description: 'Visualization of Positional Encoding method from Transformer models.'
+img: encoding.png
 ---
 
 ## What is positional encoding?

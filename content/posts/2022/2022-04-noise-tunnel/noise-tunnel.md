@@ -9,6 +9,7 @@ tags:
 - 'XAI'
 - 'Interpretability'
 description: "What is the Noise Tunnel? How it can improve XAI methods accuracy? What is its major drawback?"
+img: noise_tunnel_options.png
 ---
 
 ## What is the Noise Tunnel?

@@ -9,6 +9,7 @@ tags:
   - 'XAI'
   - 'Interpretability'
 description: 'Introduction to Guided Backpropagation interpretability method.'
+img: 1-4-0-rotation-30-Weimaraner-Weimaraner-gbp.png
 ---
 
 ## What is Guided Backpropagation?

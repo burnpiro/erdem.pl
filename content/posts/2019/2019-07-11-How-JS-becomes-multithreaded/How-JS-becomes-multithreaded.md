@@ -9,6 +9,7 @@ tags:
   - 'Javascript'
   - 'Web Workers'
 description: "How we can perform costly operations on our server or user's browser? Multi threading in JavaScript comes to rescue!"
+img: strings-ww.png
 ---
 
 > This is advance staff, you don't really need it to be great developer, so don't be bothered if you don't get everything at the beginning. Reading this makes you more aware than maybe 90% of all JS devs :) 

@@ -10,6 +10,7 @@ tags:
   - 'Performance'
   - 'Internals'
 description: 'JSON.parse is a slow way to create copy of object. But can it actually improve performance of our code?'
+img: ic.png
 ---
 
 > This post requires a basic knowledge about Shapes and Inline Cache. If you didn't read [V8 function optimization](/2019/08/v-8-function-optimization), it might be difficult to follow this one.

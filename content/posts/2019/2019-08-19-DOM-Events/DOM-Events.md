@@ -9,6 +9,7 @@ tags:
   - 'Javascript'
   - 'Events'
 description: 'How Events are propagating through DOM elements? Is there a way to use it to our advantage?'
+img: data-bubble.gif
 ---
 
 ### What are Events?

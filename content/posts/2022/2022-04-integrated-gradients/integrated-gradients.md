@@ -9,6 +9,7 @@ tags:
 - 'XAI'
 - 'Interpretability'
 description: 'Dive into Integrated Gradients method. How the values are calculated? What are the different baselines?'
+img: ig-saint_bernard.png
 ---
 
 ## What is Integrated Gradients method?

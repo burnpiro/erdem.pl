@@ -9,6 +9,7 @@ tags:
   - 'Machine Learning'
   - 'Data Science'
 description: 'Dimensionality reduction using T-SNE'
+img: loose-full-dist.png
 ---
 
 ## What is **t-SNE**?

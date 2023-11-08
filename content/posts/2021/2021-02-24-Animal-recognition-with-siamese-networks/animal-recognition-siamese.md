@@ -11,6 +11,7 @@ tags:
   - 'Recognition'
   - 'Detection'
 description: 'Is Siamese Network a reliable solution for animal recognition? How Mean Embeddings can help with a few shot "learning"? Are we able to beat standard classification methods?'
+img: out.png
 ---
 
 When hearing about [Siamese Networks][1] you probably think about "Face Recognition". That's the most common use of those types of networks. We were trying to do sth else, recognize animals based only on top-view camera footage.

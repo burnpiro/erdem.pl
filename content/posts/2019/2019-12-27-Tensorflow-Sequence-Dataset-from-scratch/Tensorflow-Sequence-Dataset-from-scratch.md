@@ -10,6 +10,7 @@ tags:
   - 'AI'
   - 'Data'
 description: 'How to create your own Dataset for Tensorflow model training by extending Sequence class?'
+img: dataset.png
 ---
 
 <figure class="image">
