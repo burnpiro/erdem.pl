@@ -10,6 +10,7 @@ tags:
   - 'Performance'
   - 'React'
 description: 'How React is able to execute so fast and still remain flexible for a developer?'
+img: react-tree.png
 ---
 
 > This post requires a basic knowledge about Shapes and Inline Cache. If you didn't read [V8 function optimization](/2019/08/v-8-function-optimization), it might be difficult to follow this one.

@@ -9,6 +9,7 @@ tags:
 - 'XAI'
 - 'Interpretability'
 description: 'Improved GradCAM XAI method. Why is it better than the original? How does the "Guiding" part works?'
+img: guided-gradcam.png
 ---
 
 ## What is Guided GradCAM method?

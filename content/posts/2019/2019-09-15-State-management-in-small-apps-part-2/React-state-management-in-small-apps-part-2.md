@@ -9,6 +9,7 @@ tags:
   - 'React'
   - 'State'
 description: 'How to manage state without any external libraries in React - Part 2? Simplifying your reducers and application logic.'
+img: reorder-reducers.png
 ---
 
 > It might be beneficial to have CodeSandbox editor opened when reading this blog post.

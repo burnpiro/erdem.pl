@@ -9,6 +9,7 @@ tags:
 - 'XAI'
 - 'Interpretability'
 description: 'What are XAI methods? Interpretability vs Explainability. Taxonomy of the model interpretability. What are the Attribution Methods?'
+img: featured-image.png
 ---
 
 <figure class="full-fig-width">

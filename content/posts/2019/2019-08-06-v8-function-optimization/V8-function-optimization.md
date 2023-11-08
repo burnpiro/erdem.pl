@@ -10,6 +10,7 @@ tags:
   - 'Performance'
   - 'Internals'
 description: 'JS engines are complicated piece of software. I want to quickly explain one of the optimization techniques V8 is using to speed up your code execution.'
+img: shape-transition.png
 ---
 
 ## Setup (optional)

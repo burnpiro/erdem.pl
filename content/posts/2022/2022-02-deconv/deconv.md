@@ -9,6 +9,7 @@ tags:
 - 'XAI'
 - 'Interpretability'
 description: 'What is Deconvolution? How it is using CNN structure to make for interpretability?'
+img: deconv-black-and-tan-coonhound.png
 ---
 
 ## What is Deconvolution?

@@ -9,6 +9,7 @@ tags:
   - 'MachineLearning'
   - 'Data Analysis'
 description: 'Step by step explanation on how to deal with Kaggle like competitions. What are the things we should focus on and what should be ignored?'
+img: main.jpg
 ---
 
 <figure class="image">

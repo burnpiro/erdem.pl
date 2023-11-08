@@ -10,6 +10,7 @@ tags:
   - 'MachineLearning'
   - 'Performance'
 description: 'Improving performance of running Tensorflow models in web applications.'
+img: tensorflow-webworker5.png
 ---
 
 ## The issue

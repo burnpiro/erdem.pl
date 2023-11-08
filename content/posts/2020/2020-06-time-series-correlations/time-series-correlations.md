@@ -9,6 +9,7 @@ tags:
   - 'MachineLearning'
   - 'Data Analysis'
 description: 'How to find a correlation between different length of time series vector and predicted result.'
+img: cor.png
 ---
 
 ![Extender PPS](./cor.png)

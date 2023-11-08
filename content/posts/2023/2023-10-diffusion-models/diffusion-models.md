@@ -8,6 +8,7 @@ tags:
   - 'Machine Learning'
   - 'Diffusion Models'
 description: 'How the diffusion models works under the hood? Visual guide to diffusion process and model architecture.'
+img: title_img.png
 ---
 
 ## What is a diffusion model?

@@ -9,6 +9,7 @@ tags:
   - 'Neural Networks'
   - 'MachineLearning'
 description: 'Not so quick introduction about what is ELM. Is it really an innovation or just an iteration?'
+img: shfn.svg
 ---
 
 ## What is ELM?

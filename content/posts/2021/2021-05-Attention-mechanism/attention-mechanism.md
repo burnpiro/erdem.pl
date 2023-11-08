@@ -10,6 +10,7 @@ tags:
   - 'Attention'
   - 'How To'
 description: 'How Attention was created? Why does it work and why it is one of the most important things in ML right now?'
+img: cnn-second-timestep.png
 ---
 
 The attention mechanism is one of the most important inventions in Machine Learning, at this moment (2021) it's used to achieve impressive results in almost every field of ML, and today I want to explain where it came from and how it works.
