@@ -10,12 +10,18 @@ type Props = {
   title: string,
   description?: string,
   displayCookie?: boolean,
+  siteURL?: string,
+  image?: {
+    publicURL: string,
+  },
 };
 
 const Layout = ({
   children,
   title,
   description,
+  siteURL,
+  image,
   displayCookie = true,
 }: Props) => (
   <React.Fragment>
@@ -27,6 +33,8 @@ const Layout = ({
         <meta property="og:site_name" content={title} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={title} />
+        <meta name="og:description" content={description} />
+        {image ? <meta property="og:image" content={siteURL + image.publicURL} /> : ''}
       </Helmet>
       {children}
     </div>
