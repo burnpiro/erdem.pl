@@ -47,11 +47,11 @@ To prevent information lose, we're adding <b>skip connections to the upsampling 
 </span>`;
 
 const descriptionStep3 = `<span style="font-size: 16px; padding: 8px;">
-Next step is to add information about the current timestep <b>t</b>. To do that we're using <b>sinusoidal embedding</b> and that information is added to <b>all downsample and upsample</b> blocks.
+The next step is to add information about the current timestep <b>t</b>. To do that we're using <b>sinusoidal embedding</b> and that information is added to <b>all downsample and upsample</b> blocks.
 </span>`;
 
 const descriptionStep4 = `<span style="font-size: 16px; padding: 8px;">
-To make the network conditional (dependent on the external input), we're adding <b>text embedder</b>. It will create embedding for given text and <b>add output vector to the timestep embedding</b>. 
+To make the network conditional (dependent on the external input), we're adding a <b>text embedder</b>. It will create embedding for given text and <b>add output vector to the timestep embedding</b>. 
 </span>`;
 
 const descriptionStep5 = `<span style="font-size: 16px; padding: 8px;">
@@ -105,7 +105,7 @@ const defaultStep = {
         id: 'in',
         tooltipValue: `
           <span>
-            Input layer out: (3, 64, 64)
+            Input: (3, 64, 64)
           </span>
         `,
         sizeY: posBoxSize * 8,
@@ -1874,7 +1874,7 @@ const step7 = {
         id: 'skip',
         val: `<div style="font-size: 12px; background-color: ${COLORS.conv}; height: 100%; width: 100%"></div>`,
         tooltipValue:
-          'Output from the previous block (in this case 5th Self-Attention block)',
+          'Output from residual connection block (in this case 1st ResNet block)',
         sizeY: posBoxSize,
         sizeX: posBoxSize / 2,
         position: [
@@ -1977,6 +1977,18 @@ const step7 = {
         ],
       },
       {
+        id: 'groupnorm_2',
+        val: '<span style="font-size: 12px">GroupNorm</span>',
+        tooltipValue:
+            'Group Normalization (groups = 1, channels = block_out_size)',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 1.5,
+          step5.downsample.items[0].position[1] + posBoxSize * 6.5,
+        ],
+      },
+      {
         id: 'conv2_3',
         val: '<span style="font-size: 12px">Conv2d</span>',
         tooltipValue:
@@ -1991,18 +2003,18 @@ const step7 = {
           {
             from: [
               step4.upsample.items[2].position[0] + posBoxSize * 3,
-              step5.downsample.items[0].position[1] + posBoxSize * 6.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 7,
             ],
             to: [
               step4.upsample.items[2].position[0] + posBoxSize * 3,
-              step5.downsample.items[0].position[1] + posBoxSize * 7.26,
+              step5.downsample.items[0].position[1] + posBoxSize * 7.25,
             ],
             orientation: 'vertical',
           },
         ],
       },
       {
-        id: 'groupnorm_2',
+        id: 'groupnorm_3',
         val: '<span style="font-size: 12px">GroupNorm</span>',
         tooltipValue:
           'Group Normalization (groups = 1, channels = block_out_size)',
@@ -2034,6 +2046,18 @@ const step7 = {
         position: [
           step4.upsample.items[2].position[0] + posBoxSize * 1.5,
           step5.downsample.items[0].position[1] + posBoxSize * 9,
+        ],
+      },
+      {
+        id: 'groupnorm_4',
+        val: '<span style="font-size: 12px">GroupNorm</span>',
+        tooltipValue:
+            'Group Normalization (groups = 1, channels = block_out_size)',
+        sizeY: posBoxSize / 2,
+        sizeX: posBoxSize * 3,
+        position: [
+          step4.upsample.items[2].position[0] + posBoxSize * 1.5,
+          step5.downsample.items[0].position[1] + posBoxSize * 9.5,
         ],
       },
 
@@ -2094,23 +2118,23 @@ const step7 = {
         sizeX: circleR * 2,
         position: [
           step4.upsample.items[2].position[0] + posBoxSize * 4.25,
-          step5.downsample.items[0].position[1] + posBoxSize * 10,
+          step5.downsample.items[0].position[1] + posBoxSize * 10.5,
         ],
         lines: [
           {
             from: [
               step4.upsample.items[2].position[0] + posBoxSize * 3,
-              step5.downsample.items[0].position[1] + posBoxSize * 9.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 10,
             ],
             points: [
               [
                 step4.upsample.items[2].position[0] + posBoxSize * 3,
-                step5.downsample.items[0].position[1] + posBoxSize * 10.5,
+                step5.downsample.items[0].position[1] + posBoxSize * 11,
               ],
             ],
             to: [
               step4.upsample.items[2].position[0] + posBoxSize * 4,
-              step5.downsample.items[0].position[1] + posBoxSize * 10.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 11,
             ],
             orientation: 'multi-squared',
           },
@@ -2122,12 +2146,12 @@ const step7 = {
             points: [
               [
                 step4.upsample.items[2].position[0] + posBoxSize * 7,
-                step5.downsample.items[0].position[1] + posBoxSize * 10.5,
+                step5.downsample.items[0].position[1] + posBoxSize * 11,
               ],
             ],
             to: [
               step4.upsample.items[2].position[0] + posBoxSize * 5.25,
-              step5.downsample.items[0].position[1] + posBoxSize * 10.5,
+              step5.downsample.items[0].position[1] + posBoxSize * 11,
             ],
             orientation: 'multi-squared',
           },
