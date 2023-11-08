@@ -73,7 +73,7 @@
     "gatsby-source-filesystem": "^2.1.43",
     "gatsby-transformer-remark": "^2.7.1",
     "gatsby-transformer-sharp": "^2.3.9",
-    "katex": "^0.10.2",
+    "katex": "^0.16.9",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.0",
     "normalize-scss": "^7.0.1",

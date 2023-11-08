@@ -23,13 +23,13 @@ const formula2 = katex.renderToString(
 
 const descriptionStep2 = `<span style="padding: 0 10px 0 10px">
 <strong>Notice!</strong><br/>
-Output of the model is an <b>entire noise</b> that model predicted to be removed from the input. This noise is later scaled base on schedule to be subtracted from the input.
+Output of the model is an <b>entire noise</b> that the model predicted to be removed from the input. This noise is later scaled based on the schedule to be subtracted from the input.
 </span>
 `;
 
 const descriptionStep3 = `<span style="padding: 0 10px 0 10px">
 Take <b>part of the predicted noise</b> and subtract it from the input. Subtraction amount is defined by the schedule. 
-First step subtracts only small part of the predicted noise, later steps subtract more and more of the predicted noise.
+The first step subtracts only a small part of the predicted noise, later steps subtract more and more of the predicted noise.
 </span>
 `;
 
@@ -39,7 +39,7 @@ Output from the <b>t</b> timestep becomes an input in <b>t-1</b>.
 `;
 
 const descriptionStep6 = `<span style="padding: 0 10px 0 10px">
-Generate entire noise once again, <b>this time take more of that noise and subtract it</b> from the input (because beta increases).
+Generate the entire noise once again, <b>this time take more of that noise and subtract it</b> from the input (because beta increases).
 
 </span>
 `;
