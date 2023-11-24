@@ -1,0 +1,30 @@
+.resumeButton {
+  line-height: 1.375em;
+  padding: 8px 20px;
+  background: #ffffff;
+  border: 2px solid #d9d9d9;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.4s;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 18px;
+
+  &:hover {
+    opacity: 0.8;
+    box-shadow: 0 4px 12px -12px rgba(0, 0, 0, 0.42), 0 4px 12px 0px rgba(0, 0, 0, 0.12), 0 8px 5px -5px rgba(0, 0, 0, 0.2);
+  }
+
+  img {
+    max-height: 100%;
+  }
+
+  span {
+    text-transform: uppercase;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+}

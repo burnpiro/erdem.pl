@@ -15,6 +15,7 @@ exports[`Page renders correctly 1`] = `
     <div
       className="page__body"
     >
+      
       test
     </div>
   </div>

@@ -15,7 +15,6 @@ type Props = {
 
 const PageTemplate = ({ data }: Props) => {
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-  const { html: pageBody } = data.markdownRemark;
   const {
     frontmatter: { title: pageTitle },
   } = data.markdownRemark;
@@ -24,9 +23,7 @@ const PageTemplate = ({ data }: Props) => {
   return (
     <Layout title={`${pageTitle} - ${siteTitle}`} description={metaDescription}>
       <Sidebar />
-      <Page title={pageTitle}>
-        <div dangerouslySetInnerHTML={{ __html: pageBody }} />
-      </Page>
+      <Page title={pageTitle}  page={data.markdownRemark} />
     </Layout>
   );
 };
@@ -42,6 +39,7 @@ export const query = graphql`
         title
       }
       html
+      htmlAst
     }
   }
 `;
