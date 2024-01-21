@@ -86,7 +86,52 @@ $$
 q(x_{1:T}|x_0) := \prod_{t=1}^{T}q(x_t|x_{t-1})
 $$
 
-The paper describes the whole transition very poorly (maybe because the authors are just doing that kind of math in their heads). We're going to do it manually. First, we need to apply the reparameterization trick ($$\mathcal{N}(\mu, \sigma^2) = \mu + \sigma *\epsilon$$) on a single forward step definition.
+The paper describes the whole transition very poorly (maybe because the authors are just doing that kind of math in their heads). We're going to do it manually. If you think about the diffusion process, it works like a __function composition__.
+
+$$
+q_{t}(q_{t-1}(q_{t-2}(q_{t-3}(\cdots q_{1}(x_{0})))))
+$$
+
+If we now want to write the normal distribution formula for __t=1__ it will look like
+
+$$
+q(x_{1}|x_{0}) = \mathcal{N}(x_{1}, \sqrt{1 - \beta_1}x_{0}, \beta_1I ) \\
+$$
+
+Then in the next step the formula uses the result from the __t=1__ step:
+
+$$
+q(x_{2}|x_{1}) = \mathcal{N}(x_{2}, \sqrt{1 - \beta_2}x_{1}, \beta_2I ) \\
+$$
+
+We can see that only __mean__ is dependent on the previous step ($\beta$ is known for every __t__, so we don't have to worry about variance). Authors introduced some notation:
+
+- $$\alpha_t = 1 - \beta_t$$
+- $$\bar\alpha_t := \prod_{s=1}^{t} a_s$$
+
+This notation is only for the ease of transformation. Now our formula looks like this:
+
+$$
+q(x_{1}|x_{0}) = \mathcal{N}(x_{1}, \sqrt{\alpha_1}x_{0}, (1- \alpha_1)I ) \\
+$$
+
+Because we know how the __mean__ is changing through the steps:
+
+$$
+\mu_{t} = \sqrt{\alpha_t}x_{t-1} \\
+= \sqrt{\alpha_t} * \sqrt{\alpha_{t-1}}x_{t-2} = \sqrt{\alpha_t\alpha_{t-1}}x_{t-2}\\
+= \sqrt{\alpha_t\alpha_{t-1}} * \sqrt{\alpha_{t-2}}x_{t-3} = \sqrt{\alpha_t\alpha_{t-1}\alpha_{t-2}}x_{t-3} \\
+= \sqrt{\alpha_t\alpha_{t-1}\alpha_{t-2}\cdots} *\sqrt{\alpha_{1}}x_{0} = \sqrt{\alpha_t\alpha_{t-1}\alpha_{t-2} \cdots \alpha_{1}}x_{0} \\
+= \sqrt{\bar\alpha_t}x_{0}
+$$
+
+If we know how to calculate mean for the entire process between __t=0__ and __t__ we can finally write down the entire formula:
+
+$$
+q(x_{t}|x_{0}) = \mathcal{N}(x_{t}, \sqrt{\bar\alpha_t}x_{0}, (1 - \bar\alpha_t)I )
+$$
+
+Everything is great but that is not computable. First, we need to apply the reparameterization trick ($$\mathcal{N}(\mu, \sigma^2) = \mu + \sigma *\epsilon$$) on a single forward step definition.
 
 $$
 q(x_{t}|x_{t-1}) = \mathcal{N}(x_{t}, \sqrt{1 - \beta_t}x_{t-1}, \beta_tI ) \\
@@ -95,30 +140,10 @@ $$
 
 - $$\epsilon$$ is from $$\mathcal{N}(0,1)$$
 
-Now authors introduced some notation:
-
-- $$\alpha_t = 1 - \beta_t$$
-- $$\bar\alpha_t := \prod_{s=1}^{t} a_s$$
-
-This notation is only for the ease of transformation. Now our function looks like this:
+Because we know what is the formula for __t=1..T__, we could use this trick to get the computable equation
 
 $$
-q(x_{t}|x_{t-1}) = \sqrt{\alpha_t}x_{t-1} + \sqrt{1- \alpha_t}\epsilon
-$$
-
-And we can extend it to previous timesteps:
-
-$$
-q(x_{t}|x_{t-1}) = \sqrt{\alpha_t}x_{t-1} + \sqrt{1- \alpha_t}\epsilon \\
-= \sqrt{\alpha_t\alpha_{t-1}}x_{t-2} + \sqrt{1- \alpha_t\alpha_{t-1}}\epsilon \\
-= \sqrt{\alpha_t\alpha_{t-1}\alpha_{t-2}}x_{t-3} + \sqrt{1- \alpha_t\alpha_{t-1}\alpha_{t-2}}\epsilon \\
-= \sqrt{\alpha_t\alpha_{t-1}\alpha_{t-2}\alpha_{t-3}}x_{t-4} + \sqrt{1- \alpha_t\alpha_{t-1}\alpha_{t-2}\alpha_{t-3}}\epsilon \\
-$$
-
-In the end, we can make use of the second extra notation and compress all the $$\alpha$$'s to one definition starting at $$x_0$$:
-
-$$
-q(x_{t}|x_{0}) = \sqrt{\bar\alpha_t}x_{0} + \sqrt{1- \bar\alpha_t}\epsilon = \mathcal{N}(x_{t}, \sqrt{\bar\alpha_t}x_{0}, (1 - \bar\alpha_t)I )
+q(x_{t}|x_{0}) = \mathcal{N}(x_{t}, \sqrt{\bar\alpha_t}x_{0}, (1 - \bar\alpha_t)I ) = \sqrt{\bar\alpha_t}x_{0} + \sqrt{1- \bar\alpha_t}\epsilon
 $$
 
 With that equation, we can calculate noise at any arbitrary step **t** ($$\bar\alpha_t$$ is known because $$\beta_t$$ is known) without going through the process.
