@@ -25,7 +25,6 @@ const Sidebar = ({ isIndex, slim }: Props) => {
       <div className={styles['sidebar__inner']}>
         <Author author={author} isIndex={isIndex} showBio={!slim} />
         <Menu menu={menu} />
-        <ResumeButton iconPlacement={'right'} type={'link'} title={"Resume"}/>
         <Contacts contacts={author.contacts} slim={slim} />
         <Copyright copyright={copyright} />
       </div>

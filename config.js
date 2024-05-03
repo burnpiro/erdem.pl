@@ -30,7 +30,7 @@ module.exports = {
       email: 'kemalpiro@gmail.com',
       twitter: 'burnpiro',
       github: 'burnpiro',
-      linkedin: 'kemal-erdem-74837580',
+      linkedin: 'burnpiro',
       rss: '/rss.xml',
     },
   },
